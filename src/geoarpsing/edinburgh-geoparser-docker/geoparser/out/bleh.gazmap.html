@@ -1,0 +1,1176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="application/xhtml+xml; charset=utf-8" http-equiv="content-type"></meta>
+  <title>Geoparser results</title>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAj9ut_juj_t10klD3II_Giw-ZD9NxK2Kk&amp;sensor=false"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+
+    var icondir = "http://www.google.com/intl/en_us/mapfiles/ms/micons/";
+    var red_icon = icondir+"red-dot.png";
+    var green_icon = icondir+"green-dot.png";
+
+    function load() {
+        var center = new google.maps.LatLng(43.7001100,
+                                            -79.4163000);
+	map = new google.maps.Map(document.getElementById("map"),
+                               {center: center,
+                                zoom: 6,
+                                overviewMapControl: true,
+                                overviewMapControlOptions: {opened: true}
+                               });
+	
+        point = new google.maps.LatLng(43.7001100, -79.4163000);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.6001200, -79.6663200);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.6965500, -79.4290900);
+        var marker = new google.maps.Marker({
+	    title: "Toronto county",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.4642300, -80.6009100);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-33.0135700, 151.5937300);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(44.5730200, -96.6425500);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.7989300, -95.9491600);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(34.1103800, -91.7593000);
+        var marker = new google.maps.Marker({
+	    title: "Tamo",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.9050200, -90.8640300);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.2456100, -84.4960600);
+        var marker = new google.maps.Marker({
+	    title: "Renollet (historical)",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(22.7833300, -82.5000000);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 11 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 11
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(8.4039600, -75.2790700);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 12 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 12
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(7.9602100, -74.9202500);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 13 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 13
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(46.4501200, -63.3820000);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 14 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 14
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-33.0000000, 151.6000000);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 15 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 15
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-28.0743700, 29.6041100);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 16 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 16
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-35.4543700, 146.8009200);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 17 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 17
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-18.9260200, 32.6443800);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 18 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 18
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-25.9289000, 23.0085200);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 19 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 19
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(14.3390500, 120.9338400);
+        var marker = new google.maps.Marker({
+	    title: "Toronto",
+	    icon: 20 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 20
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(51.5000000, 10.5000000);
+        var marker = new google.maps.Marker({
+	    title: "Federal Republic of Germany",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.0028500, -82.9054500);
+        var marker = new google.maps.Marker({
+	    title: "Germany",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.4203500, -79.1167000);
+        var marker = new google.maps.Marker({
+	    title: "Germany",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.6314700, -83.9465900);
+        var marker = new google.maps.Marker({
+	    title: "Pearl",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.1981200, -84.2888300);
+        var marker = new google.maps.Marker({
+	    title: "Camp Dennison",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.4622900, -85.5427400);
+        var marker = new google.maps.Marker({
+	    title: "Germany",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(34.8959300, -83.4665500);
+        var marker = new google.maps.Marker({
+	    title: "Germany",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(31.7932100, -87.2486000);
+        var marker = new google.maps.Marker({
+	    title: "Buena Vista",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(31.4399000, -95.3507800);
+        var marker = new google.maps.Marker({
+	    title: "Germany",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(45.5668300, -66.6321700);
+        var marker = new google.maps.Marker({
+	    title: "Germany",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(55.4128300, 23.2875800);
+        var marker = new google.maps.Marker({
+	    title: "Armonai",
+	    icon: 11 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 11
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.3471000, 24.3085000);
+        var marker = new google.maps.Marker({
+	    title: "Germany",
+	    icon: 12 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 12
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.9583900, -79.0150400);
+        var marker = new google.maps.Marker({
+	    title: "Lounsbury Corners",
+	    icon: 13 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 13
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(33.5209200, 36.2747600);
+        var marker = new google.maps.Marker({
+	    title: "Almāniyā",
+	    icon: 14 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 14
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(34.0861800, -107.1964200);
+        var marker = new google.maps.Marker({
+	    title: "Germany",
+	    icon: 15 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 15
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(24.4561800, 54.3672800);
+        var marker = new google.maps.Marker({
+	    title: "Almāniyā",
+	    icon: 16 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 16
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(25.2558300, 55.2957700);
+        var marker = new google.maps.Marker({
+	    title: "Almāniyā",
+	    icon: 17 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 17
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(14.3272200, 120.9773900);
+        var marker = new google.maps.Marker({
+	    title: "Germany",
+	    icon: 18 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 18
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.8951100, -77.0363700);
+        var marker = new google.maps.Marker({
+	    title: "Washington, D.C.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(47.5001200, -120.5014700);
+        var marker = new google.maps.Marker({
+	    title: "Washington",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(45.0387300, -92.8839600);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.1894000, -80.2482400);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(54.9000000, -1.5166700);
+        var marker = new google.maps.Marker({
+	    title: "Washington",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(45.5600700, -123.0984900);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(35.9790700, -94.2155800);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.6036700, -77.8139800);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.2933000, -82.4974300);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.3684700, -88.2307800);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.4553200, -81.4952500);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 11 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 11
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.2803600, -113.5049400);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 12 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 12
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.7244800, -81.9596600);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 13 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 13
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.3964900, -71.6196600);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 14 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 14
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.7152400, -95.9043700);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 15 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 15
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(33.2837000, -90.9474500);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 16 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 16
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(46.5777300, -122.3924100);
+        var marker = new google.maps.Marker({
+	    title: "Lewis County",
+	    icon: 17 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 17
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.3137000, -73.4307600);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 18 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 18
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(44.2734200, -72.6149000);
+        var marker = new google.maps.Marker({
+	    title: "Washington County",
+	    icon: 19 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 19
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(30.8533400, -90.0405200);
+        var marker = new google.maps.Marker({
+	    title: "Washington Parish",
+	    icon: 20 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 20
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(45.5088400, -73.5878100);
+        var marker = new google.maps.Marker({
+	    title: "Montréal",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(45.5000800, -73.6824800);
+        var marker = new google.maps.Marker({
+	    title: "Montréal",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(46.1511000, 12.6477100);
+        var marker = new google.maps.Marker({
+	    title: "Montereale Valcellina",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.1998000, 2.1412200);
+        var marker = new google.maps.Marker({
+	    title: "Montréal",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.9501600, 0.2035800);
+        var marker = new google.maps.Marker({
+	    title: "Montréal",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.3681800, -80.8642500);
+        var marker = new google.maps.Marker({
+	    title: "Glen Lyn",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.9689300, -92.5921200);
+        var marker = new google.maps.Marker({
+	    title: "Montreal",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.2000000, 2.1408300);
+        var marker = new google.maps.Marker({
+	    title: "Montréal",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.7237500, -78.8391900);
+        var marker = new google.maps.Marker({
+	    title: "Shipman",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(46.4280000, -90.2460100);
+        var marker = new google.maps.Marker({
+	    title: "Montreal",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.9500000, 0.2022200);
+        var marker = new google.maps.Marker({
+	    title: "Montréal",
+	    icon: 11 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 11
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(44.5281200, 4.2926300);
+        var marker = new google.maps.Marker({
+	    title: "Montréal",
+	    icon: 12 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 12
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(47.5449900, 4.0354700);
+        var marker = new google.maps.Marker({
+	    title: "Montréal",
+	    icon: 13 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 13
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(44.4019600, 5.3003300);
+        var marker = new google.maps.Marker({
+	    title: "Montréal-les-Sources",
+	    icon: 14 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 14
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.2991100, 1.1112000);
+        var marker = new google.maps.Marker({
+	    title: "Mont-ral",
+	    icon: 15 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 15
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(44.5284000, 4.2938000);
+        var marker = new google.maps.Marker({
+	    title: "Montréal",
+	    icon: 16 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 16
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(47.5422200, 4.0361100);
+        var marker = new google.maps.Marker({
+	    title: "Montréal",
+	    icon: 17 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 17
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.8970000, 12.5000000);
+        var marker = new google.maps.Marker({
+	    title: "Montreal",
+	    icon: 18 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 18
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-28.1484700, 29.6382700);
+        var marker = new google.maps.Marker({
+	    title: "Montreal",
+	    icon: 19 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 19
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(14.3402600, 120.9306400);
+        var marker = new google.maps.Marker({
+	    title: "Montreal",
+	    icon: 20 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 20
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(35.7181400, -83.9790700);
+        var marker = new google.maps.Marker({
+	    title: "Wimbledon",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.5087200, -76.4066300);
+        var marker = new google.maps.Marker({
+	    title: "Wimbledon",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(47.1697100, -98.4598200);
+        var marker = new google.maps.Marker({
+	    title: "Wimbledon",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(35.7507100, -78.7758400);
+        var marker = new google.maps.Marker({
+	    title: "Wimbledon",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-40.4410400, 176.5075900);
+        var marker = new google.maps.Marker({
+	    title: "Wimbledon",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-33.5333300, 149.4333300);
+        var marker = new google.maps.Marker({
+	    title: "Wimbledon",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(51.4221200, -0.2080500);
+        var marker = new google.maps.Marker({
+	    title: "Wimbledon",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-40.4382500, 176.5002100);
+        var marker = new google.maps.Marker({
+	    title: "Wimbledon",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-29.6395500, 151.0657200);
+        var marker = new google.maps.Marker({
+	    title: "Wimbledon",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-28.8000000, 24.7166700);
+        var marker = new google.maps.Marker({
+	    title: "Wimbledon",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-29.1324500, 23.8764900);
+        var marker = new google.maps.Marker({
+	    title: "Wimbledon",
+	    icon: 11 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 11
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-29.9698300, 148.1185900);
+        var marker = new google.maps.Marker({
+	    title: "Wimbledon",
+	    icon: 12 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 12
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-24.4307800, 30.1976400);
+        var marker = new google.maps.Marker({
+	    title: "Wimbledon",
+	    icon: 13 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 13
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-29.1293500, 23.9074300);
+        var marker = new google.maps.Marker({
+	    title: "Wimbledon",
+	    icon: 14 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 14
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(46.0000000, 2.0000000);
+        var marker = new google.maps.Marker({
+	    title: "Republic of France",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.6494000, -7.4705300);
+        var marker = new google.maps.Marker({
+	    title: "France",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(5.2037500, -3.7390500);
+        var marker = new google.maps.Marker({
+	    title: "France",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.8935300, -8.7625300);
+        var marker = new google.maps.Marker({
+	    title: "France",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-21.6844400, 34.7033300);
+        var marker = new google.maps.Marker({
+	    title: "France",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.7273200, -7.7793500);
+        var marker = new google.maps.Marker({
+	    title: "France",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.9724100, -111.2752300);
+        var marker = new google.maps.Marker({
+	    title: "France",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.3764000, 4.9020000);
+        var marker = new google.maps.Marker({
+	    title: "France",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-26.9975900, 27.0999700);
+        var marker = new google.maps.Marker({
+	    title: "France",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.7164800, 21.6183100);
+        var marker = new google.maps.Marker({
+	    title: "France",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(24.4560000, 54.3675300);
+        var marker = new google.maps.Marker({
+	    title: "Faransā",
+	    icon: 11 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 11
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-18.0833300, 25.7166700);
+        var marker = new google.maps.Marker({
+	    title: "France",
+	    icon: 12 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 12
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(33.5255600, 36.2857700);
+        var marker = new google.maps.Marker({
+	    title: "Faransā",
+	    icon: 13 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 13
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(25.2636700, 55.3125500);
+        var marker = new google.maps.Marker({
+	    title: "Faransā",
+	    icon: 14 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 14
+      });
+      markers.push(marker);
+
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+        map.setCenter(new google.maps.LatLng(x, y), 10);
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getPosition();
+        if(l.lat() == lastlat && l.lng() == lastlng)
+        {
+//            alert("match: " + l.lat() + "," + l.lng() + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat();
+        lastlng = l.lng();
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getPosition();
+    var lat = latlng.lat(), lng = latlng.lng();
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var point = new google.maps.LatLng(55.944696, -3.187004);
+
+        var newlatlng = new google.maps.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setPosition(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat() + "   " + lng + " -> " + newlatlng.lng());
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getPosition(), l2 = m2.getPosition();
+    if(l1.lat() == l2.lat())
+        return l1.lng() - l2.lng();
+    else
+        return l1.lat() - l2.lat();
+}
+//]]>
+      </script>
+  <style>
+      .found {color: red;} 
+      table  {border-collapse: collapse; empty-cells: show;}
+      tr     {border: 1px solid black;}
+      td[best="true"] {color: green;}
+      td[best="false"] {color: red;}
+    </style>
+ </head>
+ <body onload="load()">
+  <div style="height: 400px" id="map"></div>
+ </body>
+</html>

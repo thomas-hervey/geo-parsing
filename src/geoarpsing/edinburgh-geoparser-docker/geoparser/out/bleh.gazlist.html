@@ -1,0 +1,573 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="content-type"></meta>
+  <title>Geoparser results</title>
+  <style>
+      .found {color: red;} 
+      table  {border-collapse: collapse; empty-cells: show;}
+      tr     {border: 1px solid black;}
+      td[best="true"] {color: green;}
+      td[best="false"] {color: red;}
+    </style>
+ </head>
+ <body>
+  <div id="instr">
+   <p>
+        Click on a lat/long to centre the map there.
+      </p>
+  </div>
+  <div id="table">
+   <table cellpadding="3">
+    <tr>
+     <td>Toronto</td>
+     <td best="true">
+      <a onClick="parent.map.goto(43.7001100,-79.4163000)">
+       <span style="white-space:nowrap">43.700,-79.416</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(43.6001200,-79.6663200)">
+       <span style="white-space:nowrap">43.600,-79.666</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(43.6965500,-79.4290900)">
+       <span style="white-space:nowrap">43.697,-79.429</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(40.4642300,-80.6009100)">
+       <span style="white-space:nowrap">40.464,-80.601</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-33.0135700,151.5937300)">
+       <span style="white-space:nowrap">-33.014,151.594</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(44.5730200,-96.6425500)">
+       <span style="white-space:nowrap">44.573,-96.643</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(37.7989300,-95.9491600)">
+       <span style="white-space:nowrap">37.799,-95.949</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(34.1103800,-91.7593000)">
+       <span style="white-space:nowrap">34.110,-91.759</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(41.9050200,-90.8640300)">
+       <span style="white-space:nowrap">41.905,-90.864</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(41.2456100,-84.4960600)">
+       <span style="white-space:nowrap">41.246,-84.496</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(22.7833300,-82.5000000)">
+       <span style="white-space:nowrap">22.783,-82.500</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(8.4039600,-75.2790700)">
+       <span style="white-space:nowrap">8.404,-75.279</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(7.9602100,-74.9202500)">
+       <span style="white-space:nowrap">7.960,-74.920</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(46.4501200,-63.3820000)">
+       <span style="white-space:nowrap">46.450,-63.382</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-33.0000000,151.6000000)">
+       <span style="white-space:nowrap">-33.000,151.600</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-28.0743700,29.6041100)">
+       <span style="white-space:nowrap">-28.074,29.604</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-35.4543700,146.8009200)">
+       <span style="white-space:nowrap">-35.454,146.801</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-18.9260200,32.6443800)">
+       <span style="white-space:nowrap">-18.926,32.644</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-25.9289000,23.0085200)">
+       <span style="white-space:nowrap">-25.929,23.009</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(14.3390500,120.9338400)">
+       <span style="white-space:nowrap">14.339,120.934</span>
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>Germany</td>
+     <td best="true">
+      <a onClick="parent.map.goto(51.5000000,10.5000000)">
+       <span style="white-space:nowrap">51.500,10.500</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(39.0028500,-82.9054500)">
+       <span style="white-space:nowrap">39.003,-82.905</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(40.4203500,-79.1167000)">
+       <span style="white-space:nowrap">40.420,-79.117</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(36.6314700,-83.9465900)">
+       <span style="white-space:nowrap">36.631,-83.947</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(39.1981200,-84.2888300)">
+       <span style="white-space:nowrap">39.198,-84.289</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(38.4622900,-85.5427400)">
+       <span style="white-space:nowrap">38.462,-85.543</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(34.8959300,-83.4665500)">
+       <span style="white-space:nowrap">34.896,-83.467</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(31.7932100,-87.2486000)">
+       <span style="white-space:nowrap">31.793,-87.249</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(31.4399000,-95.3507800)">
+       <span style="white-space:nowrap">31.440,-95.351</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(45.5668300,-66.6321700)">
+       <span style="white-space:nowrap">45.567,-66.632</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(55.4128300,23.2875800)">
+       <span style="white-space:nowrap">55.413,23.288</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(52.3471000,24.3085000)">
+       <span style="white-space:nowrap">52.347,24.308</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(41.9583900,-79.0150400)">
+       <span style="white-space:nowrap">41.958,-79.015</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(33.5209200,36.2747600)">
+       <span style="white-space:nowrap">33.521,36.275</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(34.0861800,-107.1964200)">
+       <span style="white-space:nowrap">34.086,-107.196</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(24.4561800,54.3672800)">
+       <span style="white-space:nowrap">24.456,54.367</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(25.2558300,55.2957700)">
+       <span style="white-space:nowrap">25.256,55.296</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(14.3272200,120.9773900)">
+       <span style="white-space:nowrap">14.327,120.977</span>
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>Washington</td>
+     <td best="true">
+      <a onClick="parent.map.goto(38.8951100,-77.0363700)">
+       <span style="white-space:nowrap">38.895,-77.036</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(47.5001200,-120.5014700)">
+       <span style="white-space:nowrap">47.500,-120.501</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(45.0387300,-92.8839600)">
+       <span style="white-space:nowrap">45.039,-92.884</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(40.1894000,-80.2482400)">
+       <span style="white-space:nowrap">40.189,-80.248</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(54.9000000,-1.5166700)">
+       <span style="white-space:nowrap">54.900,-1.517</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(45.5600700,-123.0984900)">
+       <span style="white-space:nowrap">45.560,-123.098</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(35.9790700,-94.2155800)">
+       <span style="white-space:nowrap">35.979,-94.216</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(39.6036700,-77.8139800)">
+       <span style="white-space:nowrap">39.604,-77.814</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(36.2933000,-82.4974300)">
+       <span style="white-space:nowrap">36.293,-82.497</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(43.3684700,-88.2307800)">
+       <span style="white-space:nowrap">43.368,-88.231</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(39.4553200,-81.4952500)">
+       <span style="white-space:nowrap">39.455,-81.495</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(37.2803600,-113.5049400)">
+       <span style="white-space:nowrap">37.280,-113.505</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(36.7244800,-81.9596600)">
+       <span style="white-space:nowrap">36.724,-81.960</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(41.3964900,-71.6196600)">
+       <span style="white-space:nowrap">41.396,-71.620</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(36.7152400,-95.9043700)">
+       <span style="white-space:nowrap">36.715,-95.904</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(33.2837000,-90.9474500)">
+       <span style="white-space:nowrap">33.284,-90.947</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(46.5777300,-122.3924100)">
+       <span style="white-space:nowrap">46.578,-122.392</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(43.3137000,-73.4307600)">
+       <span style="white-space:nowrap">43.314,-73.431</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(44.2734200,-72.6149000)">
+       <span style="white-space:nowrap">44.273,-72.615</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(30.8533400,-90.0405200)">
+       <span style="white-space:nowrap">30.853,-90.041</span>
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>Montreal</td>
+     <td best="true">
+      <a onClick="parent.map.goto(45.5088400,-73.5878100)">
+       <span style="white-space:nowrap">45.509,-73.588</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(45.5000800,-73.6824800)">
+       <span style="white-space:nowrap">45.500,-73.682</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(46.1511000,12.6477100)">
+       <span style="white-space:nowrap">46.151,12.648</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(43.1998000,2.1412200)">
+       <span style="white-space:nowrap">43.200,2.141</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(43.9501600,0.2035800)">
+       <span style="white-space:nowrap">43.950,0.204</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(37.3681800,-80.8642500)">
+       <span style="white-space:nowrap">37.368,-80.864</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(37.9689300,-92.5921200)">
+       <span style="white-space:nowrap">37.969,-92.592</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(43.2000000,2.1408300)">
+       <span style="white-space:nowrap">43.200,2.141</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(37.7237500,-78.8391900)">
+       <span style="white-space:nowrap">37.724,-78.839</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(46.4280000,-90.2460100)">
+       <span style="white-space:nowrap">46.428,-90.246</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(43.9500000,0.2022200)">
+       <span style="white-space:nowrap">43.950,0.202</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(44.5281200,4.2926300)">
+       <span style="white-space:nowrap">44.528,4.293</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(47.5449900,4.0354700)">
+       <span style="white-space:nowrap">47.545,4.035</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(44.4019600,5.3003300)">
+       <span style="white-space:nowrap">44.402,5.300</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(41.2991100,1.1112000)">
+       <span style="white-space:nowrap">41.299,1.111</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(44.5284000,4.2938000)">
+       <span style="white-space:nowrap">44.528,4.294</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(47.5422200,4.0361100)">
+       <span style="white-space:nowrap">47.542,4.036</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(41.8970000,12.5000000)">
+       <span style="white-space:nowrap">41.897,12.500</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-28.1484700,29.6382700)">
+       <span style="white-space:nowrap">-28.148,29.638</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(14.3402600,120.9306400)">
+       <span style="white-space:nowrap">14.340,120.931</span>
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>Wimbledon</td>
+     <td best="true">
+      <a onClick="parent.map.goto(35.7181400,-83.9790700)">
+       <span style="white-space:nowrap">35.718,-83.979</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(39.5087200,-76.4066300)">
+       <span style="white-space:nowrap">39.509,-76.407</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(47.1697100,-98.4598200)">
+       <span style="white-space:nowrap">47.170,-98.460</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(35.7507100,-78.7758400)">
+       <span style="white-space:nowrap">35.751,-78.776</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-40.4410400,176.5075900)">
+       <span style="white-space:nowrap">-40.441,176.508</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-33.5333300,149.4333300)">
+       <span style="white-space:nowrap">-33.533,149.433</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(51.4221200,-0.2080500)">
+       <span style="white-space:nowrap">51.422,-0.208</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-40.4382500,176.5002100)">
+       <span style="white-space:nowrap">-40.438,176.500</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-29.6395500,151.0657200)">
+       <span style="white-space:nowrap">-29.640,151.066</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-28.8000000,24.7166700)">
+       <span style="white-space:nowrap">-28.800,24.717</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-29.1324500,23.8764900)">
+       <span style="white-space:nowrap">-29.132,23.876</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-29.9698300,148.1185900)">
+       <span style="white-space:nowrap">-29.970,148.119</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-24.4307800,30.1976400)">
+       <span style="white-space:nowrap">-24.431,30.198</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-29.1293500,23.9074300)">
+       <span style="white-space:nowrap">-29.129,23.907</span>
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>France</td>
+     <td best="true">
+      <a onClick="parent.map.goto(46.0000000,2.0000000)">
+       <span style="white-space:nowrap">46.000,2.000</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(41.6494000,-7.4705300)">
+       <span style="white-space:nowrap">41.649,-7.471</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(5.2037500,-3.7390500)">
+       <span style="white-space:nowrap">5.204,-3.739</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(41.8935300,-8.7625300)">
+       <span style="white-space:nowrap">41.894,-8.763</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-21.6844400,34.7033300)">
+       <span style="white-space:nowrap">-21.684,34.703</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(40.7273200,-7.7793500)">
+       <span style="white-space:nowrap">40.727,-7.779</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(43.9724100,-111.2752300)">
+       <span style="white-space:nowrap">43.972,-111.275</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(52.3764000,4.9020000)">
+       <span style="white-space:nowrap">52.376,4.902</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-26.9975900,27.0999700)">
+       <span style="white-space:nowrap">-26.998,27.100</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(39.7164800,21.6183100)">
+       <span style="white-space:nowrap">39.716,21.618</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(24.4560000,54.3675300)">
+       <span style="white-space:nowrap">24.456,54.368</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(-18.0833300,25.7166700)">
+       <span style="white-space:nowrap">-18.083,25.717</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(33.5255600,36.2857700)">
+       <span style="white-space:nowrap">33.526,36.286</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(25.2636700,55.3125500)">
+       <span style="white-space:nowrap">25.264,55.313</span>
+      </a>
+     </td>
+    </tr>
+   </table>
+  </div>
+ </body>
+</html>
