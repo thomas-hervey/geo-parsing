@@ -1,0 +1,8 @@
+// running one text
+cat ../in/test.txt | ./run -t plain -g geonames-local -o ../out test
+
+// running multiple texts
+./run-multiple-files.sh -i ../in -o ../out
+
+// extract output to TSV
+./extract-to-tsv.sh < ../out/test.out.xml > ../out/test.out.tsv
