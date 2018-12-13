@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document version="3">
 <meta>
-<attr wdaynum="3" day="Wednesday" day-number="735674" sdate="2015-03-18" date="18" month="03" year="2015" id="docdate" name="docdate">20150318</attr>
+<attr wdaynum="3" day="Wednesday" day-number="737039" sdate="2018-12-12" date="12" month="12" year="2018" id="docdate" name="docdate">20181212</attr>
 <attr date="20151216" name="tokeniser_version"/></meta>
 <text>
 <p><s id="s1"><enamex type="location" conf="high" id="rb1"><w wfirstn="true" p="NNP" id="w13" c="w" pws="yes" l="leicester" locname="single" alsource="true" edsource="true">Leicester</w></enamex> <w p="VBZ" id="w23" c="w" pws="yes" l="prepare">prepares</w> <w p="IN" id="w32" c="w" pws="yes">for</w> <enamex type="person" id="rb2"><w wfirstn="true" pername="true" p="NNP" id="w36" c="w" pws="yes" l="richard" wlastn="true" wiki="B-wper">Richard</w> <w p="NNP" id="w44" c="w" pws="yes" l="iius" wiki="I-wper">III</w></enamex> <w p="NN" id="w48" c="w" pws="yes" l="reburial">reburial</w></s></p>

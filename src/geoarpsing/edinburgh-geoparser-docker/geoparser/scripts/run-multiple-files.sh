@@ -29,6 +29,13 @@ do
 	    outputdirname=$1
 	    shift 1
 	    ;;
+    # -l)
+	#     lat=$1
+    #     long=$2
+    #     radius=$3
+    #     score=$4
+	#     shift 4
+	#     ;;
 	*)
 	    echo "Wrong argument specified"
 	    echo "usage: $usage" >&2
@@ -49,5 +56,6 @@ do
     prefix=`basename $i ".txt"`
 
     # each file is then geo-parsed and the output is written to the output directory
-    cat $i | ./run -t plain -g geonames -o $outputdirname $prefix
+    # cat $i | ./run -t plain -g geonames-local -l $lat $long $radius $score -o $outputdirname $prefix
+    cat $i | ./run -t plain -g geonames-local -o $outputdirname $prefix
 done

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document version="3">
 <meta>
-<attr name="docdate" id="docdate" year="2015" month="03" date="18" sdate="2015-03-18" day-number="735674" day="Wednesday" wdaynum="3">20150318</attr>
+<attr name="docdate" id="docdate" year="2018" month="12" date="12" sdate="2018-12-12" day-number="737039" day="Wednesday" wdaynum="3">20181212</attr>
 <attr name="tokeniser_version" date="20151216"/></meta>
 <text>
 <p><s id="s1"><w locname="single" l="leicester" pws="yes" id="w13" p="NNP" wfirstn="true" group="B-NP">Leicester</w> <w l="prepare" pws="yes" id="w23" p="VBZ" headv="yes" group="B-VP">prepares</w> <w pws="yes" id="w32" p="IN" group="B-PP">for</w> <w wiki="B-wper" wlastn="true" l="richard" pws="yes" id="w36" p="NNP" pername="true" wfirstn="true" group="B-NP">Richard</w> <w wiki="I-wper" l="iius" pws="yes" id="w44" p="NNP" group="I-NP">III</w> <w l="reburial" pws="yes" id="w48" p="NN" headn="yes" group="I-NP">reburial</w></s></p>
@@ -45,7 +45,7 @@
 </text>
 <standoff>
 <ents source="ner-rb">
-  <ent id="rb1" type="location" lat="52.6752872467041" long="-1.209968686103821" gazref="unlock:14126329" in-country="GB" feat-type="ppla" pop-size="339239">
+  <ent id="rb1" type="location" lat="52.6386000" long="-1.1316900" gazref="geonames:2644668" in-country="GB" feat-type="ppl" pop-size="339239">
     <parts>
       <part ew="w13" sw="w13">Leicester</part>
     </parts>
@@ -55,17 +55,17 @@
       <part ew="w44" sw="w36">Richard III</part>
     </parts>
   </ent>
-  <ent id="rb3" type="location" lat="52.57747762011358" long="-1.404376973545086" gazref="unlock:42037" feat-type="ppl">
+  <ent id="rb3" type="location" lat="52.5787200" long="-1.4054500" gazref="geonames:2651624" in-country="GB" feat-type="ppl" pop-size="0">
     <parts>
       <part ew="w58" sw="w58">Dadlington</part>
     </parts>
   </ent>
-  <ent id="rb4" type="location" lat="52.6004976197325" long="-1.416727410794063" gazref="unlock:11083506" feat-type="fac">
+  <ent id="rb4" type="location" lat="" long="" gazref="">
     <parts>
       <part ew="w212" sw="w203">Bosworth Field</part>
     </parts>
   </ent>
-  <ent id="rb5" type="location" lat="52.6752872467041" long="-1.209968686103821" gazref="unlock:14126329" in-country="GB" feat-type="ppla" pop-size="339239">
+  <ent id="rb5" type="location" lat="52.6386000" long="-1.1316900" gazref="geonames:2644668" in-country="GB" feat-type="ppl" pop-size="339239">
     <parts>
       <part ew="w219" sw="w219">Leicester</part>
     </parts>
@@ -75,7 +75,7 @@
       <part ew="w332" sw="w319">King Richard III</part>
     </parts>
   </ent>
-  <ent date="15" month="03" year="2015" sdate="2015-03-15" day-number="735671" id="rb7" type="date" day="Sunday" wdaynum="7">
+  <ent date="09" month="12" year="2018" sdate="2018-12-09" day-number="737036" id="rb7" type="date" day="Sunday" wdaynum="7">
     <parts>
       <part ew="w342" sw="w342">Sunday</part>
     </parts>
@@ -85,7 +85,7 @@
       <part ew="w618" sw="w604">more than two years</part>
     </parts>
   </ent>
-  <ent id="rb9" type="location" lat="52.6752872467041" long="-1.209968686103821" gazref="unlock:14126329" in-country="GB" feat-type="ppla" pop-size="339239">
+  <ent id="rb9" type="location" lat="52.6386000" long="-1.1316900" gazref="geonames:2644668" in-country="GB" feat-type="ppl" pop-size="339239">
     <parts>
       <part ew="w712" sw="w712">Leicester</part>
     </parts>
@@ -95,7 +95,7 @@
       <part ew="w791" sw="w791">1485</part>
     </parts>
   </ent>
-  <ent year="2014" id="rb11" type="date" month="08" edate="2014-08-31" sdate="2014-08-01">
+  <ent year="2018" id="rb11" type="date" month="08" edate="2018-08-31" sdate="2018-08-01">
     <parts>
       <part ew="w862" sw="w862">August</part>
     </parts>
@@ -105,7 +105,7 @@
       <part ew="w878" sw="w870">several days</part>
     </parts>
   </ent>
-  <ent id="rb13" type="location" lat="52.45362569588113" long="-1.052865692743217" gazref="unlock:36672" feat-type="ppl">
+  <ent id="rb13" type="location" lat="33.0229000" long="-85.5613400" gazref="geonames:4051344" in-country="US" feat-type="ppl" pop-size="0">
     <parts>
       <part ew="w902" sw="w902">Bosworth</part>
     </parts>
@@ -115,7 +115,7 @@
       <part ew="w1008" sw="w1006">a week</part>
     </parts>
   </ent>
-  <ent date="19" month="03" year="2015" sdate="2015-03-19" day-number="735675" id="rb15" type="date" day="Thursday" wdaynum="4">
+  <ent date="13" month="12" year="2018" sdate="2018-12-13" day-number="737040" id="rb15" type="date" day="Thursday" wdaynum="4">
     <parts>
       <part ew="w1056" sw="w1056">Thursday</part>
     </parts>
@@ -125,12 +125,12 @@
       <part ew="w1101" sw="w1099">a year</part>
     </parts>
   </ent>
-  <ent id="rb17" type="location" lat="53.95597051436854" long="-1.093146843145696" gazref="unlock:11328922" in-country="GB" feat-type="ppl" pop-size="144202">
+  <ent id="rb17" type="location" lat="53.9576300" long="-1.0827100" gazref="geonames:2633352" in-country="GB" feat-type="ppl" pop-size="144202">
     <parts>
       <part ew="w1171" sw="w1171">York</part>
     </parts>
   </ent>
-  <ent date="15" month="03" year="2015" sdate="2015-03-15" day-number="735671" id="rb18" type="date" day="Sunday" wdaynum="7">
+  <ent date="09" month="12" year="2018" sdate="2018-12-09" day-number="737036" id="rb18" type="date" day="Sunday" wdaynum="7">
     <parts>
       <part ew="w1204" sw="w1204">Sunday</part>
     </parts>
@@ -160,7 +160,7 @@
       <part ew="w1906" sw="w1906">now</part>
     </parts>
   </ent>
-  <ent id="rb24" type="location" lat="41.5089832" long="-73.44928880000001" gazref="unlock:7585789" feat-type="other">
+  <ent id="rb24" type="location" lat="38.9400700" long="-82.5948900" gazref="geonames:4505737" in-country="US" feat-type="ppl" pop-size="0">
     <parts>
       <part ew="w2118" sw="w2118">Vaughns</part>
     </parts>
@@ -175,17 +175,17 @@
       <part ew="w2393" sw="w2387">three days</part>
     </parts>
   </ent>
-  <ent id="rb27" type="location" contained-by="rb28" lat="40.4437166" long="-74.4704303" gazref="unlock:7843567" feat-type="other">
+  <ent id="rb27" type="location" contained-by="rb28" lat="53.3634700" long="-1.3328500" gazref="geonames:10238307" in-country="GB" feat-type="fac" pop-size="0">
     <parts>
       <part ew="w2710" sw="w2706">Red Lion</part>
     </parts>
   </ent>
-  <ent id="rb28" type="location" contains="rb27" lat="52.62739493716479" long="-1.401594271526773" gazref="unlock:11213740" feat-type="ppl">
+  <ent id="rb28" type="location" contains="rb27" lat="52.6242800" long="-1.4017400" gazref="geonames:2643030" in-country="GB" feat-type="ppl" pop-size="2097">
     <parts>
       <part ew="w2725" sw="w2718">Market Bosworth</part>
     </parts>
   </ent>
-  <ent id="rb29" type="location" lat="52.60098540445604" long="-1.384329741819248" gazref="unlock:15728" feat-type="ppl">
+  <ent id="rb29" type="location" lat="52.6007500" long="-1.3847600" gazref="geonames:6951016" in-country="GB" feat-type="ppl" pop-size="0">
     <parts>
       <part ew="w2951" sw="w2944">Sutton Cheney</part>
     </parts>
@@ -195,12 +195,12 @@
       <part ew="w3137" sw="w3133">ten minutes</part>
     </parts>
   </ent>
-  <ent date="22" month="03" year="2015" sdate="2015-03-22" day-number="735678" id="rb31" type="date" day="Sunday" wdaynum="7" time="afternoon">
+  <ent date="16" month="12" year="2018" sdate="2018-12-16" day-number="737043" id="rb31" type="date" day="Sunday" wdaynum="7" time="afternoon">
     <parts>
       <part ew="w3177" sw="w3170">Sunday afternoon</part>
     </parts>
   </ent>
-  <ent id="rb32" type="location" lat="52.67053935667493" long="-0.2916964412335623" gazref="unlock:11128227" feat-type="ppl">
+  <ent id="rb32" type="location" lat="-32.0000400" long="115.9098000" gazref="geonames:8349362" in-country="AU" feat-type="ppl" pop-size="3710">
     <parts>
       <part ew="w3278" sw="w3275">St James</part>
     </parts>
@@ -220,12 +220,12 @@
       <part ew="w3449" sw="w3441">Shelley Howard</part>
     </parts>
   </ent>
-  <ent id="rb36" type="location" lat="40.36488723754883" long="-82.671875" gazref="unlock:14128200" in-country="US" feat-type="civila" pop-size="11467123">
+  <ent id="rb36" type="location" lat="40.2503400" long="-83.0001800" gazref="geonames:5165418" in-country="US" feat-type="civila" pop-size="11467123">
     <parts>
       <part ew="w3522" sw="w3522">Ohio</part>
     </parts>
   </ent>
-  <ent id="rb37" type="location" lat="52.60042398997511" long="-1.401961880485832" gazref="unlock:11061731" feat-type="mtn">
+  <ent id="rb37" type="location" lat="" long="" gazref="">
     <parts>
       <part ew="w3742" sw="w3735">Ambion Hill</part>
     </parts>
@@ -245,12 +245,12 @@
       <part ew="w3933" sw="w3929">Tim Stevens</part>
     </parts>
   </ent>
-  <ent id="rb42" type="location" lat="52.6752872467041" long="-1.209968686103821" gazref="unlock:14126329" in-country="GB" feat-type="ppla" pop-size="339239">
+  <ent id="rb42" type="location" lat="52.6386000" long="-1.1316900" gazref="geonames:2644668" in-country="GB" feat-type="ppl" pop-size="339239">
     <parts>
       <part ew="w3956" sw="w3956">Leicester</part>
     </parts>
   </ent>
-  <ent wdaynum="7" day="Sunday" date="08" month="03" year="2015" sdate="2015-03-08" day-number="735664" id="rb43" type="date" trel="before" unit="day" quty="10">
+  <ent wdaynum="7" day="Sunday" date="02" month="12" year="2018" sdate="2018-12-02" day-number="737029" id="rb43" type="date" trel="before" unit="day" quty="10">
     <parts>
       <part ew="w4000" sw="w3992">10 days ago</part>
     </parts>
@@ -265,12 +265,12 @@
       <part ew="w4126" sw="w4118">Richard Mackinder</part>
     </parts>
   </ent>
-  <ent id="rb46" type="location" lat="52.57747762011358" long="-1.404376973545086" gazref="unlock:42037" feat-type="ppl">
+  <ent id="rb46" type="location" lat="52.5787200" long="-1.4054500" gazref="geonames:2651624" in-country="GB" feat-type="ppl" pop-size="0">
     <parts>
       <part ew="w4517" sw="w4517">Dadlington</part>
     </parts>
   </ent>
-  <ent id="rb47" type="location" lat="52.60042398997511" long="-1.401961880485832" gazref="unlock:11061731" feat-type="mtn">
+  <ent id="rb47" type="location" lat="" long="" gazref="">
     <parts>
       <part ew="w4595" sw="w4588">Ambion Hill</part>
     </parts>
@@ -290,7 +290,7 @@
       <part ew="w4756" sw="w4750">Henry VII</part>
     </parts>
   </ent>
-  <ent id="rb51" type="location" lat="52.57747762011358" long="-1.404376973545086" gazref="unlock:42037" feat-type="ppl">
+  <ent id="rb51" type="location" lat="52.5787200" long="-1.4054500" gazref="geonames:2651624" in-country="GB" feat-type="ppl" pop-size="0">
     <parts>
       <part ew="w4946" sw="w4946">Dadlington</part>
     </parts>
@@ -310,17 +310,17 @@
       <part ew="w5306" sw="w5296">an entire day</part>
     </parts>
   </ent>
-  <ent year="2015" month="2" id="rb55" type="date" trel="before" unit="month" quty="1" edate="2015-02-28" sdate="2015-02-01">
+  <ent year="2018" month="11" id="rb55" type="date" trel="before" unit="month" quty="1" edate="2018-11-30" sdate="2018-11-01">
     <parts>
       <part ew="w5385" sw="w5380">last month</part>
     </parts>
   </ent>
-  <ent id="rb56" type="location" lat="52.57747762011358" long="-1.404376973545086" gazref="unlock:42037" feat-type="ppl">
+  <ent id="rb56" type="location" lat="52.5787200" long="-1.4054500" gazref="geonames:2651624" in-country="GB" feat-type="ppl" pop-size="0">
     <parts>
       <part ew="w5533" sw="w5533">Dadlington</part>
     </parts>
   </ent>
-  <ent date="14" month="03" year="2015" sdate="2015-03-14" day-number="735670" id="rb57" type="date" day="Saturday" wdaynum="6" time="night">
+  <ent date="08" month="12" year="2018" sdate="2018-12-08" day-number="737035" id="rb57" type="date" day="Saturday" wdaynum="6" time="night">
     <parts>
       <part ew="w5661" sw="w5652">Saturday night</part>
     </parts>
@@ -355,7 +355,7 @@
       <part ew="w6057" sw="w6057">Richard</part>
     </parts>
   </ent>
-  <ent date="22" month="03" year="2015" sdate="2015-03-22" day-number="735678" id="rb64" type="date" day="Sunday" wdaynum="7">
+  <ent date="16" month="12" year="2018" sdate="2018-12-16" day-number="737043" id="rb64" type="date" day="Sunday" wdaynum="7">
     <parts>
       <part ew="w6262" sw="w6262">Sunday</part>
     </parts>
@@ -365,12 +365,12 @@
       <part ew="w6283" sw="w6283">Richard</part>
     </parts>
   </ent>
-  <ent id="rb66" type="location" lat="52.60098540445604" long="-1.384329741819248" gazref="unlock:15728" feat-type="ppl">
+  <ent id="rb66" type="location" lat="52.6007500" long="-1.3847600" gazref="geonames:6951016" in-country="GB" feat-type="ppl" pop-size="0">
     <parts>
       <part ew="w6305" sw="w6298">Sutton Cheney</part>
     </parts>
   </ent>
-  <ent year="2014" id="rb67" type="date" month="08" edate="2014-08-31" sdate="2014-08-01">
+  <ent year="2018" id="rb67" type="date" month="08" edate="2018-08-31" sdate="2018-08-01">
     <parts>
       <part ew="w6352" sw="w6352">August</part>
     </parts>
@@ -385,7 +385,7 @@
       <part ew="w6449" sw="w6449">Richard</part>
     </parts>
   </ent>
-  <ent date="22" month="03" year="2015" sdate="2015-03-22" day-number="735678" id="rb70" type="date" day="Sunday" wdaynum="7">
+  <ent date="16" month="12" year="2018" sdate="2018-12-16" day-number="737043" id="rb70" type="date" day="Sunday" wdaynum="7">
     <parts>
       <part ew="w6502" sw="w6502">Sunday</part>
     </parts>

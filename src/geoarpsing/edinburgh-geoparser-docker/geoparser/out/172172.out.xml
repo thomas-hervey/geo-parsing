@@ -42,7 +42,7 @@
       <part ew="w85" sw="w80">Andy Murray</part>
     </parts>
   </ent>
-  <ent id="rb6" type="location" lat="43.70011" long="-79.4163" gazref="geonames:6167865" in-country="CA" feat-type="ppla" pop-size="4612191">
+  <ent id="rb6" type="location" lat="43.7001100" long="-79.4163000" gazref="geonames:6167865" in-country="CA" feat-type="ppla" pop-size="4612191">
     <parts>
       <part ew="w148" sw="w148">Toronto</part>
     </parts>
@@ -67,7 +67,7 @@
       <part ew="w298" sw="w298">Nadal</part>
     </parts>
   </ent>
-  <ent id="rb11" type="location" lat="51.5" long="10.5" gazref="geonames:2921044" in-country="DE" feat-type="country" pop-size="82431390">
+  <ent id="rb11" type="location" lat="51.5000000" long="10.5000000" gazref="geonames:2921044" in-country="DE" feat-type="country" pop-size="82431390">
     <parts>
       <part ew="w361" sw="w361">Germany</part>
     </parts>
@@ -82,7 +82,7 @@
       <part ew="w394" sw="w394">Nalbandian</part>
     </parts>
   </ent>
-  <ent id="rb14" type="location" lat="38.89511" long="-77.03637" gazref="geonames:4140963" in-country="US" feat-type="pplc" pop-size="552433">
+  <ent id="rb14" type="location" lat="38.8951100" long="-77.0363700" gazref="geonames:4140963" in-country="US" feat-type="pplc" pop-size="552433">
     <parts>
       <part ew="w426" sw="w426">Washington</part>
     </parts>
@@ -122,7 +122,7 @@
       <part ew="w924" sw="w924">Murray</part>
     </parts>
   </ent>
-  <ent id="rb22" type="location" lat="45.50884" long="-73.58781" gazref="geonames:6077243" in-country="CA" feat-type="ppl" pop-size="3268513">
+  <ent id="rb22" type="location" lat="45.5088400" long="-73.5878100" gazref="geonames:6077243" in-country="CA" feat-type="ppl" pop-size="3268513">
     <parts>
       <part ew="w996" sw="w996">Montreal</part>
     </parts>
@@ -152,7 +152,7 @@
       <part ew="w1201" sw="w1201">Federer</part>
     </parts>
   </ent>
-  <ent id="rb28" type="location" lat="35.71814" long="-83.97907" gazref="geonames:4668339" in-country="US" feat-type="ppl">
+  <ent id="rb28" type="location" lat="35.7181400" long="-83.9790700" gazref="geonames:4668339" in-country="US" feat-type="ppl" pop-size="0">
     <parts>
       <part ew="w1221" sw="w1221">Wimbledon</part>
     </parts>
@@ -172,7 +172,7 @@
       <part ew="w1409" sw="w1402">Jeremy Chardy</part>
     </parts>
   </ent>
-  <ent id="rb32" type="location" lat="46" long="2" gazref="geonames:3017382" in-country="FR" feat-type="country" pop-size="60656178">
+  <ent id="rb32" type="location" lat="46.0000000" long="2.0000000" gazref="geonames:3017382" in-country="FR" feat-type="country" pop-size="60656178">
     <parts>
       <part ew="w1419" sw="w1419">France</part>
     </parts>

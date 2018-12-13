@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document version="3">
 <meta>
-<attr name="docdate" id="docdate" year="2016" month="02" date="24" sdate="2016-02-24" day-number="736017" day="Wednesday" wdaynum="3">20160224</attr>
+<attr name="docdate" id="docdate" year="2018" month="12" date="12" sdate="2018-12-12" day-number="737039" day="Wednesday" wdaynum="3">20181212</attr>
 <attr name="tokeniser_version" date="20151216"/></meta>
 <text>
 <p><s id="s1"><w pws="yes" id="w13" p="WRB" group="B-ADVP">How</w> <w pws="yes" id="w17" p="DT" group="B-NP">the</w> <w l="home" pws="yes" id="w21" p="NN" headn="yes" group="I-NP">home</w> <w pws="yes" id="w26" p="IN" group="B-PP">of</w> <w common="true" l="minus" pws="yes" id="w29" p="NNP" event="true" headn="yes" group="B-NP">Mini</w> <w common="true" vstem="roll" l="roll" pws="yes" id="w34" p="NNP" event="true" headn="yes" group="I-NP">Rolls</w> <w pws="yes" id="w40" p="CC" headn="yes" group="I-NP">and</w> <w common="true" l="smash" pws="yes" id="w44" p="NNP" event="true" headn="yes" group="I-NP">Smash</w> <w l="be" pws="yes" id="w50" p="VBD" group="B-VP">was</w> <w l="gobble" pws="yes" id="w54" p="VBN" headv="yes" group="I-VP">gobbled</w> <w pws="yes" id="w62" p="RP" group="I-VP">up</w></s></p>
@@ -101,17 +101,17 @@
 </text>
 <standoff>
 <ents source="ner-rb">
-  <ent date="27" month="02" year="2016" sdate="2016-02-27" day-number="736020" id="rb1" type="date" day="Saturday" wdaynum="6">
+  <ent date="15" month="12" year="2018" sdate="2018-12-15" day-number="737042" id="rb1" type="date" day="Saturday" wdaynum="6">
     <parts>
       <part ew="w125" sw="w125">Saturday</part>
     </parts>
   </ent>
-  <ent date="27" month="02" year="2016" sdate="2016-02-27" day-number="736020" id="rb2" type="date" day="Saturday" wdaynum="6" trel="same">
+  <ent date="15" month="12" year="2018" sdate="2018-12-15" day-number="737042" id="rb2" type="date" day="Saturday" wdaynum="6" trel="same">
     <parts>
       <part ew="w253" sw="w248">this Saturday</part>
     </parts>
   </ent>
-  <ent id="rb3" type="location" lat="53.37616" long="-3.10501" gazref="geonames:7733088" in-country="GB" feat-type="ppl">
+  <ent id="rb3" type="location" lat="53.3333300" long="-3.0833300" gazref="geonames:3333220" in-country="GB" feat-type="civil" pop-size="321238">
     <parts>
       <part ew="w288" sw="w288">Wirral</part>
     </parts>
@@ -126,12 +126,12 @@
       <part ew="w371" sw="w371">2009</part>
     </parts>
   </ent>
-  <ent year="2016" id="rb7" type="date" month="03" edate="2016-03-31" sdate="2016-03-01">
+  <ent year="2019" id="rb7" type="date" month="03" edate="2019-03-31" sdate="2019-03-01">
     <parts>
       <part ew="w618" sw="w618">March</part>
     </parts>
   </ent>
-  <ent id="rb9" type="location" lat="53.4" long="-3.11667" gazref="geonames:2642204" in-country="GB" feat-type="ppl">
+  <ent id="rb9" type="location" lat="53.4000000" long="-3.1166700" gazref="geonames:2642204" in-country="GB" feat-type="ppl" pop-size="17670">
     <parts>
       <part ew="w896" sw="w896">Moreton</part>
     </parts>
@@ -161,12 +161,12 @@
       <part ew="w1488" sw="w1488">Now</part>
     </parts>
   </ent>
-  <ent year="2015" id="rb19" type="date" trel="before" unit="year" quty="1">
+  <ent year="2017" id="rb19" type="date" trel="before" unit="year" quty="1">
     <parts>
       <part ew="w1725" sw="w1720">Last year</part>
     </parts>
   </ent>
-  <ent id="rb20" type="location" lat="53.4" long="-3.11667" gazref="geonames:2642204" in-country="GB" feat-type="ppl">
+  <ent id="rb20" type="location" lat="53.4000000" long="-3.1166700" gazref="geonames:2642204" in-country="GB" feat-type="ppl" pop-size="17670">
     <parts>
       <part ew="w1859" sw="w1859">Moreton</part>
     </parts>
@@ -176,7 +176,7 @@
       <part ew="w1920" sw="w1920">now</part>
     </parts>
   </ent>
-  <ent id="rb22" altname="Wirral" type="location" lat="53.37616" long="-3.10501" gazref="geonames:7733088" in-country="GB" feat-type="ppl">
+  <ent id="rb22" altname="Wirral" type="location" lat="53.3333300" long="-3.0833300" gazref="geonames:3333220" in-country="GB" feat-type="civil" pop-size="321238">
     <parts>
       <part ew="w1999" sw="w1992">Wirral borough</part>
     </parts>
@@ -191,17 +191,17 @@
       <part ew="w2183" sw="w2176">George Osborne</part>
     </parts>
   </ent>
-  <ent date="24" month="02" year="2016" sdate="2016-02-24" day-number="736017" id="rb25" type="date" day="Wednesday" wdaynum="3">
+  <ent date="12" month="12" year="2018" sdate="2018-12-12" day-number="737039" id="rb25" type="date" day="Wednesday" wdaynum="3">
     <parts>
       <part ew="w2200" sw="w2200">Wednesday</part>
     </parts>
   </ent>
-  <ent id="rb26" type="location" lat="53.37616" long="-3.10501" gazref="geonames:7733088" in-country="GB" feat-type="ppl">
+  <ent id="rb26" type="location" lat="53.3333300" long="-3.0833300" gazref="geonames:3333220" in-country="GB" feat-type="civil" pop-size="321238">
     <parts>
       <part ew="w2413" sw="w2413">Wirral</part>
     </parts>
   </ent>
-  <ent id="rb27" type="location" lat="53.4" long="-3.11667" gazref="geonames:2642204" in-country="GB" feat-type="ppl">
+  <ent id="rb27" type="location" lat="53.4000000" long="-3.1166700" gazref="geonames:2642204" in-country="GB" feat-type="ppl" pop-size="17670">
     <parts>
       <part ew="w2872" sw="w2872">Moreton</part>
     </parts>
@@ -256,7 +256,7 @@
       <part ew="w5276" sw="w5269">a grey day</part>
     </parts>
   </ent>
-  <ent id="rb40" type="location" lat="53.4" long="-3.11667" gazref="geonames:2642204" in-country="GB" feat-type="ppl">
+  <ent id="rb40" type="location" lat="53.4000000" long="-3.1166700" gazref="geonames:2642204" in-country="GB" feat-type="ppl" pop-size="17670">
     <parts>
       <part ew="w5283" sw="w5283">Moreton</part>
     </parts>
