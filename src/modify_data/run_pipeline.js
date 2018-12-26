@@ -2,26 +2,38 @@ const sql_connection = require('../sql/sql_connection.js')
 const db_config = require('../sql/db_config')
 
 const { sql } = require('../models/totalSearchUniques')
-const { cleanValue, iterateDocs, isCoords, isAddress, containsPlacenames } = require('../utils')
+const { cleanValue, iterateDocs, isCoords, isAddress, containsPlacenames, updateValue } = require('../utils')
 
 const options = {
-  inputString: 'dimension_searchKeyword'
+  inputString: 'dimension_searchKeyword',
+  where: {}
 }
 
-const geoProcess = (element) => {
-  let element = element[options.inputString]
+options.where[options.inputString] = '*1197 Peachtree Streeet NE, Ste. 502, Atlanta, GA 30361' // TODO: remove example
 
-  // clean input
-  element = cleanValue(element)
+const geoProcess = async (Model, element, options) => {
+  try {
 
-  // check if element contains coords
-  const coords = isCoords(element)
+    // get value
+    const element_value = element[options.inputString]
 
-  // check if element contains address
-  const address = isAddress(element)
+    // clean value
+    const element_cleaned = cleanValue(element_value)
 
-  // check if elements contains place names
-  const placenames = containsPlacenames(element)
+    // // check if element contains coords
+    // const coords = isCoords(element)
+
+    // // check if element contains address
+    // const address = isAddress(element)
+
+    // // check if elements contains place names
+    // const placenames = containsPlacenames(element)
+
+    updateValue(element_value, element_cleaned, options)
+
+  } catch (err) {
+    console.log(`geoProcess Error: ${err}`)
+  }
 
 }
 
@@ -35,12 +47,12 @@ const runPipeline = async (model, callback) => {
     Model.sync()
 
 
-    // iterate model
-    await iterateDocs(Model, callback)
+    // iterate model docs & apply callback
+    await iterateDocs(Model, callback, options)
 
 
   } catch (error) {
-    console.log(`pushToDB error: ${error}`)
+    console.log(`runPipeline error: ${error}`)
   }
 }
 

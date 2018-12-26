@@ -1,8 +1,6 @@
 const _ = require('lodash')
 const S = require('string')
-const { isEmpty } = require('../utils/stringParsing')
-
-const strip = ['*', '\"', '\''] // TODO: hard-coded items to strip, consider as param
+const { isEmpty } = require('../utils/string_parsing')
 
 const cleanValue = (field) => {
   try {
@@ -10,7 +8,7 @@ const cleanValue = (field) => {
     if (!isEmpty(valueToClean) && valueToClean.length > 3) { // field is long enough and not empty
       let cleanedValue = _.cloneDeep(valueToClean) // clone to avoid unintentional mutations
       return S(cleanedValue)
-          .strip(strip) // strip values
+          .strip("*", "\"", "\'") // strip values
           .trim() // trim whitespace
           .latinise() // remove accents from Latin characters
           .s
