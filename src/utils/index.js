@@ -1,11 +1,15 @@
 const cleanValue = require('./clean_value')
-const isCoords = require('./is_coords')
+const containsAddress = require('./contains_address')
+const containsCoords = require('./contains_coords')
+const containsPlacenames = require('./contains_placenames')
 const iterateDocs = require('./iterate_docs')
 const updateValue = require('./update_value')
 
 module.exports = {
   cleanValue,
-  isCoords,
+  containsAddress,
+  containsCoords,
+  containsPlacenames,
   iterateDocs,
   updateValue
 }

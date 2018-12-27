@@ -2,34 +2,38 @@ const sql_connection = require('../sql/sql_connection.js')
 const db_config = require('../sql/db_config')
 
 const { sql } = require('../models/totalSearchUniques')
-const { cleanValue, iterateDocs, isCoords, isAddress, containsPlacenames, updateValue } = require('../utils')
+const { cleanValue, iterateDocs, containsCoords, containsAddress, containsPlacenames, updateValue } = require('../utils')
 
 const options = {
-  inputString: 'dimension_searchKeyword',
+  columnName: 'dimension_searchKeyword',
   where: {}
 }
 
-options.where[options.inputString] = '*1197 Peachtree Streeet NE, Ste. 502, Atlanta, GA 30361' // TODO: remove example
+options.where[options.columnName] = '*1197 Peachtree Streeet NE, Ste. 502, Atlanta, GA 30361' // TODO: remove example
+
+// options.where[options.columnName] = '-84.075,42.03,-83.911,42.068' // TODO: remove example
 
 const geoProcess = async (Model, element, options) => {
+  const updates = {}
+
   try {
 
-    // get value
-    const element_value = element[options.inputString]
+    // get original value of interest
+    const original_element = element[options.columnName]
 
-    // clean value
-    const element_cleaned = cleanValue(element_value)
+    // // clean value
+    // updates.cleaned = cleanValue(original_element)
 
     // // check if element contains coords
-    // const coords = isCoords(element)
+    // updates.containsCoords = containsCoords(original_element)
 
     // // check if element contains address
-    // const address = isAddress(element)
+    // updates.containsAddress = containsAddress(original_element)
 
-    // // check if elements contains place names
-    // const placenames = containsPlacenames(element)
+    // check if elements contains place names
+    updates.placenames = containsPlacenames(original_element)
 
-    updateValue(element_value, element_cleaned, options)
+    // updateValue(Model, original_element, updates, options)
 
   } catch (err) {
     console.log(`geoProcess Error: ${err}`)

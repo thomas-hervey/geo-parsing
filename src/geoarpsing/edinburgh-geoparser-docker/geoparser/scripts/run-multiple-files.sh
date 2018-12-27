@@ -57,5 +57,5 @@ do
 
     # each file is then geo-parsed and the output is written to the output directory
     # cat $i | ./run -t plain -g geonames-local -l $lat $long $radius $score -o $outputdirname $prefix
-    cat $i | ./run -t plain -g geonames-local -o $outputdirname $prefix
+    cat $i | ./run -t plain -g geonames-local $outputdirname $prefix
 done

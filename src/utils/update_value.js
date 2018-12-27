@@ -1,16 +1,20 @@
-const updateValue = async (existingValue, updatedValue, options) => {
-  if (existingValue !== updatedValue) {
+const updateValue = async (Model, original_element, updates, options) => {
+
+  if (updates) { // TODO: check if this is a valuable check
 
     // create where clause
-    let wereClause = {}
-    wereClause[options.inputString] = existingValue
+    let whereClause = { where: {} }
+    whereClause.where[options.columnName] = original_element
 
     // update record
-    await Model.findOne({ where: wereClause })
+    await Model.findOne(whereClause)
     .then(res => {
       // Check if record exists in db
       if (res) {
-        res[options.inputString] = updatedValue // update record
+        // TODO: update other elements of record using `updates`
+
+        res[options.columnName] = updates.cleaned // update record
+
         res.save().then(() => {}) // save record
       }
     })
