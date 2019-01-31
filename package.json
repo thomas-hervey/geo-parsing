@@ -5,6 +5,7 @@
     "mysql2": "^1.6.4",
     "sanitize-filename": "^1.6.1",
     "sequelize": "^4.41.2",
-    "string": "^3.3.3"
+    "string": "^3.3.3",
+    "xml2js": "^0.4.19"
   }
 }

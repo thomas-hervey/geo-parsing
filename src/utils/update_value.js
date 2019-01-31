@@ -1,24 +1,66 @@
-const updateValue = async (Model, original_element, updates, options) => {
+const _createPlacenamesLink = async (Model, res, updates, options) => {
+  try {
+    const { joinModel } = options
+    const { placenames } = updates
 
-  if (updates) { // TODO: check if this is a valuable check
-
-    // create where clause
-    let whereClause = { where: {} }
-    whereClause.where[options.columnName] = original_element
-
-    // update record
-    await Model.findOne(whereClause)
-    .then(res => {
-      // Check if record exists in db
-      if (res) {
-        // TODO: update other elements of record using `updates`
-
-        res[options.columnName] = updates.cleaned // update record
-
-        res.save().then(() => {}) // save record
+    // for each placename, find or create, and update with res id
+    const insert = placenames[0].map(placenameId => {
+      if (!isNaN(placenameId) && placenameId != undefined && placenameId != '') {
+        const tableName = Model.getTableName()
+        return {
+          'geonames_id': placenameId,
+          'openData_id': res.index_value,
+          'openData_tableName': tableName
+        }
       }
-    })
-    .catch(err => console.log(`updateValue Error ${err}`))
+    }).filter(function (el) { return el != null })
+
+
+    joinModel.bulkCreate(
+      insert,
+      {
+        fields:["geonames_id", "openData_id", "openData_tableName"],
+      }
+    )
+
+  } catch (error) {
+    console.log('_createPlacenamesLink error: ', error)
+  }
+}
+
+const updateValue = async (Model, original_record_value, updates, options) => {
+  try {
+    const { columnName } = options.database
+
+    if (updates) {
+
+      // create where clause
+      let whereClause = { where: {} }
+      whereClause.where[columnName] = original_record_value
+
+      // update record
+      await Model.findOne(whereClause)
+      .then(res => {
+        // Check if record exists in db
+        if (res) {
+          // TODO: update other elements of record using `updates`
+
+          res[columnName] = updates.cleaned // update record string
+          res['containsCoords'] = updates.containsCoords // record if contains coords
+          res['containsAddress'] = updates.containsAddress // record if contains address
+          res['updated'] += 1 // record that record was updated // TODO: add back
+
+          res.save().then(() => {}) // save record
+
+          if(updates.placenames) {
+            _createPlacenamesLink(Model, res, updates, options) // create placenames link
+          }
+        }
+      })
+      .catch(err => console.log(`updateValue error: ${err}`))
+    }
+  } catch (error) {
+    console.log('updateValue error: ', error)
   }
 }
 

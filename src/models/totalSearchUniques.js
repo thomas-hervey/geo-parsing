@@ -21,6 +21,18 @@ const model = {
       metric_searchUniques: {
         type: Sequelize.INTEGER,
         allowNull: false
+      },
+      updated: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      containsCoords: {
+        type: Sequelize.TINYINT,
+        allowNull: false,
+      },
+      containsAddress: {
+        type: Sequelize.TINYINT,
+        allowNull: false,
       }
     },
 
