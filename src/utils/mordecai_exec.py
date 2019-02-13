@@ -1,4 +1,5 @@
 import sys
+print(sys.executable)
 from mordecai import Geoparser
 geo = Geoparser()
 

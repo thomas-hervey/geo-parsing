@@ -7,8 +7,8 @@ const joinModel = require('../models/openData_placenames')
 const { cleanValue, iterateDocs, containsCoords, containsAddress, containsPlacenames, updateValue } = require('../utils')
 
 // options.database.where[options.database.columnName] = '*concrete' // TODO: remove example
-// options.database.where[options.database.columnName] = '- 815 Connecticut Avenue, Washington, DC 20006' // TODO: remove example
-// options.database.where[options.columnName] = '-84.075,42.03,-83.911,42.068' // TODO: remove example
+options.database.where[options.database.columnName] = '- 815 Connecticut Avenue, Washington, DC 20006' // TODO: remove example
+// options.database.where[options.database.columnName] = '-84.075,42.03,-83.911,42.068' // TODO: remove example
 
 
 
@@ -34,10 +34,11 @@ const _geoProcess = async (Model, record, options) => {
     // check if elements contains place names
     updates.placenames = await containsPlacenames(record, options)
 
-    // NOTE: if localizing, get hostname for total_search_uniques, or just do it for refinement
-    console.log('thing')
+    console.log(updates)
 
-    // updateValue(Model, original_record_value, updates, options)
+    // NOTE: if localizing, get hostname for total_search_uniques, or just do it for refinement
+
+    // updateValue(Model, original_record_value, updates, options) // TODO: update values (the middle corresponding table)
 
   } catch (err) { console.log(`geoProcess Error: ${err}`) }
 

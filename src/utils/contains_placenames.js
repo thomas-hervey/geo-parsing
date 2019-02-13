@@ -1,27 +1,13 @@
-const fs = require('fs')
+const fs = require('fs').promises
 var exec = require('child-process-promise').exec
-var sanitize = require('sanitize-filename')
-var { parseString } = require('xml2js')
+const sanitize = require('sanitize-filename')
+const { parseString } = require('xml2js')
 
-const spawn = require("child_process").spawn
-
-const { getLocality } = require('../utils')
+const spawn = require("child-process-promise").spawn
 
 let options = {}
 let geoparsing = ''
-
-const _createTempFile = async record => {
-  try {
-    const input = record[options.database.columnName]
-    const { parsing_data_path } = geoparsing
-
-    // create a temporary .txt file of input
-    fs.writeFile(parsing_data_path, input, err => {
-      if (err) { console.log(`_parseEGP fs.writeFile error: ${err}`) }
-
-    })
-  } catch (err) { console.error('_createTempFile error: ', err) }
-}
+const mordecai_exec_path = '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/utils/mordecai_exec.py'
 
 const _parseEGP = async () => {
   let references = []
@@ -29,87 +15,75 @@ const _parseEGP = async () => {
   // run parser on file
   const { parsing_data_path } = geoparsing
   const { EGP_execute_script, EGP_run_script_path, type, gaz } = geoparsing.EGP
+  const script = EGP_execute_script(parsing_data_path, EGP_run_script_path, type, gaz)
 
-  try {
-    exec('echo hello')
-    .then(function (result) {
-        var stdout = result.stdout;
-        var stderr = result.stderr;
-        console.log('stdout: ', stdout);
-        console.log('stderr: ', stderr);
+  const { stdout, stderr } = await exec(script)
+  if (stderr) { console.log('_parseEGP error: ', stderr) }
+  if (stdout) {
+    // parse xml response
+    parseString(stdout, function (err, result) {
+      if (err) { console.error('ERROR: ', err) }
+      if (result.document.standoff[0].ents[0].ent) {
+        const refs = result.document.standoff[0].ents[0].ent
+        .map(entity => entity.$.gazref)
+        .filter(el => el != null && el != '' && el != undefined)
+
+        references.push(refs) // TODO: Important* figure out why some words, like Atlanta aren't geoparsed
+      }
     })
-    .catch(function (err) {
-        console.error('ERROR: ', err);
-    });
-    // const script = EGP_execute_script(parsing_data_path, EGP_run_script_path, type, gaz)
-    // exec(script) // TODO: for refinement, getLocality(record.host)
-    //   .then(result => {
-    //     var { stdout } = result
-    //     if (stdout) {
-    //       // parse xml response
-    //       parseString(stdout, function (err, result) {
-    //         if (err) { console.error('ERROR: ', err) }
-    //         if (result.document.standoff[0].ents[0].ent) {
-    //           const refs = result.document.standoff[0].ents[0].ent
-    //           .map(entity => entity.$.gazref)
-    //           .filter(el => el != null)
+  }
 
-    //           references.push(refs) // TODO: Important* figure out why some words, like Atlanta aren't geoparsed
-    //         }
-    //       })
-    //     }
-    //   })
-    //   .catch(err => { console.log('_parseEGP exec error: ', err) })
-  } catch (err) { console.error('_parseEGP exec error (outside): ', err) }
-
-  // strip 'geonames:' out of references
   if (references.length) { references = references[0].map(ref => parseInt(ref.substring(9))) }
-
   return references
 }
 
-
 const _parseMordecai = async () => {
   // read input string
-  const input_path = '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/geoparsing/parsing_data/temp.txt'
-  fs.readFile(input_path, "utf8", function(err, data) {
-    if (err) { console.log('_parseMordecai readFile error: ', err)}
-    const input_text = data
+  const { parsing_data_path } = geoparsing
 
-    const mordecai_exec_path = '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/utils/mordecai_exec.py'
+  const fileString = await fs.readFile(parsing_data_path, "utf8")
 
-    var uint8arrayToString = function(data){
-      return String.fromCharCode.apply(null, data)
-    }
+  var uint8arrayToString = function(data){
+    return String.fromCharCode.apply(null, data)
+  }
 
-    const pythonProcess = spawn('python',[mordecai_exec_path, input_text])
-    pythonProcess.stdout.on('data', (data) => {
-      console.log('python process output', uint8arrayToString(data))
-    })
-    pythonProcess.stderr.on('data', (data) => {
-      console.error(`child stderr:\n${data}`);
-    });
+  const promise = spawn('python',[mordecai_exec_path, fileString])
 
+  var childProcess = promise.childProcess;
+  childProcess.stdout.on('data', (data) => {
+    console.log('python process output', uint8arrayToString(data))
+  })
+  childProcess.stderr.on('data', (data) => {
+    console.error(`child stderr:\n${data}`)
+  })
+
+  promise.then(() => {
+    console.log('after python process')
   })
 }
 
-
-const containsPlacenames = async (record, inputOptions) => {
+const containsPlacenames = async(record, inputOptions) => {
   options = inputOptions
   geoparsing = options.geoparsing
 
-  // create temp file for parsing
-  _createTempFile(record)
+  // create temporary file for EGP to read
+  const input = record[options.database.columnName]
+  const { parsing_data_path } = geoparsing
+  await fs.writeFile(parsing_data_path, input)
 
-  let placenames = []
+  return _parseEGP()
 
-  // parse input using Edinburgh geoparser
-  placenames.push(await _parseEGP())
+  // const parsers = [_parseEGP]
 
-  // parse input using mordecai
-  // placenames.push(await _parseMordecai()) // TODO: add another geoparser if desirable
+  // let references
 
-  return placenames
+  // // run parsers
+  // parsers.forEach(async parser => {
+  //   references += await parser()
+  // })
+
+  // console.log(references)
+  // return references
 }
 
 module.exports = containsPlacenames
