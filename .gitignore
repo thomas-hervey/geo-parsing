@@ -2,4 +2,4 @@ node_modules
 src/geoparsing/edinburgh-geoparser-docker/
 src/geoparsing/mordecai/
 src/geoparsing/mordecai/geonames_index.tar.gz
-OpenData.sql
+OpenData.sqlsrc/geoparsing/mordecai
