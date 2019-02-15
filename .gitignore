@@ -1,4 +1,5 @@
 node_modules
-src/geoparsing/edinburgh-geoparser-docker/geoparser-march2016.tar.gz
+src/geoparsing/edinburgh-geoparser-docker/
+src/geoparsing/mordecai/
 src/geoparsing/mordecai/geonames_index.tar.gz
 OpenData.sql
