@@ -1,6 +1,6 @@
 const _createPlacenamesLink = async (Model, res, updates, options) => {
   try {
-    const { joinModel } = options
+    const { PlacenameModel } = options
     const { placenames } = updates
 
     // for each placename, find or create, and update with res id
@@ -16,7 +16,7 @@ const _createPlacenamesLink = async (Model, res, updates, options) => {
     }).filter(function (el) { return el != null })
 
 
-    joinModel.bulkCreate(
+    PlacenameModel.bulkCreate(
       insert,
       {
         fields:["geonames_id", "openData_id", "openData_tableName"],

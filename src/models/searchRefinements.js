@@ -37,7 +37,23 @@ const model = {
       metric_searchDepth: { type: Sequelize.INTEGER },
       metric_searchRefinements: { type: Sequelize.INTEGER },
       metric_searchDuration: { type: Sequelize.INTEGER },
-      metric_searchExits: { type: Sequelize.INTEGER }
+      metric_searchExits: { type: Sequelize.INTEGER },
+      containsCoords: {
+        type: Sequelize.TINYINT(1),
+        allowNull: true,
+      },
+      containsAddress: {
+        type: Sequelize.TINYINT(1),
+        allowNull: true,
+      },
+      containsCoords_refinement: {
+        type: Sequelize.TINYINT(1),
+        allowNull: true,
+      },
+      containsAddress_refinement: {
+        type: Sequelize.TINYINT(1),
+        allowNull: true,
+      }
     },
 
     // create sequel model

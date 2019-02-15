@@ -6,6 +6,7 @@ module.exports = {
   options: {
     database: {
       columnName: 'dimension_searchKeyword',
+      refinementColumnName: 'dimension_searchRefinement',
       where: {},
     },
     geoparsing: {

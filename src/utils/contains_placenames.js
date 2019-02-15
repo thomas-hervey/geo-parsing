@@ -5,6 +5,7 @@ const { parseString } = require('xml2js')
 
 const spawn = require("child-process-promise").spawn
 
+let record = {}
 let options = {}
 let geoparsing = ''
 const mordecai_exec_path = '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/utils/mordecai_exec.py'
@@ -15,7 +16,14 @@ const _parseEGP = async () => {
   // run parser on file
   const { parsing_data_path } = geoparsing
   const { EGP_execute_script, EGP_run_script_path, type, gaz } = geoparsing.EGP
-  const script = EGP_execute_script(parsing_data_path, EGP_run_script_path, type, gaz)
+
+  // check if there is a locality, if so, add it to the execution script
+  if (record.hostname) {
+    // check if there is a locality associated with the hostname (e.g., by joining domain to placename table)
+
+  }
+
+  const script = EGP_execute_script(parsing_data_path, EGP_run_script_path, type, gaz, locality = undefined)
 
   const { stdout, stderr } = await exec(script)
   if (stderr) { console.log('_parseEGP error: ', stderr) }
@@ -62,14 +70,14 @@ const _parseMordecai = async () => {
   })
 }
 
-const containsPlacenames = async(record, inputOptions) => {
-  options = inputOptions
+const containsPlacenames = async(cleaned_value, inputOptions, inputRecord) => {
+  record = _.cloneDeep(inputRecord)
+  options = _.cloneDeep(inputOptions)
   geoparsing = options.geoparsing
 
   // create temporary file for EGP to read
-  const input = record[options.database.columnName]
   const { parsing_data_path } = geoparsing
-  await fs.writeFile(parsing_data_path, input)
+  await fs.writeFile(parsing_data_path, cleaned_value)
 
   return _parseEGP()
 
