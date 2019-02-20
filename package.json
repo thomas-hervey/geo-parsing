@@ -7,6 +7,7 @@
     "sanitize-filename": "^1.6.1",
     "sequelize": "^4.41.2",
     "string": "^3.3.3",
+    "turf": "^3.0.14",
     "xml2js": "^0.4.19"
   }
 }
