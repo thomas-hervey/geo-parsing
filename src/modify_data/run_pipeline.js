@@ -73,7 +73,7 @@ const runPipeline = async (model, callback, options) => {
     const Model = await model.sql.createModel(sequelize, model.sql.columns)
     Model.sync()
 
-    const PlacenameModel = await placenameModel.sql.createModel(sequelize, placenameModel.sql.columns)
+    const PlacenameModel = await placenameModel.sql.createModel(sequelize, placenameModel.sql.columns, model.sql.table_name)
     options.placenameModel = PlacenameModel
     PlacenameModel.sync()
 

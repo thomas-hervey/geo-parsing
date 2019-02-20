@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const createModel = require('./create_model')
 
-const model_name = 'openData_domains'
+const model_name = 'openData_orgs'
 
 const model = {
 
@@ -14,28 +14,28 @@ const model = {
         primaryKey: true,
         allowNull: true
       },
-      hostname: {
+      name: {
         type: Sequelize.STRING,
         primaryKey: false,
         allowNull: true
       },
-      siteId: {
-        type: Sequelize.STRING,
+      ll_lat: {
+        type: Sequelize.FLOAT,
         primaryKey: false,
         allowNull: true
       },
-      siteTitle: {
-        type: Sequelize.STRING,
+      ll_lon: {
+        type: Sequelize.FLOAT,
         primaryKey: false,
         allowNull: true
       },
-      orgId: {
-        type: Sequelize.STRING,
+      ur_lat: {
+        type: Sequelize.FLOAT,
         primaryKey: false,
         allowNull: true
       },
-      orgTitle: {
-        type: Sequelize.STRING,
+      ur_lon: {
+        type: Sequelize.FLOAT,
         primaryKey: false,
         allowNull: true
       },

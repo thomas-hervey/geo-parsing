@@ -1,9 +1,12 @@
 const Sequelize = require('sequelize')
+const createModel = require('./create_model')
+
+const model_name = 'openData_sites'
 
 const model = {
 
   sql: {
-    table_name: 'openData_sites',
+    table_name: model_name,
 
     columns: {
       id: {
@@ -69,20 +72,7 @@ const model = {
     },
 
     // create sequel model
-    createModel: async (sequelize, columns) => {
-      try {
-        const Model = await sequelize.define('openData_sites', columns,
-        {
-          timestamps: false,
-        })
-
-        if (Model && Model != null) { console.log(`Successfully created a model`)}
-        return Model
-
-      } catch (error) {
-        console.log(`error in createModel: ${error}`)
-      }
-    }
+    createModel: createModel
   }
 }
 

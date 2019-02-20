@@ -1,10 +1,14 @@
 const Sequelize = require('sequelize')
+const createModel = require('./create_model')
+
 const { GA_key } = require('../config')
+
+const model_name = 'search_refinements'
 
 const model = {
 
   sql: {
-    table_name: 'search_refinements',
+    table_name: model_name,
 
     columns: {
       index_value: {
@@ -57,21 +61,7 @@ const model = {
     },
 
     // create sequel model
-    createModel: async (sequelize, columns) => {
-      try {
-        const Model = await sequelize.define('search_refinements', columns,
-        {
-          timestamps: false,
-          initialAutoIncrement: 1
-        })
-
-        if (Model && Model != null) { console.log(`Successfully created a model`)}
-        return Model
-
-      } catch (error) {
-        console.log(`error in createModel: ${error}`)
-      }
-    }
+    createModel: createModel
   },
 
   GA_QueryParams: {

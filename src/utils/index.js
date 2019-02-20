@@ -5,7 +5,7 @@ const containsAddress = require('./contains_address')
 const containsCoords = require('./contains_coords')
 const containsPlacenames = require('./contains_placenames')
 const getLocality = require('./get_locality')
-const getSiteOrgExtent = require('./get_site_org_extent')
+const getSiteOrg = require('./get_site_org')
 const iterateDocs = require('./iterate_docs')
 const updateValue = require('./update_value')
 
@@ -17,7 +17,7 @@ module.exports = {
   containsCoords,
   containsPlacenames,
   getLocality,
-  getSiteOrgExtent,
+  getSiteOrg,
   iterateDocs,
   updateValue
 }
