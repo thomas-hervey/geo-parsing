@@ -22,17 +22,17 @@ const model = {
         allowNull: true
       },
       ll_lon: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.FLOAT,
         primaryKey: false,
         allowNull: true
       },
       ur_lat: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.FLOAT,
         primaryKey: false,
         allowNull: true
       },
       ur_lon: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.FLOAT,
         primaryKey: false,
         allowNull: true
       },
