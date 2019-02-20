@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "child-process-promise": "^2.2.1",
+    "gdal": "^0.9.8",
     "lodash": "^4.17.11",
     "mysql2": "^1.6.4",
     "python-shell": "^1.0.7",
