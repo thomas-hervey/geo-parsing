@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios": "^0.18.0",
     "child-process-promise": "^2.2.1",
     "gdal": "^0.9.8",
     "lodash": "^4.17.11",
