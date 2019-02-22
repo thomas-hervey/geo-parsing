@@ -10,6 +10,14 @@ let options = {}
 let geoparsing = ''
 const mordecai_exec_path = '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/utils/mordecai_exec.py'
 
+const _getSiteCentroid = (record) => {
+  // NOTE: TODO: I have to figure out how to pick a site, since giving an orgId gives multiple sites. I can pick the top, but this seems risky
+  SiteModel.find({
+    attributes: ['centroid'],
+    where
+  })
+}
+
 const _parseEGP = async () => {
   let references = []
 
@@ -19,8 +27,11 @@ const _parseEGP = async () => {
 
   // check if there is a locality, if so, add it to the execution script
   if (record.hostname) {
-    // check if there is a locality associated with the hostname (e.g., by joining domain to placename table)
+    // TODO: check if there is a locality associated with the hostname (e.g., by joining domain table to site table)
+    const site_centroid = _getSiteCentroid(record)
 
+
+    // TODO: if not, check if there is a locality from an org that is associated with a domain & site (as a fallback)
   }
 
   const script = EGP_execute_script(parsing_data_path, EGP_run_script_path, type, gaz, locality = undefined)
