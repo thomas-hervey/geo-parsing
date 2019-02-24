@@ -5,6 +5,7 @@
     "gdal": "^0.9.8",
     "lodash": "^4.17.11",
     "mysql2": "^1.6.4",
+    "node-postal": "^1.0.0",
     "python-shell": "^1.0.7",
     "sanitize-filename": "^1.6.1",
     "sequelize": "^4.41.2",

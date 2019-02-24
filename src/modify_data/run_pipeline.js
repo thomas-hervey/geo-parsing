@@ -36,7 +36,9 @@ const _geoProcess = async (Model, record, options) => {
     // check if elements contains place names
     updates.placenames = await containsPlacenames(cleaned_searchKeyword, options, record)
 
-    // ** repeat steps for refinement ** //
+    // *************************** //
+    // repeat steps for refinement //
+    // *************************** //
 
     // get searchRefinement value
     const searchRefinement_value = record[options.database.refinementColumnName]
@@ -48,7 +50,7 @@ const _geoProcess = async (Model, record, options) => {
     updates.containsCoords_refinement = containsCoords(updates.cleaned_refinement)
 
     // check if element contains address
-    updates.containsAddress_refinement = containsAddress(updates.cleaned_refinement)
+    updates.containsAddress_refinement = await containsAddress(updates.cleaned_refinement)
 
     // check if elements contains place names
     updates.placenames_refinement = await containsPlacenames(cleaned_refinement, options, record)
@@ -63,22 +65,22 @@ const _geoProcess = async (Model, record, options) => {
 }
 
 // NOTE: figure out if I should run the pipeline for total_search_uniques first
-const runPipeline = async (model, callback, options) => {
+const runPipeline = async (callback, options) => {
   try {
 
     // create connection to SQL database
     const sequelize = await sql_connection(db_config)
 
     // create models
-    const Model = await model.sql.createModel(sequelize, model.sql.columns)
-    Model.sync()
+    const RefinementsModel = await refinementsModel.sql.createModel(sequelize, refinementsModel.sql.columns)
+    RefinementsModel.sync()
 
-    const PlacenameModel = await placenameModel.sql.createModel(sequelize, placenameModel.sql.columns, model.sql.table_name)
+    const PlacenameModel = await placenameModel.sql.createModel(sequelize, placenameModel.sql.columns)
     options.placenameModel = PlacenameModel
     PlacenameModel.sync()
 
     // iterate model docs & apply callback
-    await iterateDocs(Model, callback, options)
+    await iterateDocs(RefinementsModel, callback, options)
 
 
   } catch (error) {
@@ -86,4 +88,4 @@ const runPipeline = async (model, callback, options) => {
   }
 }
 
-runPipeline(refinementsModel, _geoProcess, options)
+runPipeline(_geoProcess, options)

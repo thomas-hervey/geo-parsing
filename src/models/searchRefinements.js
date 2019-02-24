@@ -55,7 +55,7 @@ const model = {
         allowNull: true,
       },
       containsAddress_refinement: {
-        type: Sequelize.TINYINT(1),
+        type: Sequelize.STRING,
         allowNull: true,
       }
     },

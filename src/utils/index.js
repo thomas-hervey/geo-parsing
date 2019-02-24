@@ -1,7 +1,7 @@
 const calculateCentroid = require('./calculate_centroid')
 const cleanValue = require('./clean_value')
 const convertCoords = require('./convert_coords')
-const containsAddress = require('./contains_address')
+const { containsAddress, getAddressParts } = require('./contains_address')
 const containsCoords = require('./contains_coords')
 const containsPlacenames = require('./contains_placenames')
 const getLocality = require('./get_locality')
@@ -16,6 +16,7 @@ module.exports = {
   containsAddress,
   containsCoords,
   containsPlacenames,
+  getAddressParts,
   getLocality,
   getSiteOrg,
   iterateDocs,
