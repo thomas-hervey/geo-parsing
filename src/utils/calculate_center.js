@@ -1,3 +1,6 @@
+const calculateCentroid = require('./calculate_centroid')
+
+
 const _diff = (a,b) => { return Math.abs(a-b) }
 
 const calculateCenter = async (Model, record, options) => {
