@@ -19,37 +19,37 @@ const model = {
         primaryKey: false,
         allowNull: true
       },
-      ll_lat: {
+      site_ll_lat: {
         type: Sequelize.FLOAT,
         primaryKey: false,
         allowNull: true
       },
-      ll_lon: {
+      site_ll_lon: {
         type: Sequelize.FLOAT,
         primaryKey: false,
         allowNull: true
       },
-      ur_lat: {
+      site_ur_lat: {
         type: Sequelize.FLOAT,
         primaryKey: false,
         allowNull: true
       },
-      ur_lon: {
+      site_ur_lon: {
         type: Sequelize.FLOAT,
         primaryKey: false,
         allowNull: true
       },
-      center_lon: {
+      site_center_lon: {
         type: Sequelize.FLOAT,
         primaryKey: false,
         allowNull: true
       },
-      center_lat: {
+      site_center_lat: {
         type: Sequelize.FLOAT,
         primaryKey: false,
         allowNull: true
       },
-      radius: {
+      site_radius: {
         type: Sequelize.FLOAT,
         primaryKey: false,
         allowNull: true
