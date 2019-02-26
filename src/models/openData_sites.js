@@ -9,12 +9,12 @@ const model = {
     table_name: model_name,
 
     columns: {
-      id: {
+      site_id: {
         type: Sequelize.STRING,
         primaryKey: true,
         allowNull: true
       },
-      name: {
+      site_name: {
         type: Sequelize.STRING,
         primaryKey: false,
         allowNull: true
@@ -54,32 +54,32 @@ const model = {
         primaryKey: false,
         allowNull: true
       },
-      orgId: {
+      site_orgId: {
         type: Sequelize.STRING,
         primaryKey: false,
         allowNull: true
       },
-      orgName: {
+      site_orgName: {
         type: Sequelize.STRING,
         primaryKey: false,
         allowNull: true
       },
-      size: {
+      site_size: {
         type: Sequelize.INTEGER(11),
         primaryKey: false,
         allowNull: true
       },
-      siteUrl: {
+      site_siteUrl: {
         type: Sequelize.STRING,
         primaryKey: false,
         allowNull: true
       },
-      region: {
+      site_region: {
         type: Sequelize.STRING,
         primaryKey: false,
         allowNull: true
       },
-      sector: {
+      site_sector: {
         type: Sequelize.STRING,
         primaryKey: false,
         allowNull: true

@@ -9,32 +9,32 @@ const model = {
     table_name: model_name,
 
     columns: {
-      id: {
+      domain_id: {
         type: Sequelize.STRING,
         primaryKey: true,
         allowNull: true
       },
-      hostname: {
+      domain_hostname: {
         type: Sequelize.STRING,
         primaryKey: false,
         allowNull: true
       },
-      siteId: {
+      domain_siteId: {
         type: Sequelize.STRING,
         primaryKey: false,
         allowNull: true
       },
-      siteTitle: {
+      domain_siteTitle: {
         type: Sequelize.STRING,
         primaryKey: false,
         allowNull: true
       },
-      orgId: {
+      domain_orgId: {
         type: Sequelize.STRING,
         primaryKey: false,
         allowNull: true
       },
-      orgTitle: {
+      domain_orgTitle: {
         type: Sequelize.STRING,
         primaryKey: false,
         allowNull: true

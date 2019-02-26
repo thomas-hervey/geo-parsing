@@ -9,12 +9,12 @@ const model = {
     table_name: model_name,
 
     columns: {
-      id: {
+      org_id: {
         type: Sequelize.STRING,
         primaryKey: true,
         allowNull: true
       },
-      name: {
+      org_name: {
         type: Sequelize.STRING,
         primaryKey: false,
         allowNull: true
