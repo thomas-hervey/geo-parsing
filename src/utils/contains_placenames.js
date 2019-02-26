@@ -12,7 +12,7 @@ const mordecai_exec_path = '/Users/thomashervey/Projects/academic/graduate/PhD/Q
 
 const _getSiteCentroid = (record) => {
   // NOTE: TODO: I have to figure out how to pick a site, since giving an orgId gives multiple sites. I can pick the top, but this seems risky
-  SiteModel.find({
+  SiteModel.findOne({
     attributes: ['centroid'],
     where
   })
@@ -32,6 +32,7 @@ const _parseEGP = async () => {
 
 
     // TODO: if not, check if there is a locality from an org that is associated with a domain & site (as a fallback)
+    const org_centroid = _getOrgCentroid(record)
   }
 
   const script = EGP_execute_script(parsing_data_path, EGP_run_script_path, type, gaz, locality = undefined)

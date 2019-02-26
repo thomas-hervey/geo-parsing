@@ -1,3 +1,4 @@
+const calculateCenter = require('./calculate_center')
 const calculateCentroid = require('./calculate_centroid')
 const cleanValue = require('./clean_value')
 const convertCoords = require('./convert_coords')
@@ -10,6 +11,7 @@ const iterateDocs = require('./iterate_docs')
 const updateValue = require('./update_value')
 
 module.exports = {
+  calculateCenter,
   calculateCentroid,
   cleanValue,
   convertCoords,

@@ -39,6 +39,21 @@ const model = {
         primaryKey: false,
         allowNull: true
       },
+      center_lon: {
+        type: Sequelize.FLOAT,
+        primaryKey: false,
+        allowNull: true
+      },
+      center_lat: {
+        type: Sequelize.FLOAT,
+        primaryKey: false,
+        allowNull: true
+      },
+      radius: {
+        type: Sequelize.FLOAT,
+        primaryKey: false,
+        allowNull: true
+      },
       orgId: {
         type: Sequelize.STRING,
         primaryKey: false,
