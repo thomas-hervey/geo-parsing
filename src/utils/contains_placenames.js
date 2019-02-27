@@ -5,21 +5,39 @@ const { parseString } = require('xml2js')
 
 const spawn = require("child-process-promise").spawn
 
-let record = {}
-let value = ''
-let options = {}
+const _getCenter = (res) => {
+  let center = {}
+  let centerFound = false
+  let i = 0
+  while (res[i] && !centerFound) { // NOTE: the first row where a center is found will be used
 
-const _getSiteCentroid = (record) => {
-  // NOTE: TODO: I have to figure out how to pick a site, since giving an orgId gives multiple sites. I can pick the top, but this seems risky
-  SiteModel.findOne({
-    attributes: ['centroid'],
-    where
-  })
+    // check if there is a site center
+    const siteCenter = res[i].dataValues.site_center_lon
+    center = {
+      center_lon: res[i].dataValues.site_center_lon,
+      center_lat: res[i].dataValues.site_center_lat,
+      center_radius: res[i].dataValues.site_center_radius
+    }
+    centerFound = true
+
+    // if not a site center, check if there is an org center
+    if (!siteCenter) {
+      const orgCenter = res[i].dataValues.org_center_lon
+      center = {
+        center_lon: res[i].dataValues.org_center_lon,
+        center_lat: res[i].dataValues.org_center_lat,
+        center_radius: res[i].dataValues.org_center_radius
+      }
+      centerFound = true
+    }
+  }
+  return center
 }
 
-const _parseEGP = async () => {
+const _parseEGP = async (record, value, options) => {
 
   let references = []
+  let locality = null
 
   const { parsing_data_path } = options.geoparsing
   const { EGP_execute_script, EGP_run_script_path, type, gaz } = options.geoparsing.EGP
@@ -36,25 +54,18 @@ const _parseEGP = async () => {
   // ****************** //
 
   // add associated locality, if it exists
-  if (record.hostname) {
-    // check if there's an associated domain
-    await options.CompositeModel.find({
-      domain_hostname: record.hostname
+  if (record.dataValues.dimension_hostname) {
+    // check if there are associated domains
+    const res = await options.CompositeModel.findAll({
+      where: {
+        domain_hostname: record.dataValues.dimension_hostname
+      }
     })
-    .then(res => {
-      console.log(res)
-    })
-
-    return
-    // TODO: check if there is a locality associated with the hostname (e.g., by joining domain table to site table)
-    const site_centroid = _getSiteCentroid(record)
-
-
-    // TODO: if not, check if there is a locality from an org that is associated with a domain & site (as a fallback)
-    const org_centroid = _getOrgCentroid(record)
+    // if there's associated domains, get a center (retrieving the first success)
+    if (res) { locality = _getCenter(res) }
   }
 
-  const script = EGP_execute_script(parsing_data_path, EGP_run_script_path, type, gaz, locality = undefined)
+  const script = EGP_execute_script(parsing_data_path, EGP_run_script_path, type, gaz, locality)
 
   const { stdout, stderr } = await exec(script)
   if (stderr) { console.log('_parseEGP error: ', stderr) }
@@ -101,13 +112,8 @@ const _parseMordecai = async () => {
   })
 }
 
-const containsPlacenames = async(inputRecord, inputValue, inputOptions) => {
-  // updating global vars (although not best practice)
-  record = inputRecord
-  value = _.cloneDeep(inputValue)
-  options = _.cloneDeep(inputOptions)
-
-  const references = await _parseEGP()
+const containsPlacenames = async(record, value, options) => {
+  const references = await _parseEGP(record, value, options)
   return references
 }
 

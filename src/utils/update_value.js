@@ -28,40 +28,62 @@ const _createPlacenamesLink = async (Model, res, updates, options) => {
   }
 }
 
-const updateValue = async (Model, record, updates, options) => {
+const updateValue = async (record, updates, options) => {
   try {
-    const { columnName } = options.database
 
     if (updates) {
 
+      const {
+        cleaned_searchKeyword,
+        cleaned_searchRefinement,
+        containsCoords,
+        containsAddress,
+        containsCoords_refinement,
+        containsAddress_refinement
+      } = updates
+
       // update record
       await record.update({
-
+        dimension_searchKeyword: cleaned_searchKeyword,
+        dimension_searchRefinement: cleaned_searchRefinement,
+        containsCoords,
+        containsAddress,
+        containsCoords_refinement,
+        containsAddress_refinement,
+        updated: record.updated += 1
       })
       .then(res => {
-        console.log(res)
+        console.log('updating record result: ', res)
+
+        // if placenames found, save to db
+        if(updates.placenames) {
+          updates.placenames.map(async (placename, index) => {
+            const placenameEntry = await options.PlacenamesModel.build({
+              geonames_id: placename,
+              openData_id: record.dataValues.index_value,
+              parse_order: index + 1,
+              original_or_refinement: 'original', // NOTE: hard coded
+              openData_tableName: 'search_refinements'// NOTE: hard coded
+            })
+          })
+        }
+
+        // if refinement placenames found, save to db
+        if(updates.placenames_refinement) {
+          updates.placenames_refinement.map(async (placename, index) => {
+            const placenameRefinementEntry = await options.PlacenamesModel.build({
+              geonames_id: placename,
+              openData_id: record.dataValues.index_value,
+              parse_order: index + 1,
+              original_or_refinement: 'refinement', // NOTE: hard coded
+              openData_tableName: 'search_refinements'// NOTE: hard coded
+            })
+          })
+        }
+
       })
-      // await Model.findOne(whereClause)
-      // .then(res => {
-      //   // Check if record exists in db
-      //   if (res) {
-      //     // TODO: update other elements of record using `updates`
-
-      //     res[columnName] = updates.cleaned // update record string
-      //     res['containsCoords'] = updates.containsCoords // record if contains coords
-      //     res['containsAddress'] = updates.containsAddress // record if contains address
-      //     res['updated'] += 1 // record that record was updated // TODO: add back
-
-      //     res.save().then(() => {}) // save record
-
-      //     if(updates.placenames) {
-      //       _createPlacenamesLink(Model, res, updates, options) // create placenames link
-      //     }
-      //   }
-      // })
       .catch(err => console.log(`updateValue error: ${err}`))
 
-      // TODO: add place names to index
     }
   } catch (error) {
     console.log('updateValue error: ', error)

@@ -18,7 +18,7 @@ module.exports = {
           let radiusBuffer = 20 // includes area outside of radius from centroid meant to cover beyond bbox
           let score = 0.5
           let script = `cat ${i} | ${s} -t ${t} -g ${g}`
-          if (l) { script += ` -l ${l.center_lat} ${l.center_lon} ${l.radius + radiusBuffer} ${score}`}
+          if (l && l !== null) { script += ` -l ${l.center_lat} ${l.center_lon} ${l.radius + radiusBuffer} ${score}`}
           return script
         },
         type: 'plain',

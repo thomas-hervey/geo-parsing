@@ -1,4 +1,3 @@
-const _ = require('lodash')
 const S = require('string')
 const { isEmpty } = require('../utils/string_parsing')
 
@@ -6,7 +5,8 @@ const cleanValue = (field) => {
   try {
     const valueToClean = field
     if (!isEmpty(valueToClean) && valueToClean.length > 3) { // field is long enough and not empty
-      let cleanedValue = _.cloneDeep(valueToClean) // clone to avoid unintentional mutations
+      let cleanedValue = ''
+      cleanedValue = valueToClean // clone to avoid unintentional mutations
       return S(cleanedValue)
           .strip("*", "\"", "\'") // strip values
           .trim() // trim whitespace
