@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const createModel = require('./create_model')
 
-const model_name = 'openData_parsed_text'
+const model_name = 'openData_has_been_parsed'
 
 const model = {
 
@@ -9,6 +9,12 @@ const model = {
     table_name: model_name,
 
     columns: {
+      id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
+      },
       parsed_text: {
         type: Sequelize.STRING,
       },

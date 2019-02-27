@@ -42,6 +42,9 @@ const model = {
       metric_searchRefinements: { type: Sequelize.INTEGER },
       metric_searchDuration: { type: Sequelize.INTEGER },
       metric_searchExits: { type: Sequelize.INTEGER },
+      updated: {
+        type: Sequelize.INTEGER,
+      },
       containsCoords: {
         type: Sequelize.TINYINT(1),
         allowNull: true,

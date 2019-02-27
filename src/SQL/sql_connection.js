@@ -8,7 +8,7 @@ const sql_connection = async (sql_config) => {
     db_credentials.databse,
     db_credentials.user,
     db_credentials.password,
-    sql_credentials
+    sql_credentials,
   )
 
   // test connection

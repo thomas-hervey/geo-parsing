@@ -19,14 +19,14 @@ const model = {
         primaryKey: true,
         allowNull: false
       },
+      parse_order: {
+        type: Sequelize.INTEGER(11),
+        primaryKey: true,
+        allowNull: false
+      },
       original_or_refinement: {
         type: Sequelize.STRING,
         primaryKey: false,
-        allowNull: false
-      },
-      order: {
-        type: Sequelize.INTEGER(11),
-        primaryKey: true,
         allowNull: false
       },
       openData_tableName: {

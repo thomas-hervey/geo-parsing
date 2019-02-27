@@ -1,38 +1,10 @@
-const _createPlacenamesLink = async (Model, res, updates, options) => {
-  try {
-    const { PlacenameModel } = options
-    const { placenames } = updates
-
-    // for each placename, find or create, and update with res id
-    const insert = placenames[0].map(placenameId => {
-      if (!isNaN(placenameId) && placenameId != undefined && placenameId != '') {
-        const tableName = Model.getTableName()
-        return {
-          'geonames_id': placenameId,
-          'openData_id': res.index_value,
-          'openData_tableName': tableName
-        }
-      }
-    }).filter(function (el) { return el != null })
-
-
-    PlacenameModel.bulkCreate(
-      insert,
-      {
-        fields:["geonames_id", "openData_id", "openData_tableName"],
-      }
-    )
-
-  } catch (error) {
-    console.log('_createPlacenamesLink error: ', error)
-  }
-}
+const { isEmpty } = require('lodash')
 
 const updateValue = async (record, updates, options) => {
-  try {
 
-    if (updates) {
+  if (updates && !isEmpty(updates)) {
 
+    try {
       const {
         cleaned_searchKeyword,
         cleaned_searchRefinement,
@@ -43,50 +15,77 @@ const updateValue = async (record, updates, options) => {
       } = updates
 
       // update record
-      await record.update({
+      const updateRes = await record.update({
         dimension_searchKeyword: cleaned_searchKeyword,
         dimension_searchRefinement: cleaned_searchRefinement,
         containsCoords,
         containsAddress,
         containsCoords_refinement,
         containsAddress_refinement,
-        updated: record.updated += 1
+        updated: 1
       })
-      .then(res => {
-        console.log('updating record result: ', res)
+      .then(res => { /* console.log('update record res: ', res) */ })
+      .catch(err => { console.log('update record err: ', err)})
 
-        // if placenames found, save to db
-        if(updates.placenames) {
-          updates.placenames.map(async (placename, index) => {
-            const placenameEntry = await options.PlacenamesModel.build({
+      // save parsed text to index
+      const parsedTextRes = await options.HasBeenParsedModel.create({
+        parsed_text: cleaned_searchKeyword
+      })
+      .then(res => { /* console.log('save parsed text res: ', res) */ })
+      .catch(err => { console.log('save parsed text err: ', err)})
+
+      const parsedTextRefinementRes = await options.HasBeenParsedModel.create({
+        parsed_text: cleaned_searchRefinement
+      })
+      .then(res => { /* console.log('save parsed text res: ', res) */ })
+      .catch(err => { console.log('save parsed text err: ', err)})
+
+    } catch (error) { console.log('updateValue or parsed text error: ', error) }
+
+    try {
+      // if placenames found, save to db
+      if(updates.placenames) {
+        updates.placenames.map(async (placename, index) => {
+
+          if (!isNaN(placename) && placename != undefined && placename != '') {
+            const placenameEntry = await options.PlacenameModel.create({
               geonames_id: placename,
               openData_id: record.dataValues.index_value,
               parse_order: index + 1,
               original_or_refinement: 'original', // NOTE: hard coded
               openData_tableName: 'search_refinements'// NOTE: hard coded
             })
-          })
-        }
+            .then(res => { console.log('update placenames res: ', res)})
+            .catch(err => { console.log('update placenames err: ', err)})
 
-        // if refinement placenames found, save to db
-        if(updates.placenames_refinement) {
-          updates.placenames_refinement.map(async (placename, index) => {
-            const placenameRefinementEntry = await options.PlacenamesModel.build({
+            // console.log('saving placenames result: ', placenameEntry)
+          }
+        })
+      }
+    } catch (error) { console.log('add placenames to index error:  ', error) }
+
+    try {
+      // if refinement placenames found, save to db
+      if(updates.placenames_refinement) {
+        updates.placenames_refinement.map(async (placename, index) => {
+
+          if (!isNaN(placename) && placename != undefined && placename != '') {
+            const placenameRefinementEntry = await options.PlacenameModel.create({
               geonames_id: placename,
               openData_id: record.dataValues.index_value,
               parse_order: index + 1,
               original_or_refinement: 'refinement', // NOTE: hard coded
               openData_tableName: 'search_refinements'// NOTE: hard coded
             })
-          })
-        }
+            .then(res => { console.log('update placenames refinement res: ', res)})
+            .catch(err => { console.log('update placenames refinement record err: ', err)})
 
-      })
-      .catch(err => console.log(`updateValue error: ${err}`))
+            // console.log('saving placenames refinement result: ', placenameRefinementEntry)
+          }
+        })
+      }
+    } catch (error) { console.log('add placename refinements to index error: ', error) }
 
-    }
-  } catch (error) {
-    console.log('updateValue error: ', error)
   }
 }
 

@@ -6,7 +6,7 @@ let { options } =require('../config.js')
 const refinementsModel = require('../models/searchRefinements')
 const compositeModel = require('../models/openData_composite')
 const placenameModel = require('../models/openData_placenames')
-const parsedTextModel = require('../models/openData_parsed_text')
+const hasBeenParsedModel = require('../models/openData_has_been_parsed')
 
 const { cleanValue, iterateDocs, containsCoords, containsAddress, containsPlacenames, updateValue, calculateCentroid } = require('../utils')
 
@@ -20,13 +20,15 @@ const _alreadyParsed = async (value, options) => {
   let alreadyParsed = false
 
   // check if searchKeyword has been parsed already
-  await options.ParsedTextModel.findOne({
+  await options.HasBeenParsedModel.findOne({
     where: {
       parsed_text: value
     }
   })
   .then(res => {
-    if (res && res.dataValues) { alreadyParsed = true }
+    if (res && res.dataValues) {
+      alreadyParsed = true
+    }
   })
   .catch(error => console.log('find parsed text error: ', error))
 
@@ -88,8 +90,10 @@ const _geoProcess = async (Model, record, options) => { // NOTE: **the record is
       updates.placenames_refinement = await containsPlacenames(record, updates.cleaned_searchRefinement, options)
     }
 
-    // // save record with updates
-    // updateValue(record, updates, options) // TODO: update values (the middle corresponding table)
+    // save record with updates
+    updateValue(record, updates, options) // TODO: update values (the middle corresponding table)
+
+    console.log('hi there')
 
   } catch (err) { console.log(`geoProcess Error: ${err}`) }
 
@@ -138,9 +142,9 @@ const runPipeline = async (callback, options) => {
     PlacenameModel.sync()
 
     // `openData_parsed_text`
-    const ParsedTextModel = await parsedTextModel.sql.createModel(sequelize, parsedTextModel.sql.columns, parsedTextModel.sql.table_name)
-    options.ParsedTextModel = ParsedTextModel
-    ParsedTextModel.sync()
+    const HasBeenParsedModel = await hasBeenParsedModel.sql.createModel(sequelize, hasBeenParsedModel.sql.columns, hasBeenParsedModel.sql.table_name)
+    options.HasBeenParsedModel = HasBeenParsedModel
+    HasBeenParsedModel.sync()
 
     // ************************ //
     // setup model associations //

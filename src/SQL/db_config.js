@@ -15,7 +15,11 @@ const sql_credentials = {
     acquire: 30000,
     idle: 10000
   },
-  logging: false
+  logging: false,
+  define: {
+    //prevent sequelize from pluralizing table names
+    freezeTableName: true
+  }
 }
 
 module.exports = {
