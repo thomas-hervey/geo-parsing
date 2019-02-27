@@ -9,15 +9,7 @@ const model = {
     table_name: model_name,
 
     columns: {
-      geonames_id: {
-        type: Sequelize.INTEGER(11),
-        primaryKey: true,
-        allowNull: false
-      },
-      dimension_searchKeyword: {
-        type: Sequelize.STRING,
-      },
-      dimension_searchRefinement: {
+      parsed_text: {
         type: Sequelize.STRING,
       },
     },

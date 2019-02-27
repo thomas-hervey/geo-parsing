@@ -4,15 +4,13 @@ let { options } =require('../config.js')
 
 // const { sql } = require('../models/totalSearchUniques') // TODO: if there are issues with using refinements, go back to totalSearchUniques
 const refinementsModel = require('../models/searchRefinements')
-const domainsModel = require('../models/openData_domains')
-const sitesModel = require('../models/openData_sites')
-const orgsModel = require('../models/openData_orgs')
+const compositeModel = require('../models/openData_composite')
 const placenameModel = require('../models/openData_placenames')
 const parsedTextModel = require('../models/openData_parsed_text')
 
 const { cleanValue, iterateDocs, containsCoords, containsAddress, containsPlacenames, updateValue, calculateCentroid } = require('../utils')
 
-const RADIUS_BUFFER = 200 // additional buffer to radius search area
+const RADIUS_BUFFER = 20 // additional buffer to radius search area
 
 // options.database.where[options.database.columnName] = '*concrete' // TODO: remove example
 // options.database.where[options.database.columnName] = '- 815 Connecticut Avenue, Washington, DC 20006' // TODO: remove example
@@ -20,8 +18,17 @@ options.database.where[options.database.columnName] = '(d) 16515 Mojave Dr., Vic
 // options.database.where[options.database.columnName] = '-84.075,42.03,-83.911,42.068' // TODO: remove example
 
 
-const _alreadyParsed = (keyword, refinement) => {
-  parsedTextModel
+const _alreadyParsed = (value, options) => {
+  let alreadyParsed = false
+
+  // check if searchKeyword has been parsed already
+  options.parsedTextModel.find({
+    parsed_text: value
+  })
+  .then(res => { if (res.dataValues) alreadyParsed = true })
+  .catch(error => console.log('find parsed text error: ', error))
+
+  return alreadyParsed
 }
 
 // NOTE: **the record is a model, therefore we don't need to use 'MODEL'
@@ -31,14 +38,16 @@ const _geoProcess = async (Model, record, options) => {
 
   try {
 
+
+    // ******************** //
+    // parse search keyword //
+    // ******************** //
+
     // get searchKeyword value
     const searchKeyword_value = record[options.database.columnName]
 
-    // get searchRefinement value
-    const searchRefinement_value = record[options.database.refinementColumnName]
-
     // if keyword or refinement text have already been parsed, skip
-    if(!_alreadyParsed(searchKeyword_value, searchRefinement_value)) {
+    if(!_alreadyParsed(searchKeyword_value, options)) {
 
 
       // clean value
@@ -51,12 +60,18 @@ const _geoProcess = async (Model, record, options) => {
       updates.containsAddress = containsAddress(updates.cleaned_searchKeyword)
 
       // check if elements contains place names
-      updates.placenames = await containsPlacenames(cleaned_searchKeyword, options, record)
+      updates.placenames = await containsPlacenames(updates.cleaned_searchKeyword, options)
+    }
 
-      // *************************** //
-      // repeat steps for refinement //
-      // *************************** //
 
+    // *************************** //
+    // repeat steps for refinement //
+    // *************************** //
+
+    // get searchRefinement value
+    const searchRefinement_value = record[options.database.refinementColumnName]
+
+    if(!_alreadyParsed(searchRefinement_value, options)) {
       // clean value
       updates.cleaned_refinement = cleanValue(searchRefinement_value)
 
@@ -68,13 +83,10 @@ const _geoProcess = async (Model, record, options) => {
 
       // check if elements contains place names
       updates.placenames_refinement = await containsPlacenames(cleaned_refinement, options, record)
-
-
-      // NOTE: if localizing, get hostname for total_search_uniques, or just do it for refinement
-
-      // updateValue(Model, searchKeyword_value, updates, options) // TODO: update values (the middle corresponding table)
-
     }
+
+     // // save record with updates
+      // updateValue(Model, record, updates, options) // TODO: update values (the middle corresponding table)
 
   } catch (err) { console.log(`geoProcess Error: ${err}`) }
 
@@ -92,8 +104,15 @@ const runPipeline = async (callback, options) => {
     // ************* //
 
     // `search_refinements`
-    // const RefinementsModel = await refinementsModel.sql.createModel(sequelize, refinementsModel.sql.columns, refinementsModel.sql.table_name)
-    // RefinementsModel.sync()
+    const RefinementModel = await refinementsModel.sql.createModel(sequelize, refinementsModel.sql.columns, refinementsModel.sql.table_name)
+    options.RefinementModel = RefinementModel
+    options.modelToIterate = RefinementModel
+    RefinementModel.sync()
+
+    // `OpenData_composite`
+    const CompositeModel = await compositeModel.sql.createModel(sequelize, compositeModel.sql.columns, compositeModel.sql.table_name)
+    options.CompositeModel = CompositeModel
+    CompositeModel.sync()
 
     // // `openData_domains`
     // const DomainsModel = await domainsModel.sql.createModel(sequelize, domainsModel.sql.columns, domainsModel.sql.table_name)
@@ -105,20 +124,20 @@ const runPipeline = async (callback, options) => {
     // // options.sitesModel = SitesModel
     // SitesModel.sync()
 
-    // `openData_orgs`
-    const OrgsModel = await orgsModel.sql.createModel(sequelize, orgsModel.sql.columns, orgsModel.sql.table_name)
-    // options.orgsModel = OrgsModel
-    OrgsModel.sync()
+    // // `openData_orgs`
+    // const OrgsModel = await orgsModel.sql.createModel(sequelize, orgsModel.sql.columns, orgsModel.sql.table_name)
+    // // options.orgsModel = OrgsModel
+    // OrgsModel.sync()
 
     // // `openData_placenames`
     // const PlacenameModel = await placenameModel.sql.createModel(sequelize, placenameModel.sql.columns, placenameModel.sql.table_name)
     // options.placenameModel = PlacenameModel
     // PlacenameModel.sync()
 
-    // // `openData_parsed_text`
-    // const ParsedTextModel = await parsedTextModel.sql.createModel(sequelize, parsedTextModel.sql.columns, parsedTextModel.sql.table_name)
-    // options.parsedTextModel = ParsedTextModel
-    // ParsedTextModel.sync()
+    // `openData_parsed_text`
+    const ParsedTextModel = await parsedTextModel.sql.createModel(sequelize, parsedTextModel.sql.columns, parsedTextModel.sql.table_name)
+    options.parsedTextModel = ParsedTextModel
+    ParsedTextModel.sync()
 
     // ************************ //
     // setup model associations //
@@ -146,7 +165,7 @@ const runPipeline = async (callback, options) => {
 
 
     // iterate model docs & apply callback
-    await iterateDocs(OrgsModel, callback, options) // TODO: uncomment when ready
+    await iterateDocs(options.modelToIterate, callback, options)
 
 
   } catch (error) {
@@ -155,4 +174,4 @@ const runPipeline = async (callback, options) => {
 }
 
 // runPipeline(_geoProcess, options)
-runPipeline(_calculateSiteCentroids, {})
+runPipeline(_geoProcess, options)

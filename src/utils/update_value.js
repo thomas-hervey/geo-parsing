@@ -28,36 +28,40 @@ const _createPlacenamesLink = async (Model, res, updates, options) => {
   }
 }
 
-const updateValue = async (Model, original_record_value, updates, options) => {
+const updateValue = async (Model, record, updates, options) => {
   try {
     const { columnName } = options.database
 
     if (updates) {
 
-      // create where clause
-      let whereClause = { where: {} }
-      whereClause.where[columnName] = original_record_value
-
       // update record
-      await Model.findOne(whereClause)
-      .then(res => {
-        // Check if record exists in db
-        if (res) {
-          // TODO: update other elements of record using `updates`
+      await record.update({
 
-          res[columnName] = updates.cleaned // update record string
-          res['containsCoords'] = updates.containsCoords // record if contains coords
-          res['containsAddress'] = updates.containsAddress // record if contains address
-          res['updated'] += 1 // record that record was updated // TODO: add back
-
-          res.save().then(() => {}) // save record
-
-          if(updates.placenames) {
-            _createPlacenamesLink(Model, res, updates, options) // create placenames link
-          }
-        }
       })
+      .then(res => {
+        console.log(res)
+      })
+      // await Model.findOne(whereClause)
+      // .then(res => {
+      //   // Check if record exists in db
+      //   if (res) {
+      //     // TODO: update other elements of record using `updates`
+
+      //     res[columnName] = updates.cleaned // update record string
+      //     res['containsCoords'] = updates.containsCoords // record if contains coords
+      //     res['containsAddress'] = updates.containsAddress // record if contains address
+      //     res['updated'] += 1 // record that record was updated // TODO: add back
+
+      //     res.save().then(() => {}) // save record
+
+      //     if(updates.placenames) {
+      //       _createPlacenamesLink(Model, res, updates, options) // create placenames link
+      //     }
+      //   }
+      // })
       .catch(err => console.log(`updateValue error: ${err}`))
+
+      // TODO: add place names to index
     }
   } catch (error) {
     console.log('updateValue error: ', error)

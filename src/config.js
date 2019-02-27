@@ -15,12 +15,17 @@ module.exports = {
         EGP_path: '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/geoparsing/edinburgh-geoparser-docker/geoparser',
         EGP_run_script_path: '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/geoparsing/edinburgh-geoparser-docker/geoparser/scripts/run',
         EGP_execute_script: (i, s, t, g, l) => {
+          let radiusBuffer = 20 // includes area outside of radius from centroid meant to cover beyond bbox
+          let score = 0.5
           let script = `cat ${i} | ${s} -t ${t} -g ${g}`
-          if (l) { script += ` -l ${l}`}
+          if (l) { script += ` -l ${l.center_lat} ${l.center_lon} ${l.radius + radiusBuffer} ${score}`}
           return script
         },
         type: 'plain',
         gaz: 'geonames-local'
+      },
+      mordecai: {
+        mordecai_path: '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/utils/mordecai_exec.py'
       }
     }
   }
