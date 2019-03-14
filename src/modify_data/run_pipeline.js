@@ -12,7 +12,7 @@ const { cleanValue, iterateDocs, containsCoords, containsAddress, containsPlacen
 
 // options.database.where[options.database.columnName] = '*concrete' // TODO: remove example
 // options.database.where[options.database.columnName] = '- 815 Connecticut Avenue, Washington, DC 20006' // TODO: remove example
-options.database.where[options.database.columnName] = '(d) 16515 Mojave Dr., Victorville, CA 92395'
+// options.database.where[options.database.columnName] = '(d) 16515 Mojave Dr., Victorville, CA 92395'
 // options.database.where[options.database.columnName] = '-84.075,42.03,-83.911,42.068' // TODO: remove example
 
 
@@ -20,7 +20,7 @@ const _alreadyParsed = async (value, options) => {
   let alreadyParsed = false
 
   // check if searchKeyword has been parsed already
-  await options.HasBeenParsedModel.findOne({
+  await options.HasBeenParsedModel.findAll({
     where: {
       parsed_text: value
     }
@@ -54,16 +54,18 @@ const _geoProcess = async (Model, record, options) => { // NOTE: **the record is
     if(!alreadyParsed) {
 
       // clean value
-      updates.cleaned_searchKeyword = cleanValue(searchKeyword_value)
+      updates.dimension_searchKeyword = cleanValue(searchKeyword_value)
 
       // check if element contains coords
-      updates.containsCoords = containsCoords(updates.cleaned_searchKeyword)
+      updates.containsCoords = containsCoords(updates.dimension_searchKeyword)
 
       // check if element contains address
-      updates.containsAddress = await containsAddress(updates.cleaned_searchKeyword)
+      updates.containsAddress = await containsAddress(updates.dimension_searchKeyword)
 
-      // check if elements contains place names
-      updates.placenames = await containsPlacenames(record, updates.cleaned_searchKeyword, options)
+      // if coords & addresses aren't present check if elements contains place names
+      if (!(updates.containsCoords) && updates.containsAddress === 'no_address') {
+        updates.placenames = await containsPlacenames(record, updates.dimension_searchKeyword, options)
+      }
     }
 
 
@@ -78,16 +80,18 @@ const _geoProcess = async (Model, record, options) => { // NOTE: **the record is
     // if refinement has already been parsed, skip
     if(!alreadyParsed) {
       // clean value
-      updates.cleaned_searchRefinement = cleanValue(searchRefinement_value)
+      updates.dimension_searchRefinement = cleanValue(searchRefinement_value)
 
       // check if element contains coords
-      updates.containsCoords_refinement = containsCoords(updates.cleaned_searchRefinement)
+      updates.containsCoords_refinement = containsCoords(updates.dimension_searchRefinement)
 
       // check if element contains address
-      updates.containsAddress_refinement = await containsAddress(updates.cleaned_searchRefinement)
+      updates.containsAddress_refinement = await containsAddress(updates.dimension_searchRefinement)
 
-      // check if elements contains place names
-      updates.placenames_refinement = await containsPlacenames(record, updates.cleaned_searchRefinement, options)
+      // if coords & addresses aren't present check if elements contains place names
+      if (!(updates.containsCoords_refinement) && updates.containsAddress_refinement === 'no_address') {
+        updates.placenames_refinement = await containsPlacenames(record, updates.dimension_searchRefinement, options)
+      }
     }
 
     // save record with updates
@@ -121,7 +125,31 @@ const runPipeline = async (callback, options) => {
     options.CompositeModel = CompositeModel
     CompositeModel.sync()
 
-    // // `openData_domains`
+    // `openData_placenames`
+    const PlacenameModel = await placenameModel.sql.createModel(sequelize, placenameModel.sql.columns, placenameModel.sql.table_name)
+    options.PlacenameModel = PlacenameModel
+    PlacenameModel.sync()
+
+    // `openData_parsed_text`
+    const HasBeenParsedModel = await hasBeenParsedModel.sql.createModel(sequelize, hasBeenParsedModel.sql.columns, hasBeenParsedModel.sql.table_name)
+    options.HasBeenParsedModel = HasBeenParsedModel
+    HasBeenParsedModel.sync()
+
+    // iterate model docs & apply callback
+    await iterateDocs(options.modelToIterate, callback, options)
+
+
+  } catch (error) {
+    console.log(`runPipeline error: ${error}`)
+  }
+}
+
+runPipeline(_geoProcess, options)
+
+
+
+
+// // `openData_domains`
     // const DomainsModel = await domainsModel.sql.createModel(sequelize, domainsModel.sql.columns, domainsModel.sql.table_name)
     // options.domainsModel = DomainsModel
     // DomainsModel.sync()
@@ -135,16 +163,6 @@ const runPipeline = async (callback, options) => {
     // const OrgsModel = await orgsModel.sql.createModel(sequelize, orgsModel.sql.columns, orgsModel.sql.table_name)
     // // options.orgsModel = OrgsModel
     // OrgsModel.sync()
-
-    // `openData_placenames`
-    const PlacenameModel = await placenameModel.sql.createModel(sequelize, placenameModel.sql.columns, placenameModel.sql.table_name)
-    options.PlacenameModel = PlacenameModel
-    PlacenameModel.sync()
-
-    // `openData_parsed_text`
-    const HasBeenParsedModel = await hasBeenParsedModel.sql.createModel(sequelize, hasBeenParsedModel.sql.columns, hasBeenParsedModel.sql.table_name)
-    options.HasBeenParsedModel = HasBeenParsedModel
-    HasBeenParsedModel.sync()
 
     // ************************ //
     // setup model associations //
@@ -169,16 +187,3 @@ const runPipeline = async (callback, options) => {
     //   // }]
     // })
     // .then(res => console.log('results: ', res.dataValues))
-
-
-    // iterate model docs & apply callback
-    await iterateDocs(options.modelToIterate, callback, options)
-
-
-  } catch (error) {
-    console.log(`runPipeline error: ${error}`)
-  }
-}
-
-// runPipeline(_geoProcess, options)
-runPipeline(_geoProcess, options)

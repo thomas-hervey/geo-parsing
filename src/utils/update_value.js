@@ -5,37 +5,23 @@ const updateValue = async (record, updates, options) => {
   if (updates && !isEmpty(updates)) {
 
     try {
-      const {
-        cleaned_searchKeyword,
-        cleaned_searchRefinement,
-        containsCoords,
-        containsAddress,
-        containsCoords_refinement,
-        containsAddress_refinement
-      } = updates
+
+      updates.updated = 1
 
       // update record
-      const updateRes = await record.update({
-        dimension_searchKeyword: cleaned_searchKeyword,
-        dimension_searchRefinement: cleaned_searchRefinement,
-        containsCoords,
-        containsAddress,
-        containsCoords_refinement,
-        containsAddress_refinement,
-        updated: 1
-      })
+      const updateRes = await record.update(updates)
       .then(res => { /* console.log('update record res: ', res) */ })
       .catch(err => { console.log('update record err: ', err)})
 
       // save parsed text to index
       const parsedTextRes = await options.HasBeenParsedModel.create({
-        parsed_text: cleaned_searchKeyword
+        parsed_text: updates.dimension_searchKeyword
       })
       .then(res => { /* console.log('save parsed text res: ', res) */ })
       .catch(err => { console.log('save parsed text err: ', err)})
 
       const parsedTextRefinementRes = await options.HasBeenParsedModel.create({
-        parsed_text: cleaned_searchRefinement
+        parsed_text: updates.dimension_searchRefinement
       })
       .then(res => { /* console.log('save parsed text res: ', res) */ })
       .catch(err => { console.log('save parsed text err: ', err)})

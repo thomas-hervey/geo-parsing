@@ -1,5 +1,7 @@
 const fs = require('fs').promises
 var exec = require('child-process-promise').exec
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 const sanitize = require('sanitize-filename')
 const { parseString } = require('xml2js')
 
@@ -16,7 +18,7 @@ const _getCenter = (res) => {
     center = {
       center_lon: res[i].dataValues.site_center_lon,
       center_lat: res[i].dataValues.site_center_lat,
-      center_radius: res[i].dataValues.site_center_radius
+      center_radius: res[i].dataValues.site_radius
     }
     centerFound = true
 
@@ -26,12 +28,51 @@ const _getCenter = (res) => {
       center = {
         center_lon: res[i].dataValues.org_center_lon,
         center_lat: res[i].dataValues.org_center_lat,
-        center_radius: res[i].dataValues.org_center_radius
+        center_radius: res[i].dataValues.org_radius
       }
       centerFound = true
     }
   }
   return center
+}
+
+const _cleanHostname = (hostname) => {
+  let cleaned = hostname.split(/[\_\-.]/)[0]
+  if (cleaned == hostname || cleaned === undefined) {
+    // if there are no common punctuation, return the first 5 characters
+    return hostname.substring(0,6)
+  }
+  return cleaned
+}
+
+const _getLocality = async (hostname, options) => {
+
+  // clean dimension_hostname
+  const cleaned_hostname = _cleanHostname(hostname)
+
+  // check if there are associated domains or siteUrls
+  const res = await options.CompositeModel.findAll({
+    where: {
+      [Op.or]: {
+        domain_hostname: {
+          [Op.like]: `%${cleaned_hostname}%`
+        },
+        site_siteUrl: {
+          [Op.like]: `%${cleaned_hostname}%`
+        }
+      }
+    }
+  })
+
+  // if there's associated domains, get a center (retrieving the first success)
+  if (res) {
+    locality = _getCenter(res)
+    return locality
+  }
+
+  // if there is no center founf, return null
+  return null
+
 }
 
 const _parseEGP = async (record, value, options) => {
@@ -53,16 +94,9 @@ const _parseEGP = async (record, value, options) => {
   // run parser on file
   // ****************** //
 
-  // add associated locality, if it exists
+  // get the locality of the query if there is one
   if (record.dataValues.dimension_hostname) {
-    // check if there are associated domains
-    const res = await options.CompositeModel.findAll({
-      where: {
-        domain_hostname: record.dataValues.dimension_hostname
-      }
-    })
-    // if there's associated domains, get a center (retrieving the first success)
-    if (res) { locality = _getCenter(res) }
+    locality = _getLocality(record.dataValues.dimension_hostname, options)
   }
 
   const script = EGP_execute_script(parsing_data_path, EGP_run_script_path, type, gaz, locality)
@@ -113,6 +147,7 @@ const _parseMordecai = async () => {
 }
 
 const containsPlacenames = async(record, value, options) => {
+  // geoparse using the Edinburgh geoparser
   const references = await _parseEGP(record, value, options)
   return references
 }

@@ -1,3 +1,5 @@
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 
 module.exports = {
   GA_key:
@@ -7,7 +9,14 @@ module.exports = {
     database: {
       columnName: 'dimension_searchKeyword',
       refinementColumnName: 'dimension_searchRefinement',
-      where: {},
+      where: {
+        index_value: {
+          [Op.and]: {
+            [Op.gte]: 1739,
+            [Op.lt]: 1740
+          }
+        }
+      },
     },
     geoparsing: {
       parsing_data_path: '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/geoparsing/parsing_data/temp.txt',
@@ -18,7 +27,7 @@ module.exports = {
           let radiusBuffer = 20 // includes area outside of radius from centroid meant to cover beyond bbox
           let score = 0.5
           let script = `cat ${i} | ${s} -t ${t} -g ${g}`
-          if (l && l !== null) { script += ` -l ${l.center_lat} ${l.center_lon} ${l.radius + radiusBuffer} ${score}`}
+          if (l && l !== null && l !== undefined) { script += ` -l ${l.center_lat} ${l.center_lon} ${l.radius + radiusBuffer} ${score}`}
           return script
         },
         type: 'plain',
