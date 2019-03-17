@@ -12,8 +12,8 @@ module.exports = {
       where: {
         index_value: {
           [Op.and]: {
-            [Op.gte]: 1739,
-            [Op.lt]: 1740
+            [Op.gte]: 1689, // 1739,
+            [Op.lt]: 1692
           }
         }
       },

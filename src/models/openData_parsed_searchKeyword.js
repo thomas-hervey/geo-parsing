@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const createModel = require('./create_model')
 
-const model_name = 'openData_has_been_parsed'
+const model_name = 'openData_parsed_searchKeyword'
 
 const model = {
 
@@ -22,14 +22,6 @@ const model = {
         allowNull: true,
       },
       containsAddress: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      containsCoords_refinement: {
-        type: Sequelize.TINYINT(1),
-        allowNull: true,
-      },
-      containsAddress_refinement: {
         type: Sequelize.STRING,
         allowNull: true,
       },

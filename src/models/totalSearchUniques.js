@@ -26,18 +26,18 @@ const model = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      updated: {
+      viewed: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      containsCoords: {
-        type: Sequelize.TINYINT,
-        allowNull: false,
-      },
-      containsAddress: {
-        type: Sequelize.TINYINT,
-        allowNull: false,
-      }
+      // containsCoords: {
+      //   type: Sequelize.TINYINT,
+      //   allowNull: false,
+      // },
+      // containsAddress: {
+      //   type: Sequelize.TINYINT,
+      //   allowNull: false,
+      // }
     },
 
     // create sequel model

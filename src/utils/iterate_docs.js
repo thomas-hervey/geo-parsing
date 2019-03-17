@@ -24,7 +24,7 @@ const iterateDocs = async (Model, callback, options = { where: {} }) => {
 
     // iterate records
     for (const element of res) {
-      if (element.dataValues.updated <= 1) { // if the element hasn't been updated...
+      if (element.dataValues.viewed <= 1) { // if the element hasn't been updated...
         const update = await callback(Model, element, options)
         skipUpdate = 'update'
       } else { skipUpdate = 'skip' }

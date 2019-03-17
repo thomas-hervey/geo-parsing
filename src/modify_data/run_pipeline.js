@@ -6,7 +6,9 @@ let { options } =require('../config.js')
 const refinementsModel = require('../models/searchRefinements')
 const compositeModel = require('../models/openData_composite')
 const placenameModel = require('../models/openData_placenames')
-const hasBeenParsedModel = require('../models/openData_has_been_parsed')
+// const hasBeenParsedModel = require('../models/openData_parsed_searchKeyword')
+const parsedSearchKeywordModel = require('../models/openData_parsed_searchKeyword')
+const parsedSearchRefinementModel = require('../models/openData_parsed_searchRefinement')
 
 const { cleanValue, iterateDocs, containsCoords, containsAddress, containsPlacenames, updateValue, calculateCentroid } = require('../utils')
 
@@ -20,14 +22,25 @@ const _alreadyParsed = async (value, options) => {
   let alreadyParsed = false
 
   // check if searchKeyword has been parsed already
-  await options.HasBeenParsedModel.findAll({
+  const hasBeenParsed = await options.HasBeenParsedModel.find({
     where: {
       parsed_text: value
     }
   })
   .then(res => {
-    if (res && res.dataValues) {
-      alreadyParsed = true
+    // if it has...
+    if (res && res.dataValues && res.dataValues.id) {
+
+      // get id to later query any placenames already saved
+      alreadyParsed = res.dataValues.id
+
+      // and update the counter
+      let currCounter = res.dataValues.counter
+      await res.update({
+        counter: currCounter + 1
+      })
+      .then(res => {})
+      .catch(error => console.log('update parsed text counter error: ', error))
     }
   })
   .catch(error => console.log('find parsed text error: ', error))
@@ -35,12 +48,37 @@ const _alreadyParsed = async (value, options) => {
   return alreadyParsed
 }
 
+const _checkForPlacenames = async (id, options) => {
+  let placenamesFound = false
+
+  //if placenames exist, return them to be updated
+  const existingPlacenames = await options.PlacenameModel.findAll({
+    where: {
+      openData_id: id
+    }
+  })
+  .then(res => {
+    if (res && res.length >=1 && res[0].dataValues) {
+
+      placenamesFound = res
+    }
+  })
+  .catch(error => console.log('find placename error: ', error))
+
+  return placenamesFound
+}
+
+const _copyPlacenames = async (id, placenames) => {
+
+}
+
 
 const _geoProcess = async (Model, record, options) => { // NOTE: **the record is a model, therefore we don't need to use 'MODEL'
 
-  const updates = {}
-
   try {
+
+    const parsed_searchKeyword = {}
+    const placenames = {}
 
     // ******************** //
     // parse search keyword //
@@ -48,23 +86,50 @@ const _geoProcess = async (Model, record, options) => { // NOTE: **the record is
 
     // get searchKeyword value
     const searchKeyword_value = record[options.database.columnName]
-    let alreadyParsed = await _alreadyParsed(searchKeyword_value, options)
+
+    // clean value
+    const cleanedKeyword = cleanValue(searchKeyword_value)
+
+    // check if keyword has already been parsed
+    let alreadyParsedID = await _alreadyParsed(cleanedKeyword, options)
 
     // if keyword has already been parsed, skip
-    if(!alreadyParsed) {
+    if(!alreadyParsedID) {
 
-      // clean value
-      updates.dimension_searchKeyword = cleanValue(searchKeyword_value)
+      parsed_searchKeyword.dimension_searchKeyword = cleanedKeyword
 
       // check if element contains coords
-      updates.containsCoords = containsCoords(updates.dimension_searchKeyword)
+      parsed_searchKeyword.containsCoords = containsCoords(parsed_searchKeyword.dimension_searchKeyword)
 
       // check if element contains address
-      updates.containsAddress = await containsAddress(updates.dimension_searchKeyword)
+      parsed_searchKeyword.containsAddress = await containsAddress(parsed_searchKeyword.dimension_searchKeyword)
 
       // if coords & addresses aren't present check if elements contains place names
-      if (!(updates.containsCoords) && updates.containsAddress === 'no_address') {
-        updates.placenames = await containsPlacenames(record, updates.dimension_searchKeyword, options)
+      if (!(parsed_searchKeyword.containsCoords) && parsed_searchKeyword.containsAddress === 'no_address') {
+        placenames.placenames = await containsPlacenames(record, parsed_searchKeyword.dimension_searchKeyword, options)
+      }
+    }
+
+// TODO: the following
+// TODO: then, update update_value. Make sure new values are created instead of updating (parsed, and placenames)
+// yes:
+// skip write to T2, get 'first_found_id' from T2, findAll from T3 using it,
+// check if same domain. yes?: duplicate with new id
+// no?: rerun EGP
+
+    else {
+      // if the text has been parsed, check if placenames were saved
+      const existingPlacenames = await _checkForPlacenames(alreadyParsedID, options)
+      // check if placenames exist
+      if (existingPlacenames) {
+        // if domains are the same
+        if (record.domain === existingPlacenames[0].dataValues.domain) {
+          // duplicate with new id
+          _copyPlacenames(record.id, existingPlacenames)
+        } else {
+          // otherwise, rerun parser
+          // TODO: rerun parser & then somehow save results (either here or in updateValue)
+        }
       }
     }
 
@@ -75,29 +140,45 @@ const _geoProcess = async (Model, record, options) => { // NOTE: **the record is
 
     // get searchRefinement value
     const searchRefinement_value = record[options.database.refinementColumnName]
-    alreadyParsed = await _alreadyParsed(searchRefinement_value, options)
+
+    // clean value
+    const cleanedRefinement = cleanValue(searchRefinement_value)
+
+   // check if keyword refinement has already been parsed
+    alreadyParsed = await _alreadyParsed(cleanedRefinement, options)
 
     // if refinement has already been parsed, skip
     if(!alreadyParsed) {
-      // clean value
-      updates.dimension_searchRefinement = cleanValue(searchRefinement_value)
+
+      parsed_searchRefinement.dimension_searchRefinement = cleanedRefinement
 
       // check if element contains coords
-      updates.containsCoords_refinement = containsCoords(updates.dimension_searchRefinement)
+      parsed_searchRefinement.containsCoords_refinement = containsCoords(parsed_searchRefinement.dimension_searchRefinement)
 
       // check if element contains address
-      updates.containsAddress_refinement = await containsAddress(updates.dimension_searchRefinement)
+      parsed_searchRefinement.containsAddress_refinement = await containsAddress(parsed_searchRefinement.dimension_searchRefinement)
+
+      parsed_searchRefinement.counter = 1
 
       // if coords & addresses aren't present check if elements contains place names
-      if (!(updates.containsCoords_refinement) && updates.containsAddress_refinement === 'no_address') {
-        updates.placenames_refinement = await containsPlacenames(record, updates.dimension_searchRefinement, options)
+      if (!(parsed_searchRefinement.containsCoords_refinement) && parsed_searchRefinement.containsAddress_refinement === 'no_address') {
+        placenames.placenames_refinement = await containsPlacenames(record, parsed_searchRefinement.dimension_searchRefinement, options)
       }
     }
 
-    // save record with updates
-    updateValue(record, updates, options) // TODO: update values (the middle corresponding table)
+    // if both keyword and refinement haven't been parsed, update
+    if (!alreadyParsedID && !alreadyParsedID_refinement) {
+      const updates = {
+        parsed_searchKeyword,
+        parsed_searchRefinement,
+        placenames
+      }
 
-    console.log('hi there')
+      options.updates = updates
+
+      // save record with updates
+      await updateValue(record, options) // TODO: update values (the middle corresponding table)
+    }
 
   } catch (err) { console.log(`geoProcess Error: ${err}`) }
 
@@ -130,10 +211,18 @@ const runPipeline = async (callback, options) => {
     options.PlacenameModel = PlacenameModel
     PlacenameModel.sync()
 
-    // `openData_parsed_text`
-    const HasBeenParsedModel = await hasBeenParsedModel.sql.createModel(sequelize, hasBeenParsedModel.sql.columns, hasBeenParsedModel.sql.table_name)
-    options.HasBeenParsedModel = HasBeenParsedModel
-    HasBeenParsedModel.sync()
+    // // `openData_parsed_text`
+    // const HasBeenParsedModel = await hasBeenParsedModel.sql.createModel(sequelize, hasBeenParsedModel.sql.columns, hasBeenParsedModel.sql.table_name)
+    // options.HasBeenParsedModel = HasBeenParsedModel
+    // HasBeenParsedModel.sync()
+
+    const ParsedSearchKeywordModel = await parsedSearchKeywordModel.sql.createModel(sequelize, parsedSearchKeywordModel.sql.columns, parsedSearchKeywordModel.sql.table_name)
+    options.ParsedSearchKeywordModel = ParsedSearchKeywordModel
+    ParsedSearchKeywordModel.sync()
+
+    const ParsedSearchRefinementModel = await parsedSearchRefinementModel.sql.createModel(sequelize, parsedSearchRefinementModel.sql.columns, parsedSearchRefinementModel.sql.table_name)
+    options.ParsedSearchRefinementModel = ParsedSearchRefinementModel
+    ParsedSearchRefinementModel.sync()
 
     // iterate model docs & apply callback
     await iterateDocs(options.modelToIterate, callback, options)

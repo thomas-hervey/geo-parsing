@@ -65,20 +65,16 @@ const _getLocality = async (hostname, options) => {
   })
 
   // if there's associated domains, get a center (retrieving the first success)
-  if (res) {
-    locality = _getCenter(res)
-    return locality
-  }
+  if (res) { options.locality = _getCenter(res) }
 
-  // if there is no center founf, return null
-  return null
+  return options
 
 }
 
 const _parseEGP = async (record, value, options) => {
 
   let references = []
-  let locality = null
+  if (!options.locality) { options.locality = null }
 
   const { parsing_data_path } = options.geoparsing
   const { EGP_execute_script, EGP_run_script_path, type, gaz } = options.geoparsing.EGP
@@ -95,16 +91,18 @@ const _parseEGP = async (record, value, options) => {
   // ****************** //
 
   // get the locality of the query if there is one
-  if (record.dataValues.dimension_hostname) {
-    locality = _getLocality(record.dataValues.dimension_hostname, options)
+  if (record.dataValues.dimension_hostname && !options.locality) {
+    options = await _getLocality(record.dataValues.dimension_hostname, options)
   }
 
-  const script = EGP_execute_script(parsing_data_path, EGP_run_script_path, type, gaz, locality)
+  // execute EGP script
+  const script = EGP_execute_script(parsing_data_path, EGP_run_script_path, type, gaz, options.locality)
 
+  // parse EGP results
   const { stdout, stderr } = await exec(script)
   if (stderr) { console.log('_parseEGP error: ', stderr) }
   if (stdout) {
-    // parse xml response
+    // parse xml
     parseString(stdout, function (err, result) {
       if (err) { console.error('ERROR: ', err) }
       if (result.document.standoff[0].ents[0].ent) {

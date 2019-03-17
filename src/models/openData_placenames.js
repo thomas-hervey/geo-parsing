@@ -34,6 +34,16 @@ const model = {
         primaryKey: true,
         allowNull: false
       },
+      domain: {
+        type: Sequelize.STRING,
+        primaryKey: false,
+        allowNull: true
+      },
+      center: {
+        type: Sequelize.STRING,
+        primaryKey: false,
+        allowNull: true
+      }
     },
 
     // create sequel model
