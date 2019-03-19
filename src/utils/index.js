@@ -1,3 +1,4 @@
+const { alreadyParsed, checkForPlacenames, copyPlacenames } = require('./already_processed')
 const calculateCenter = require('./calculate_center')
 const calculateCentroid = require('./calculate_centroid')
 const cleanValue = require('./clean_value')
@@ -11,6 +12,10 @@ const iterateDocs = require('./iterate_docs')
 const updateValue = require('./update_value')
 
 module.exports = {
+  alreadyParsed,
+  checkForPlacenames,
+  copyPlacenames,
+
   calculateCenter,
   calculateCentroid,
   cleanValue,

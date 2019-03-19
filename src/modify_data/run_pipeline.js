@@ -10,7 +10,18 @@ const placenameModel = require('../models/openData_placenames')
 const parsedSearchKeywordModel = require('../models/openData_parsed_searchKeyword')
 const parsedSearchRefinementModel = require('../models/openData_parsed_searchRefinement')
 
-const { cleanValue, iterateDocs, containsCoords, containsAddress, containsPlacenames, updateValue, calculateCentroid } = require('../utils')
+const {
+  alreadyParsed,
+  checkForPlacenames,
+  copyPlacenames,
+  cleanValue,
+  iterateDocs,
+  containsCoords,
+  containsAddress,
+  containsPlacenames,
+  updateValue,
+  calculateCentroid
+} = require('../utils')
 
 // options.database.where[options.database.columnName] = '*concrete' // TODO: remove example
 // options.database.where[options.database.columnName] = '- 815 Connecticut Avenue, Washington, DC 20006' // TODO: remove example
@@ -18,66 +29,12 @@ const { cleanValue, iterateDocs, containsCoords, containsAddress, containsPlacen
 // options.database.where[options.database.columnName] = '-84.075,42.03,-83.911,42.068' // TODO: remove example
 
 
-const _alreadyParsed = async (value, options) => {
-  let alreadyParsed = false
-
-  // check if searchKeyword has been parsed already
-  const hasBeenParsed = await options.HasBeenParsedModel.find({
-    where: {
-      parsed_text: value
-    }
-  })
-  .then(res => {
-    // if it has...
-    if (res && res.dataValues && res.dataValues.id) {
-
-      // get id to later query any placenames already saved
-      alreadyParsed = res.dataValues.id
-
-      // and update the counter
-      let currCounter = res.dataValues.counter
-      await res.update({
-        counter: currCounter + 1
-      })
-      .then(res => {})
-      .catch(error => console.log('update parsed text counter error: ', error))
-    }
-  })
-  .catch(error => console.log('find parsed text error: ', error))
-
-  return alreadyParsed
-}
-
-const _checkForPlacenames = async (id, options) => {
-  let placenamesFound = false
-
-  //if placenames exist, return them to be updated
-  const existingPlacenames = await options.PlacenameModel.findAll({
-    where: {
-      openData_id: id
-    }
-  })
-  .then(res => {
-    if (res && res.length >=1 && res[0].dataValues) {
-
-      placenamesFound = res
-    }
-  })
-  .catch(error => console.log('find placename error: ', error))
-
-  return placenamesFound
-}
-
-const _copyPlacenames = async (id, placenames) => {
-
-}
-
-
 const _geoProcess = async (Model, record, options) => { // NOTE: **the record is a model, therefore we don't need to use 'MODEL'
 
   try {
 
     const parsed_searchKeyword = {}
+    const parsed_searchRefinement = {}
     const placenames = {}
 
     // ******************** //
@@ -91,7 +48,7 @@ const _geoProcess = async (Model, record, options) => { // NOTE: **the record is
     const cleanedKeyword = cleanValue(searchKeyword_value)
 
     // check if keyword has already been parsed
-    let alreadyParsedID = await _alreadyParsed(cleanedKeyword, options)
+    let alreadyParsedID = await alreadyParsed(cleanedKeyword, options.ParsedSearchKeywordModel)
 
     // if keyword has already been parsed, skip
     if(!alreadyParsedID) {
@@ -105,34 +62,26 @@ const _geoProcess = async (Model, record, options) => { // NOTE: **the record is
       parsed_searchKeyword.containsAddress = await containsAddress(parsed_searchKeyword.dimension_searchKeyword)
 
       // if coords & addresses aren't present check if elements contains place names
-      if (!(parsed_searchKeyword.containsCoords) && parsed_searchKeyword.containsAddress === 'no_address') {
+      if (!parsed_searchKeyword.containsCoords) {
         placenames.placenames = await containsPlacenames(record, parsed_searchKeyword.dimension_searchKeyword, options)
       }
     }
 
-// TODO: the following
-// TODO: then, update update_value. Make sure new values are created instead of updating (parsed, and placenames)
-// yes:
-// skip write to T2, get 'first_found_id' from T2, findAll from T3 using it,
-// check if same domain. yes?: duplicate with new id
-// no?: rerun EGP
-
     else {
       // if the text has been parsed, check if placenames were saved
-      const existingPlacenames = await _checkForPlacenames(alreadyParsedID, options)
+      const existingPlacenames = await checkForPlacenames(alreadyParsedID, options)
       // check if placenames exist
       if (existingPlacenames) {
         // if domains are the same
-        if (record.domain === existingPlacenames[0].dataValues.domain) {
+        if (record.dataValues.dimension_hostname === existingPlacenames[0].dataValues.dimension_hostname) {
           // duplicate with new id
-          _copyPlacenames(record.id, existingPlacenames)
+          await copyPlacenames(record.dataValues.id, existingPlacenames, options)
         } else {
           // otherwise, rerun parser
-          // TODO: rerun parser & then somehow save results (either here or in updateValue)
+          placenames.placenames = await containsPlacenames(record, parsed_searchKeyword.dimension_searchKeyword, options)
         }
       }
     }
-
 
     // *************************** //
     // repeat steps for refinement //
@@ -145,10 +94,10 @@ const _geoProcess = async (Model, record, options) => { // NOTE: **the record is
     const cleanedRefinement = cleanValue(searchRefinement_value)
 
    // check if keyword refinement has already been parsed
-    alreadyParsed = await _alreadyParsed(cleanedRefinement, options)
+   const alreadyParsedID_refinement = await alreadyParsed(cleanedRefinement, options.ParsedSearchRefinementModel)
 
     // if refinement has already been parsed, skip
-    if(!alreadyParsed) {
+    if(!alreadyParsedID_refinement) {
 
       parsed_searchRefinement.dimension_searchRefinement = cleanedRefinement
 
@@ -161,20 +110,36 @@ const _geoProcess = async (Model, record, options) => { // NOTE: **the record is
       parsed_searchRefinement.counter = 1
 
       // if coords & addresses aren't present check if elements contains place names
-      if (!(parsed_searchRefinement.containsCoords_refinement) && parsed_searchRefinement.containsAddress_refinement === 'no_address') {
+      if (!parsed_searchRefinement.containsCoords_refinement) {
         placenames.placenames_refinement = await containsPlacenames(record, parsed_searchRefinement.dimension_searchRefinement, options)
+      }
+    }
+    else {
+      // if the text has been parsed, check if placenames were saved
+      const existingPlacenames_refinements = await checkForPlacenames(alreadyParsedID, options)
+      // check if placenames exist
+      if (existingPlacenames_refinements) {
+        // if domains are the same
+        if (record.dataValues.dimension_hostname === existingPlacenames_refinements[0].dataValues.dimension_hostname) {
+          // duplicate with new id
+          await copyPlacenames(record.dataValues.id, existingPlacenames_refinements, options)
+        } else {
+          // otherwise, rerun parser
+          placenames.placenames_refinement = await containsPlacenames(record, parsed_searchRefinement.dimension_searchRefinement, options)
+        }
       }
     }
 
     // if both keyword and refinement haven't been parsed, update
-    if (!alreadyParsedID && !alreadyParsedID_refinement) {
-      const updates = {
+    if (!alreadyParsedID || !alreadyParsedID_refinement) {
+      let updates = {
         parsed_searchKeyword,
         parsed_searchRefinement,
         placenames
       }
 
       options.updates = updates
+      options.domain = record.dataValues.dimension_hostname
 
       // save record with updates
       await updateValue(record, options) // TODO: update values (the middle corresponding table)

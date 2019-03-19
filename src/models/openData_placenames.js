@@ -14,6 +14,9 @@ const model = {
         primaryKey: true,
         allowNull: false
       },
+      string: {
+        type: Sequelize.STRING,
+      },
       openData_id: {
         type: Sequelize.INTEGER(11),
         primaryKey: true,

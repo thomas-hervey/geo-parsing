@@ -11,6 +11,8 @@ const model = {
     columns: {
       first_found_id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true
       },
       parsed_text: {
         type: Sequelize.STRING,

@@ -106,16 +106,19 @@ const _parseEGP = async (record, value, options) => {
     parseString(stdout, function (err, result) {
       if (err) { console.error('ERROR: ', err) }
       if (result.document.standoff[0].ents[0].ent) {
-        const refs = result.document.standoff[0].ents[0].ent
-        .map(entity => entity.$.gazref)
-        .filter(el => el != null && el != '' && el != undefined)
+        references = result.document.standoff[0].ents[0].ent
+        .map(entity => {
+          return {
+            string: entity.parts.map(part => part.part[0]._),
+            geonames_id: entity.$.gazref.substring(9)
+          }
+        })
+        .filter(el => el.geonames_id != null && el != '' && el != undefined)
 
-        references.push(refs) // TODO: Important* figure out why some words, like Atlanta aren't geoparsed
       }
     })
   }
 
-  if (references.length) { references = references[0].map(ref => parseInt(ref.substring(9))) }
   return references
 }
 
