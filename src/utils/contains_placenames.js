@@ -1,80 +1,23 @@
 const fs = require('fs').promises
 var exec = require('child-process-promise').exec
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op
 const sanitize = require('sanitize-filename')
 const { parseString } = require('xml2js')
+const { getLocality } = require('./get_locality')
 
 const spawn = require("child-process-promise").spawn
 
-const _getCenter = (res) => {
-  let center = {}
-  let centerFound = false
-  let i = 0
-  while (res[i] && !centerFound) { // NOTE: the first row where a center is found will be used
-
-    // check if there is a site center
-    const siteCenter = res[i].dataValues.site_center_lon
-    center = {
-      center_lon: res[i].dataValues.site_center_lon,
-      center_lat: res[i].dataValues.site_center_lat,
-      center_radius: res[i].dataValues.site_radius
-    }
-    centerFound = true
-
-    // if not a site center, check if there is an org center
-    if (!siteCenter) {
-      const orgCenter = res[i].dataValues.org_center_lon
-      center = {
-        center_lon: res[i].dataValues.org_center_lon,
-        center_lat: res[i].dataValues.org_center_lat,
-        center_radius: res[i].dataValues.org_radius
-      }
-      centerFound = true
-    }
-  }
-  return center
-}
-
-const _cleanHostname = (hostname) => {
-  let cleaned = hostname.split(/[\_\-.]/)[0]
-  if (cleaned == hostname || cleaned === undefined) {
-    // if there are no common punctuation, return the first 5 characters
-    return hostname.substring(0,6)
-  }
-  return cleaned
-}
-
-const _getLocality = async (hostname, options) => {
-
-  // clean dimension_hostname
-  const cleaned_hostname = _cleanHostname(hostname)
-
-  // check if there are associated domains or siteUrls
-  const res = await options.CompositeModel.findAll({
-    where: {
-      [Op.or]: {
-        domain_hostname: {
-          [Op.like]: `%${cleaned_hostname}%`
-        },
-        site_siteUrl: {
-          [Op.like]: `%${cleaned_hostname}%`
-        }
-      }
-    }
-  })
-
-  // if there's associated domains, get a center (retrieving the first success)
-  if (res) { options.locality = _getCenter(res) }
-
-  return options
-
+const _toUpper = input => {
+  input = input.toLowerCase()
+      .split(' ')
+      .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+      .join(' ')
+  return input
 }
 
 const _parseEGP = async (record, value, options) => {
 
   let references = []
-  if (!options.locality) { options.locality = null }
+  // if (!options.locality) { options.locality = null }
 
   const { parsing_data_path } = options.geoparsing
   const { EGP_execute_script, EGP_run_script_path, type, gaz } = options.geoparsing.EGP
@@ -83,6 +26,7 @@ const _parseEGP = async (record, value, options) => {
   // ************************************* //
   // create temporary file for EGP to read //
   // ************************************* //
+  value = _toUpper(value) // HACK: uppercase words so EGP thinks they may be placenames
   await fs.writeFile(parsing_data_path, value)
 
 
@@ -91,8 +35,8 @@ const _parseEGP = async (record, value, options) => {
   // ****************** //
 
   // get the locality of the query if there is one
-  if (record.dataValues.dimension_hostname && !options.locality) {
-    options = await _getLocality(record.dataValues.dimension_hostname, options)
+  if (record.dataValues.dimension_hostname) {
+    options.locality = await getLocality(record.dataValues.dimension_hostname, options)
   }
 
   // execute EGP script

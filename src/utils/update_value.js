@@ -2,6 +2,7 @@ const { isEmpty } = require('lodash')
 
 const updateValue = async (record, options) => {
   console.log('TODO: fix domain parsing for locality. Look at placenames records, seems like phoenix and charleston are using the same center. Also, the center seems way off anyways')
+  console.log('TODO: the error seems to be when taking just the first bit of a multi decimal domain')
 
   const { updates } = options
 
@@ -75,8 +76,9 @@ const updateValue = async (record, options) => {
               parse_order: index + 1,
               original_or_refinement: 'original', // NOTE: hard coded
               openData_tableName: 'search_refinements', // NOTE: hard coded
-              domain: options.domain,
-              center: options.locality.center_lat.toString() + ',' + options.locality.center_lon.toString()
+              domain_orgTitle: options.locality? options.locality.domain_orgTitle : 'unsure',
+              domain: options.domain || 'unsure',
+              center: options.locality ? options.locality.center_lat.toString() + ',' + options.locality.center_lon.toString() : 'unsure'
             })
             .then(res => { /* console.log('update placenames res: ', res) */ })
             .catch(err => { console.log('update placenames err: ', err)})
@@ -104,7 +106,8 @@ const updateValue = async (record, options) => {
               original_or_refinement: 'refinement', // NOTE: hard coded
               openData_tableName: 'search_refinements', // NOTE: hard coded
               domain: options.domain,
-              center: options.locality.center_lat.toString() + ',' + options.locality.center_lon.toString()
+              domain_orgTitle: options.locality? options.locality.domain_orgTitle : 'unsure',
+              center: options.locality ? options.locality.center_lat.toString() + ',' + options.locality.center_lon.toString() : 'unsure'
             })
             .then(res => { /* console.log('update placenames refinement res: ', res) */ })
             .catch(err => { console.log('update placenames refinement record err: ', err)})

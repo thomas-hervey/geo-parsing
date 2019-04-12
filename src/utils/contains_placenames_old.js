@@ -5,8 +5,6 @@ var { parseString } = require('xml2js')
 
 const spawn = require("child_process").spawn
 
-const { getLocality } = require('../utils')
-
 let options = {}
 let geoparsing = ''
 

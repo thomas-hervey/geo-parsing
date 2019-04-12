@@ -6,24 +6,26 @@ const convertCoords = require('./convert_coords')
 const { containsAddress, getAddressParts } = require('./contains_address')
 const containsCoords = require('./contains_coords')
 const containsPlacenames = require('./contains_placenames')
-const getLocality = require('./get_locality')
 const getSiteOrg = require('./get_site_org')
 const iterateDocs = require('./iterate_docs')
 const updateValue = require('./update_value')
+const { cleanHostname, getLocality, getCenter, getBBox } = require('./get_locality')
 
 module.exports = {
   alreadyParsed,
   checkForPlacenames,
   copyPlacenames,
-
   calculateCenter,
   calculateCentroid,
+  cleanHostname,
   cleanValue,
   convertCoords,
   containsAddress,
   containsCoords,
   containsPlacenames,
   getAddressParts,
+  getBBox,
+  getCenter,
   getLocality,
   getSiteOrg,
   iterateDocs,

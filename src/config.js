@@ -12,8 +12,8 @@ module.exports = {
       where: {
         index_value: {
           [Op.and]: {
-            [Op.gte]: 1736, //1689, // 1739,
-            [Op.lt]: 1740
+            [Op.gte]: 1736 /* 1778 1773 1736 1689 1739 */ ,
+            [Op.lte]: 1750
           }
         }
       },
@@ -24,10 +24,10 @@ module.exports = {
         EGP_path: '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/geoparsing/edinburgh-geoparser-docker/geoparser',
         EGP_run_script_path: '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/geoparsing/edinburgh-geoparser-docker/geoparser/scripts/run',
         EGP_execute_script: (i, s, t, g, l) => {
-          let radiusBuffer = 20 // includes area outside of radius from centroid meant to cover beyond bbox
+          let buffer = 1 // add 1 deg to bbox
           let score = 0.5
           let script = `cat ${i} | ${s} -t ${t} -g ${g}`
-          if (l && l !== null && l !== undefined) { script += ` -l ${l.center_lat} ${l.center_lon} ${l.radius + radiusBuffer} ${score}`}
+          if (l && l !== null && l !== undefined) { script += ` -lb ${l.W + buffer} ${l.N + buffer} ${l.E + buffer} ${l.S + buffer} ${score}`}
           return script
         },
         type: 'plain',

@@ -42,6 +42,11 @@ const model = {
         primaryKey: false,
         allowNull: true
       },
+      domain_orgTitle: {
+        type: Sequelize.STRING,
+        primaryKey: false,
+        allowNull: true
+      },
       center: {
         type: Sequelize.STRING,
         primaryKey: false,
