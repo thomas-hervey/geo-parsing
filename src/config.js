@@ -12,8 +12,8 @@ module.exports = {
       where: {
         index_value: {
           [Op.and]: {
-            [Op.gte]: 1736 /* 1778 1773 1736 1689 1739 */ ,
-            [Op.lte]: 1750
+            [Op.gte]: 1 /* 1778 1773 1736 1689 1739 */ ,
+            [Op.lte]: 15
           }
         }
       },
