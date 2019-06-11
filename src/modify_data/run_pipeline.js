@@ -181,7 +181,7 @@ const runPipeline = async (callback, options) => {
     // options.HasBeenParsedModel = HasBeenParsedModel
     // HasBeenParsedModel.sync()
 
-    const ParsedSearchKeywordModel = await parsedSearchKeywordModel.sql.createModel(sequelize, parsedSearchKeywordModel.sql.columns, parsedSearchKeywordModel.sql.table_name)
+    const ParsedSearchKeywordModel = await modelToIterate.sql.createModel(sequelize, parsedSearchKeywordModel.sql.columns, parsedSearchKeywordModel.sql.table_name)
     options.ParsedSearchKeywordModel = ParsedSearchKeywordModel
     ParsedSearchKeywordModel.sync()
 
