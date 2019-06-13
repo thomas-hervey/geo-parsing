@@ -3,12 +3,9 @@ const db_config = require('../sql/db_config')
 let { options } =require('../config.js')
 
 // const { sql } = require('../models/totalSearchUniques') // NOTE: if there are issues with using refinements, go back to totalSearchUniques
-const refinementsModel = require('../models/searchRefinements')
-const compositeModel = require('../models/openData_composite')
-const placenameModel = require('../models/openData_placenames')
-// const hasBeenParsedModel = require('../models/openData_parsed_searchKeyword')
-const parsedSearchKeywordModel = require('../models/openData_parsed_searchKeyword')
-const parsedSearchRefinementModel = require('../models/openData_parsed_searchRefinement')
+const createModelsForPipeline = require('../models/create_models_for_pipeline')
+
+const parseRecord = require('./parseRecord')
 
 const {
   alreadyParsed,
@@ -29,7 +26,7 @@ const {
 // options.database.where[options.database.columnName] = '-84.075,42.03,-83.911,42.068' // TODO: remove example
 
 
-const _geoProcess = async (Model, record, options) => { // NOTE: **the record is a model, therefore we don't need to use 'MODEL'
+const _geoProcess = async (record, options) => { // NOTE: **the record is a model, therefore we don't need to use 'MODEL'
 
   try {
 
@@ -150,55 +147,24 @@ const _geoProcess = async (Model, record, options) => { // NOTE: **the record is
 }
 
 // NOTE: figure out if I should run the pipeline for total_search_uniques first
-const runPipeline = async (callback, options) => {
+const initializePipeline = async (callback, opts) => {
   try {
 
     // create connection to SQL database
     const sequelize = await sql_connection(db_config)
 
-    // ************* //
-    // create models //
-    // ************* //
-
-    // `search_refinements`
-    const RefinementModel = await refinementsModel.sql.createModel(sequelize, refinementsModel.sql.columns, refinementsModel.sql.table_name)
-    options.RefinementModel = RefinementModel
-    options.modelToIterate = RefinementModel
-    RefinementModel.sync()
-
-    // `OpenData_composite`
-    const CompositeModel = await compositeModel.sql.createModel(sequelize, compositeModel.sql.columns, compositeModel.sql.table_name)
-    options.CompositeModel = CompositeModel
-    CompositeModel.sync()
-
-    // `openData_placenames`
-    const PlacenameModel = await placenameModel.sql.createModel(sequelize, placenameModel.sql.columns, placenameModel.sql.table_name)
-    options.PlacenameModel = PlacenameModel
-    PlacenameModel.sync()
-
-    // // `openData_parsed_text`
-    // const HasBeenParsedModel = await hasBeenParsedModel.sql.createModel(sequelize, hasBeenParsedModel.sql.columns, hasBeenParsedModel.sql.table_name)
-    // options.HasBeenParsedModel = HasBeenParsedModel
-    // HasBeenParsedModel.sync()
-
-    const ParsedSearchKeywordModel = await modelToIterate.sql.createModel(sequelize, parsedSearchKeywordModel.sql.columns, parsedSearchKeywordModel.sql.table_name)
-    options.ParsedSearchKeywordModel = ParsedSearchKeywordModel
-    ParsedSearchKeywordModel.sync()
-
-    const ParsedSearchRefinementModel = await parsedSearchRefinementModel.sql.createModel(sequelize, parsedSearchRefinementModel.sql.columns, parsedSearchRefinementModel.sql.table_name)
-    options.ParsedSearchRefinementModel = ParsedSearchRefinementModel
-    ParsedSearchRefinementModel.sync()
+    // create models and save references in options
+    const options = await createModelsForPipeline(sequelize, opts)
 
     // iterate model docs & apply callback
     await iterateDocs(options.modelToIterate, callback, options)
 
-
   } catch (error) {
-    console.log(`runPipeline error: ${error}`)
+    console.log(`initializePipeline error: ${error}`)
   }
 }
 
-runPipeline(_geoProcess, options)
+initializePipeline(parseRecord, options)
 
 
 

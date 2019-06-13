@@ -6,6 +6,13 @@ module.exports = {
   'ya29.Gl1oBt7e1G5pSWEs3YqewU7JrkV3tG4Q9gxbc2wGzEFPeXMCS11CnypzyOxETxKmSWQkFE7VQMMDPmJAtY8J_p2z1cA_hgn9D7XSh1Aq1QZh6QVtQf_cHPgC8A5AGZM',
 
   options: {
+
+    corpus: { // NOTE: not needed if using database.where subset
+      subset: false,
+      docs_starting_index: 0,
+      num_docs_using: 10,
+    },
+
     database: {
       columnName: 'dimension_searchKeyword',
       refinementColumnName: 'dimension_searchRefinement',
@@ -18,6 +25,7 @@ module.exports = {
         }
       },
     },
+
     geoparsing: {
       parsing_data_path: '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/geoparsing/parsing_data/temp.txt',
       EGP: {

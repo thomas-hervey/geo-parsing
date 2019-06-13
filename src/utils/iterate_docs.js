@@ -1,37 +1,47 @@
-const _extractDocSubset = (res, options) => {
-  const num_docs_using = options.num_docs_using
-  const starting_index = options.docs_starting_index
+const _extractDocSubset = (records, corpus) => {
+  const num_docs_using = corpus.num_docs_using
+  const starting_index = corpus.docs_starting_index
 
-  console.log(`iterateDocs: Using ${options.num_docs_using}`)
+  console.log(`iterateDocs: Using a document subset of ${corpus.num_docs_using} : ${records.length}`)
 
-  return res.slice(starting_index, num_docs_using + starting_index)
+  return records.slice(starting_index, num_docs_using + starting_index)
 }
 
 const iterateDocs = async (Model, callback, options = { where: {} }) => {
   try {
     const where = options.database.where
 
-    console.log(`iterateDocs: about to query docs`)
+    console.log(`iterateDocs: about to query docs...`)
+
+
     // find records
-    let res = await Model.findAll({ where })
+    let records = await Model.findAll({ where })
 
-    console.log(`iterateDocs: Found ${res.length} results`)
+    console.log(`iterateDocs: Found ${records.length} results`)
 
-    // res = _extractDocSubset(res, options)
+    // take a subset if desired
+    if(options.corpus.subset) { records = _extractDocSubset(records, options.corpus) }
 
     let doc_iterator = 0
-    let skipUpdate = ''
+    let skipOrUpdate = ''
 
     // iterate records
-    for (const element of res) {
-      if (element.dataValues.viewed <= 1) { // if the element hasn't been updated...
-        const update = await callback(Model, element, options)
-        skipUpdate = 'update'
-      } else { skipUpdate = 'skip' }
+    for (const record of records) {
+
+      // if the record hasn't been viewed...
+      if (record.dataValues.viewed <= 1) {
+        // run callback on record
+        const update = await callback(record, options)
+        skipOrUpdate = 'UPDATE'
+      } else {
+        skipOrUpdate = 'SKIP'
+      }
+
       doc_iterator += 1
-      console.log(`iterator counter: ${doc_iterator}. ${skipUpdate} document with index_value: ${element.dataValues.index_value}`)
+
+      console.log(`iterator counter: ${doc_iterator}. ${skipOrUpdate} document with index_value: ${record.dataValues.index_value}`)
     }
-    console.log('done iterating elements!')
+    console.log('done iterating records!')
   } catch (error) {
     console.log(`iterateDocs Error: ${error}`);
   }
