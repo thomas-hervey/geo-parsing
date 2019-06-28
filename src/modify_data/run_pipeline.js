@@ -3,10 +3,10 @@ const db_config = require('../sql/db_config')
 let { options } =require('../config.js')
 
 // const { sql } = require('../models/totalSearchUniques') // NOTE: if there are issues with using refinements, go back to totalSearchUniques
-const createModelsForPipeline = require('../models/create_models_for_pipeline')
+const createModelsForPipeline = require('../models/QueryLogs/create_models_for_pipeline')
 
 const parseRecord = require('./parseRecord')
-const cleanRecord = require('./cleanRecords')
+const { cleanRecord } = require('./cleanRecords')
 
 const {
   alreadyParsed,
@@ -40,7 +40,7 @@ const _geoProcess = async (record, options) => { // NOTE: **the record is a mode
     // ******************** //
 
     // get searchKeyword value
-    const searchKeyword_value = record[options.database.columnName]
+    const searchKeyword_value = record[options.table.columnName]
 
     // clean value
     const cleanedKeyword = cleanValue(searchKeyword_value)
@@ -86,7 +86,7 @@ const _geoProcess = async (record, options) => { // NOTE: **the record is a mode
     // *************************** //
 
     // get searchRefinement value
-    const searchRefinement_value = record[options.database.refinementColumnName]
+    const searchRefinement_value = record[options.table.refinementColumnName]
 
     // clean value
     const cleanedRefinement = cleanValue(searchRefinement_value)
@@ -148,7 +148,7 @@ const _geoProcess = async (record, options) => { // NOTE: **the record is a mode
 }
 
 // NOTE: figure out if I should run the pipeline for total_search_uniques first
-const initializePipeline = async (callback, opts) => {
+const runPipeline = async (callback, opts) => {
   try {
 
     // create connection to SQL database
@@ -166,7 +166,7 @@ const initializePipeline = async (callback, opts) => {
 }
 
 // initializePipeline(parseRecord, options)
-initializePipeline(cleanRecord, options)
+runPipeline(cleanRecord, options)
 
 
 

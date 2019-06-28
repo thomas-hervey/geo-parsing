@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
-const createModel = require('./create_model')
+const createModel = require('../create_model')
 
-const { GA_key } = require('../config')
+const { GA_key } = require('../../config')
 
 const model_name = 'total_search_uniques_combined_clean'
 

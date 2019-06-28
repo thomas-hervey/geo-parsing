@@ -3,7 +3,7 @@ const {
   cleanValue
 } = require('../utils')
 
-
+let bulkRecords = []
 
 const updateSingleValue = async (record, options) => {
   try {
@@ -47,20 +47,12 @@ const updateSingleValue = async (record, options) => {
   }
 }
 
-let bulkRecords = []
-
-let TotalSearchUniquesCombinedCleanModel = undefined;
-
 const cleanRecords = async (record, options) => {
-
-  if(!TotalSearchUniquesCombinedCleanModel) {
-    TotalSearchUniquesCombinedCleanModel = { TotalSearchUniquesCombinedCleanModel } = options
-  }
 
   const { dataValues } = record;
 
   // get searchKeyword value
-  const searchKeyword_value = record[options.database.columnName]
+  const searchKeyword_value = record[options.table.columnName]
 
   /*
   clean record
@@ -74,9 +66,9 @@ const cleanRecords = async (record, options) => {
   // save every 1000
   if (bulkRecords.length % 1000 === 0) {
 
-    const { TotalSearchUniquesCombinedCleanModel } = options
+    const { modelToIterate } = options
 
-    await TotalSearchUniquesCombinedCleanModel.bulkCreate(bulkRecords)
+    await modelToIterate.bulkCreate(bulkRecords)
       .then(() => {
         console.log(`successfully saved records at index: ${bulkRecords[0].index_value} - ${bulkRecords[bulkRecords.length-1].index_value}`)
       })
@@ -86,4 +78,4 @@ const cleanRecords = async (record, options) => {
   }
 }
 
-module.exports = cleanRecords;
+module.exports = { cleanRecords, updateSingleValue }

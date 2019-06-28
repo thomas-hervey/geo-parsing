@@ -9,7 +9,7 @@ const _extractDocSubset = (records, corpus) => {
 
 const iterateDocs = async (Model, callback, options = { where: {} }) => {
   try {
-    const where = options.database.where
+    const where = options.table.where
 
     console.log(`iterateDocs: about to query docs...`)
 

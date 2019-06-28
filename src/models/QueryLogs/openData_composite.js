@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const createModel = require('./create_model')
+const createModel = require('../create_model')
 
 const model_name = 'openData_composite'
 

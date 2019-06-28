@@ -1,68 +1,7 @@
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 
-function getDatabase(model) {
-  switch (model) {
-    case 'TotalSearchUniquesCombinedModel':
-      return {
-        columnName: 'dimension_searchKeyword',
-        where: {
-          index_value: {
-            [Op.and]: {
-              [Op.gte]: 0,
-            }
-          }
-        },
-      }
-      break;
-
-    case 'SampleTotalSearchModel':
-      return {
-        columnName: 'dimension_searchKeyword',
-        where: {
-          index_value: {
-            [Op.and]: {
-              [Op.gte]: 4000,
-              [Op.lte]: 4020
-            }
-          }
-        },
-      }
-      break;
-    case 'TotalSearchUniquesModel':
-      return {
-        columnName: 'dimension_searchKeyword',
-        where: {
-          index_value: {
-            [Op.and]: {
-              [Op.gte]: 261041,
-            }
-          }
-        },
-      }
-      break;
-
-    case 'searchRefinement':
-
-      return {
-        columnName: 'dimension_searchKeyword',
-        refinementColumnName: 'dimension_searchRefinement',
-        where: {
-          index_value: {
-            [Op.and]: {
-              [Op.gte]: 1778 /* 1778 1773 1736 1689 1739 */ ,
-              [Op.lte]: 1785
-            }
-          }
-        },
-      }
-
-    default:
-      break;
-  }
-}
-
-var modelToIterate = 'TotalSearchUniquesCombinedModel'
+var modelToIterate = 'KeywordsCombinedSlimModel'
 
 module.exports = {
   GA_key:
@@ -78,7 +17,7 @@ module.exports = {
 
     modelToIterate: modelToIterate,
 
-    database: getDatabase(modelToIterate),
+    table: getTable(modelToIterate),
 
     geoparsing: {
       parsing_data_path: '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/geoparsing/parsing_data/temp.txt',
@@ -99,5 +38,76 @@ module.exports = {
         mordecai_path: '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/utils/mordecai_exec.py'
       }
     }
+  }
+}
+
+function getTable(model) {
+  switch (model) {
+    case 'KeywordsCombinedSlimModel':
+      return {
+        columnName: 'dimension_searchKeyword',
+        where: {
+          index_value: {
+            [Op.and]: {
+              [Op.gte]: 0,
+            }
+          }
+        },
+      }
+
+    case 'TotalSearchUniquesCombinedModel':
+      return {
+        columnName: 'dimension_searchKeyword',
+        where: {
+          index_value: {
+            [Op.and]: {
+              [Op.gte]: 0,
+            }
+          }
+        },
+      }
+
+    case 'SampleTotalSearchModel':
+      return {
+        columnName: 'dimension_searchKeyword',
+        where: {
+          index_value: {
+            [Op.and]: {
+              [Op.gte]: 4000,
+              [Op.lte]: 4020
+            }
+          }
+        },
+      }
+
+    case 'TotalSearchUniquesModel':
+      return {
+        columnName: 'dimension_searchKeyword',
+        where: {
+          index_value: {
+            [Op.and]: {
+              [Op.gte]: 261041,
+            }
+          }
+        },
+      }
+
+    case 'searchRefinement':
+
+      return {
+        columnName: 'dimension_searchKeyword',
+        refinementColumnName: 'dimension_searchRefinement',
+        where: {
+          index_value: {
+            [Op.and]: {
+              [Op.gte]: 1778 /* 1778 1773 1736 1689 1739 */ ,
+              [Op.lte]: 1785
+            }
+          }
+        },
+      }
+
+    default:
+      break
   }
 }

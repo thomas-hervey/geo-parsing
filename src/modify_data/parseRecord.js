@@ -24,7 +24,7 @@ const parseRecord = async (record, options) => {
 
   try {
     // get searchKeyword value
-    const searchKeyword_value = record[options.database.columnName]
+    const searchKeyword_value = record[options.table.columnName]
 
     /*
     clean record

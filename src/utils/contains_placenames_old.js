@@ -10,7 +10,7 @@ let geoparsing = ''
 
 const _createTempFile = async record => {
   try {
-    const input = record[options.database.columnName]
+    const input = record[options.table.columnName]
     const { parsing_data_path } = geoparsing
 
     // create a temporary .txt file of input
@@ -87,7 +87,7 @@ const containsPlacenames = async (record, inputOptions) => {
   // _createTempFile(record)
 
 
-  const input = record[options.database.columnName]
+  const input = record[options.table.columnName]
   const { parsing_data_path } = geoparsing
 
   // create a temporary .txt file of input
