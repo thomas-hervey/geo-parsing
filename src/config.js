@@ -16,7 +16,6 @@ module.exports = {
     },
 
     modelToIterate: modelToIterate,
-
     table: getTable(modelToIterate),
 
     geoparsing: {
