@@ -21,10 +21,10 @@ const {
   calculateCentroid
 } = require('../utils')
 
-// options.database.where[options.database.columnName] = '*concrete' // TODO: remove example
-// options.database.where[options.database.columnName] = '- 815 Connecticut Avenue, Washington, DC 20006' // TODO: remove example
-// options.database.where[options.database.columnName] = '(d) 16515 Mojave Dr., Victorville, CA 92395'
-// options.database.where[options.database.columnName] = '-84.075,42.03,-83.911,42.068' // TODO: remove example
+// options.table.table[options.database.columnName] = '*concrete' // TODO: remove example
+// options.table.table[options.database.columnName] = '- 815 Connecticut Avenue, Washington, DC 20006' // TODO: remove example
+// options.table.table[options.database.columnName] = '(d) 16515 Mojave Dr., Victorville, CA 92395'
+// options.table.table[options.database.columnName] = '-84.075,42.03,-83.911,42.068' // TODO: remove example
 
 
 const _geoProcess = async (record, options) => { // NOTE: **the record is a model, therefore we don't need to use 'MODEL'

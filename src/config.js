@@ -9,7 +9,7 @@ module.exports = {
 
   options: {
 
-    corpus: { // NOTE: not needed if using database.where subset
+    corpus: { // NOTE: not needed if using table.where subset
       subset: false,
       docs_starting_index: 0,
       num_docs_using: 10,
