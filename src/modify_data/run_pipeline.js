@@ -6,6 +6,7 @@ let { options } =require('../config.js')
 const createModelsForPipeline = require('../models/create_models_for_pipeline')
 
 const parseRecord = require('./parseRecord')
+const cleanRecord = require('./cleanRecords')
 
 const {
   alreadyParsed,
@@ -164,7 +165,8 @@ const initializePipeline = async (callback, opts) => {
   }
 }
 
-initializePipeline(parseRecord, options)
+// initializePipeline(parseRecord, options)
+initializePipeline(cleanRecord, options)
 
 
 

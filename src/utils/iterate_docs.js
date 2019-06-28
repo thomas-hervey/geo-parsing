@@ -39,7 +39,10 @@ const iterateDocs = async (Model, callback, options = { where: {} }) => {
 
       doc_iterator += 1
 
-      console.log(`iterator counter: ${doc_iterator}. ${skipOrUpdate} document with index_value: ${record.dataValues.index_value}`)
+
+      if (doc_iterator % 1000 === 0) {
+        console.log(`iterator counter: ${doc_iterator}. ${skipOrUpdate} document with index_value: ${record.dataValues.index_value}`)
+      }
     }
     console.log('done iterating records!')
   } catch (error) {

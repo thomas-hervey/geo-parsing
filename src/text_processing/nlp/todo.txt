@@ -1,0 +1,15 @@
+- order the pipeline
+
+- make sure sql connection is solid
+
+- get dockers es geonames running
+
+- have python server ingest query to send to mordecai
+
+- make sure that ebp is using the es geonames as well
+
+-
+
+- get services working locally
+
+- put in container

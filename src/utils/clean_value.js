@@ -8,12 +8,13 @@ const cleanValue = (field) => {
       let cleanedValue = ''
       cleanedValue = valueToClean // clone to avoid unintentional mutations
       return S(cleanedValue)
+          .trim()
           .strip("*", "\"", "\'") // strip values
           .trim() // trim whitespace
           .latinise() // remove accents from Latin characters
           .s
     } else {
-      console.log(`field with value ${field} is not defined, doesn't have a value, or is shorter than 4 characters.`)
+      // console.log(`field with value ${field} is not defined, doesn't have a value, or is shorter than 4 characters.`)
       return field
     }
   } catch (error) {

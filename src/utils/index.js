@@ -9,6 +9,7 @@ const containsPlacenames = require('./contains_placenames')
 const getSiteOrg = require('./get_site_org')
 const iterateDocs = require('./iterate_docs')
 const updateValue = require('./update_value')
+const { tryCatchAsync } = require('./tryCatch')
 const { cleanHostname, getLocality, getCenter, getBBox } = require('./get_locality')
 
 module.exports = {
@@ -29,5 +30,6 @@ module.exports = {
   getLocality,
   getSiteOrg,
   iterateDocs,
-  updateValue
+  updateValue,
+  tryCatchAsync
 }

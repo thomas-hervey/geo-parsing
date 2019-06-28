@@ -1,17 +1,18 @@
-const spacy = require('spacy')
+const spacyClient = require('../text_processing/nlp/spacy_client')
 
-const nlp = spacy.default.load('en_core_web_sm')
+const {
+  alreadyParsed,
+  cleanValue,
+  tryCatchAsync
+} = require('../utils')
 
 const _nlp_parse = async (text, options) => {
   try {
 
     // create a document from text
-    const doc = await nlp(text)
+    const results = await spacyClient(text)
 
-    const summary_details = {
-      num_tokens: doc.length,
-
-    }
+    if(results) { return JSON.stringify(results) }
 
   } catch (error) { console.log(`_nlp_parse error: ${error}`) }
 }
@@ -19,16 +20,47 @@ const _nlp_parse = async (text, options) => {
 
 const parseRecord = async (record, options) => {
 
-  /*
-   run nlp parsing
-  */
+  const parsed = {}
 
-  // get searchKeyword value
-  const searchKeyword_value = record[options.database.columnName]
+  try {
+    // get searchKeyword value
+    const searchKeyword_value = record[options.database.columnName]
 
-  const results = _nlp_parse(searchKeyword_value, options)
+    /*
+    clean record
+    */
+    parsed.cleanedKeyword = cleanValue(searchKeyword_value)
+
+    // check if keyword has already been parsed
+    let alreadyParsedID = await alreadyParsed(parsed.cleanedKeyword, options.ParsedSearchKeywordModel)
+
+    if(!alreadyParsedID) {
+
+      /*
+      run nlp parsing
+      */
+      parsed.nlp = tryCatchAsync(_nlp_parse(parsed.cleanedKeyword, options))
 
 
+      /*
+      check for coordinates
+      */
+      parsed.containsCoords = containsCoords(parsed.dimension_searchKeyword)
+
+      /*
+      check for an address
+      */
+      parsed.containsAddress = await containsAddress(parsed.dimension_searchKeyword)
+
+      // /*
+      // check for placenames
+      // */
+      // placenames.placenames = await containsPlacenames(record, parsed.dimension_searchKeyword, options)
+    }
+
+  } catch (error) {
+    console.log('parseRecord error: ', error)
+  }
 }
 
 module.exports = parseRecord
