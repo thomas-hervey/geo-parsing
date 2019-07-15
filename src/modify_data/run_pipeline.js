@@ -1,6 +1,5 @@
 const sql_connection = require('../sql/sql_connection.js')
-const db_config = require('../sql/db_config')
-let { options } =require('../config.js')
+let config, { options } =require('../config.js')
 
 const createModelsForPipeline = require('../models/QueryLogs/create_models_for_pipeline')
 
@@ -19,7 +18,7 @@ const runPipeline = async (callback, opts) => {
   try {
 
     // create connection to SQL database
-    const sequelize = await sql_connection(db_config)
+    const sequelize = await sql_connection(config)
 
     // create models and save references in options
     const options = await createModelsForPipeline(sequelize, opts)
