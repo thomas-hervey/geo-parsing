@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 
-var modelToIterate = 'KeywordsCombinedSlimModel'
+var modelToIterate = 'KeywordsSample'
+var modelToSaveTo = 'KeywordsHumanized'
 
 module.exports = {
   GA_key:
@@ -17,6 +18,7 @@ module.exports = {
 
     modelToIterate: modelToIterate,
     table: getTable(modelToIterate),
+    modelToSaveTo: modelToSaveTo,
 
     geoparsing: {
       parsing_data_path: '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/geoparsing/parsing_data/temp.txt',
@@ -36,17 +38,53 @@ module.exports = {
       mordecai: {
         mordecai_path: '/Users/thomashervey/Projects/academic/graduate/PhD/Query_Logs/Geo-parsing/src/utils/mordecai_exec.py'
       }
+    },
+
+    db_credentials: {
+      databse: 'QueryLogs',
+      user: 'root',
+      password: 'MQZ(mp1100'
+    },
+
+    sql_credentials: {
+      host: 'localhost',
+      dialect: 'mysql',
+      operatorsAliases: false,
+
+      pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+      },
+      logging: false,
+      define: {
+        //prevent sequelize from pluralizing table names
+        freezeTableName: true
+      }
     }
-  }
+  },
 }
 
 function getTable(model) {
   switch (model) {
+    case 'KeywordsSample':
+      return {
+        columnName: 'dimension_searchKeyword',
+        where: {
+          id: {
+            [Op.and]: {
+              [Op.gte]: 0,
+            }
+          }
+        },
+      }
+
     case 'KeywordsCombinedSlimModel':
       return {
         columnName: 'dimension_searchKeyword',
         where: {
-          index_value: {
+          id: {
             [Op.and]: {
               [Op.gte]: 0,
             }

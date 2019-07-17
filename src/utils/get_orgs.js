@@ -1,7 +1,7 @@
 // NOTE: this script is used to create an orgs table so that sites w/out extents can use a fallback extent
 
 const sql_connection = require('../sql/sql_connection')
-const db_config = require('../sql/db_config')
+const { options } = require('../config')
 const getSiteOrg = require('./get_site_org')
 const convertCoords = require('./convert_coords')
 
@@ -83,7 +83,7 @@ const getOrgs = async (model, callback, options) => {
   try {
 
     // create connection to SQL database
-    const sequelize = await sql_connection(db_config)
+    const sequelize = await sql_connection(options)
 
     // create models
     const SitesModel = await sitesModel.sql.createModel(sequelize, sitesModel.sql.columns, sitesModel.sql.table_name)

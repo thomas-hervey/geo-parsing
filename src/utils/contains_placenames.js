@@ -1,10 +1,8 @@
 const fs = require('fs').promises
 var exec = require('child-process-promise').exec
-const sanitize = require('sanitize-filename')
 const { parseString } = require('xml2js')
 const { getLocality } = require('./get_locality')
-
-const spawn = require("child-process-promise").spawn
+const pythonClient = require('../text_processing/nlp/python_client')
 
 const _toUpper = input => {
   input = input.toLowerCase()
@@ -66,34 +64,33 @@ const _parseEGP = async (record, value, options) => {
   return references
 }
 
-const _parseMordecai = async () => {
-  // read input string
-  const { parsing_data_path } = geoparsing
+const _parseMordecai = async (record, value, options) => {
 
-  const fileString = await fs.readFile(parsing_data_path, "utf8")
+  try {
 
-  var uint8arrayToString = function(data){
-    return String.fromCharCode.apply(null, data)
-  }
+    const route = 'mordecai'
 
-  const promise = spawn('python',[options.geoparsing.mordecai.mordecai_path, fileString])
+    // create a document from text
+    const results = await pythonClient(route, value, options)
 
-  var childProcess = promise.childProcess;
-  childProcess.stdout.on('data', (data) => {
-    console.log('python process output', uint8arrayToString(data))
-  })
-  childProcess.stderr.on('data', (data) => {
-    console.error(`child stderr:\n${data}`)
-  })
+    if(results) { return JSON.stringify(results) }
 
-  promise.then(() => {
-    console.log('after python process')
-  })
+  } catch (error) { console.log(`_nlp_parse error: ${error}`) }
+
 }
 
 const containsPlacenames = async(record, value, options) => {
+  const references = {
+    egp: {},
+    mordecai: {}
+  }
   // geoparse using the Edinburgh geoparser
-  const references = await _parseEGP(record, value, options)
+  references.egp = await _parseEGP(record, value, options)
+
+  // geoparse using the mordecai geoparser
+  references.mordecai = await _parseMordecai(record, value, options)
+
+
   return references
 }
 

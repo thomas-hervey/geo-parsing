@@ -63,14 +63,15 @@ const cleanRecords = async (record, options) => {
   // add to array
   bulkRecords.push(dataValues)
 
+
   // save every 1000
   if (bulkRecords.length % 1000 === 0) {
 
-    const { modelToIterate } = options
+    const { modelToSaveTo } = options
 
-    await modelToIterate.bulkCreate(bulkRecords)
+    await modelToSaveTo.bulkCreate(bulkRecords)
       .then(() => {
-        console.log(`successfully saved records at index: ${bulkRecords[0].index_value} - ${bulkRecords[bulkRecords.length-1].index_value}`)
+        console.log(`successfully saved records at index: ${bulkRecords[0].id} - ${bulkRecords[bulkRecords.length-1].id}`)
       })
       .catch((err) => console.log(`error saving records at index: ${bulkRecords[0].index_value} - ${bulkRecords[bulkRecords.length-1].index_value} with error: ${err}`))
 

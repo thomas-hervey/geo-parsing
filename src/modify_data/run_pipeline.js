@@ -1,40 +1,39 @@
 const sql_connection = require('../sql/sql_connection.js')
-let config, { options } =require('../config.js')
+let { options } =require('../config.js')
 
 const createModelsForPipeline = require('../models/QueryLogs/create_models_for_pipeline')
 
 const parseRecord = require('./parseRecord')
-const { cleanRecord } = require('./cleanRecords')
+const { cleanRecords } = require('./cleanRecords')
 
 const { iterateDocs } = require('../utils')
+
+
+const runPipeline = async (callback, opts) => {
+  try {
+
+    // create connection to SQL database
+    const sequelize = await sql_connection(opts)
+
+    // create models and save references in options
+    opts = await createModelsForPipeline(sequelize, opts)
+
+    // iterate model docs & apply callback
+    await iterateDocs(opts.modelToIterate, callback, opts)
+
+  } catch (error) {
+    console.log(`runPipeline error: ${error}`)
+  }
+}
+
+// initializePipeline(parseRecord, options)
+runPipeline(parseRecord, options)
+
 
 // options.table[options.table.columnName] = '*concrete' // TODO: remove example
 // options.table[options.table.columnName] = '- 815 Connecticut Avenue, Washington, DC 20006' // TODO: remove example
 // options.table[options.table.columnName] = '(d) 16515 Mojave Dr., Victorville, CA 92395'
 // options.table[options.table.columnName] = '-84.075,42.03,-83.911,42.068' // TODO: remove example
-
-// NOTE: figure out if I should run the pipeline for total_search_uniques first
-const runPipeline = async (callback, opts) => {
-  try {
-
-    // create connection to SQL database
-    const sequelize = await sql_connection(config)
-
-    // create models and save references in options
-    const options = await createModelsForPipeline(sequelize, opts)
-
-    // iterate model docs & apply callback
-    await iterateDocs(options.modelToIterate, callback, options)
-
-  } catch (error) {
-    console.log(`initializePipeline error: ${error}`)
-  }
-}
-
-// initializePipeline(parseRecord, options)
-runPipeline(cleanRecord, options)
-
-
 
 
 // // `openData_domains`

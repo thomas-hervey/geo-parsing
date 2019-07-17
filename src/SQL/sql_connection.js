@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
-const sql_connection = async (sql_config) => {
-  const { db_credentials, sql_credentials } = sql_config
+const sql_connection = async (config) => {
+  const { db_credentials, sql_credentials } = config
 
   // create connection
   const sequelize = new Sequelize(

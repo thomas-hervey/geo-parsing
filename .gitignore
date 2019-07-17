@@ -4,3 +4,6 @@ src/geoparsing/edinburgh-geoparser-docker
 src/geoparsing/mordecai/
 src/geoparsing/mordecai
 OpenData.sql
+src/text_processing/nlp/.venv
+src/text_processing/nlp/env
+src/text_processing/nlp/__pycache__

@@ -1,3 +1,4 @@
+const _ = require('lodash')
 const S = require('string')
 const { isEmpty } = require('../utils/string_parsing')
 
@@ -6,13 +7,20 @@ const cleanValue = (field) => {
     const valueToClean = field
     if (!isEmpty(valueToClean) && valueToClean.length > 3) { // field is long enough and not empty
       let cleanedValue = ''
-      cleanedValue = valueToClean // clone to avoid unintentional mutations
-      return S(cleanedValue)
+
+      cleanedValue = _.cloneDeep(valueToClean) // clone to avoid unintentional mutations
+      cleanedValue = S(cleanedValue)
           .trim()
-          .strip("*", "\"", "\'") // strip values
+          .replaceAll("_", " ") // replace underscores
+          .strip("*", "\"", "\'",) // strip values
           .trim() // trim whitespace
-          .latinise() // remove accents from Latin characters
-          .s
+
+      cleanedValue = cleanedValue
+        .latinise() // remove accents from Latin characters
+        .humanize() // normalize dashes and underscores for human reading
+        .s
+
+      return cleanedValue
     } else {
       // console.log(`field with value ${field} is not defined, doesn't have a value, or is shorter than 4 characters.`)
       return field

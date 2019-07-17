@@ -11,6 +11,7 @@ const iterateDocs = require('./iterate_docs')
 const updateValue = require('./update_value')
 const { tryCatchAsync } = require('./tryCatch')
 const { cleanHostname, getLocality, getCenter, getBBox } = require('./get_locality')
+const { nlpParse } = require('./nlp_parse')
 
 module.exports = {
   alreadyParsed,
@@ -31,5 +32,6 @@ module.exports = {
   getSiteOrg,
   iterateDocs,
   updateValue,
-  tryCatchAsync
+  tryCatchAsync,
+  nlpParse
 }

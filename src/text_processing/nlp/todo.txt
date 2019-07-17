@@ -6,7 +6,7 @@
 
 - have python server ingest query to send to mordecai
 
-- make sure that ebp is using the es geonames as well
+- make sure that egp is using the es geonames as well
 
 -
 
