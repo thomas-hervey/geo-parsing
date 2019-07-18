@@ -83,7 +83,8 @@ def parse_sentence(sentence):
 
 
 def parse(input):
-    print('starting up parse')
+    print('starting up parse: ')
+    print(input)
     '''
     parse for multi-sentences; split and apply parse in a list.
     '''

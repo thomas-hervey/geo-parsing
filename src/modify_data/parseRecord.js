@@ -21,7 +21,7 @@ const parseRecord = async (record, options) => {
       /*
       run nlp parsing
       */
-      parsed.nlp = await nlpParse(parsed.keyword, options)
+      parsed.nlp = await nlpParse(parsed.dimension_searchKeyword, options)
 
 
       /*
@@ -42,8 +42,14 @@ const parseRecord = async (record, options) => {
       parsed.placenames = await containsPlacenames(record, parsed.dimension_searchKeyword, options)
 
 
+      // TODO: save parsed somewhere
+      // TODO: update record as viewed
+      // TODO: switch to word parsing
+
       // mark record as being viewed
       record.viewed = 1
+
+      console.log(parsed);
     }
 
   } catch (error) {

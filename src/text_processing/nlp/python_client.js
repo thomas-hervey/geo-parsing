@@ -7,12 +7,8 @@ const pythonClient = async (route, query, options) => {
 
     const result = await axios.get(url);
 
-    if(result && result.status === 200) {
-      const result_data = result.data
-
-      const data = result_data[0]
-
-      return data
+    if(result && result.data.length && result.status === 200) {
+      return result.data[0]
     }
 
     return
