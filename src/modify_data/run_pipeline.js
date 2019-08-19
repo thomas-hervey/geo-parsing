@@ -3,8 +3,10 @@ let { options } =require('../config.js')
 
 const createModelsForPipeline = require('../models/QueryLogs/create_models_for_pipeline')
 
-const parseRecord = require('./parseRecord')
-const { cleanRecords } = require('./cleanRecords')
+// const parseRecord = require('./parseRecord')
+// const { cleanRecords } = require('./cleanRecords')
+
+const deleteOrClean = require('./deleteOrClean')
 
 const { iterateDocs } = require('../utils')
 
@@ -27,7 +29,7 @@ const runPipeline = async (callback, opts) => {
 }
 
 // initializePipeline(parseRecord, options)
-runPipeline(parseRecord, options)
+runPipeline(deleteOrClean, options)
 
 
 // options.table[options.table.columnName] = '*concrete' // TODO: remove example

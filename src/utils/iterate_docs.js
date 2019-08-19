@@ -25,6 +25,8 @@ const iterateDocs = async (Model, callback, options = { where: {} }) => {
     let doc_iterator = 0
     let skipOrUpdate = ''
 
+    let idsToDelete = []
+
     // iterate records
     for (const record of records) {
 
@@ -32,6 +34,9 @@ const iterateDocs = async (Model, callback, options = { where: {} }) => {
       if (record.dataValues.viewed <= 1) {
         // run callback on record
         const update = await callback(record, options)
+
+        if (update && update >= 0) idsToDelete.push(update)
+
         skipOrUpdate = 'UPDATE'
       } else {
         skipOrUpdate = 'SKIP'
@@ -44,6 +49,17 @@ const iterateDocs = async (Model, callback, options = { where: {} }) => {
         console.log(`iterator counter: ${doc_iterator}. ${skipOrUpdate} document with index_value: ${record.dataValues.index_value}`)
       }
     }
+
+    console.log('num ids to delete: ', idsToDelete.length)
+    console.log('example: ', idsToDelete[10])
+
+    Model.destroy({
+      where: {
+        id: idsToDelete
+      }
+    })
+    .then(res => console.log('delete response: ', res))
+
     console.log('done iterating records!')
   } catch (error) {
     console.log(`iterateDocs Error: ${error}`);

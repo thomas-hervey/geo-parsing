@@ -1,3 +1,10 @@
+pipeline order:
+1) remove unwanted string (non-english & lat/lon pairs)
+2) clean text (strip & lematize)
+3) reduce duplicates (and calculate new values when needed)
+4)...
+
+
 - order the pipeline
 
 - make sure sql connection is solid

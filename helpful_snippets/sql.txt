@@ -1,0 +1,4 @@
+* select dimension search keywords that aren't distinct *
+
+SELECT dimension_searchKeyword FROM QueryLogs.keywords_humanized_reduced WHERE dimension_searchKeyword IN
+  (SELECT dimension_searchKeyword FROM QueryLogs.keywords_humanized_reduced GROUP BY dimension_searchKeyword HAVING COUNT(*) > 1)

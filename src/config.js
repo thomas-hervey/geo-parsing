@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op
 
-var modelToIterate = 'KeywordsSample'
+var modelToIterate = 'KeywordsHumanizedReduced'
 var modelToSaveTo = 'KeywordsHumanized'
 
 module.exports = {
@@ -74,11 +74,25 @@ function getTable(model) {
         where: {
           id: {
             [Op.and]: {
-              [Op.gte]: 0,
+              [Op.gte]: 3781,
+              [Op.lt]: 3782,
             }
           }
         },
       }
+
+    case 'KeywordsHumanizedReduced':
+        return {
+          columnName: 'dimension_searchKeyword',
+          where: {
+            id: {
+              [Op.and]: {
+                [Op.gte]: 0,
+                [Op.lt]: 10000000,
+              }
+            }
+          },
+        }
 
     case 'KeywordsCombinedSlimModel':
       return {

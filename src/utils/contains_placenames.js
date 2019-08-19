@@ -68,14 +68,23 @@ const _parseMordecai = async (record, value, options) => {
 
   try {
 
+    let results = [];
+
     const route = 'mordecai'
 
     // create a document from text
-    const results = await pythonClient(route, value, options)
+    results = await pythonClient(route, value, options)
 
-    if(results) { return JSON.stringify(results) }
+    if(results) { results = [JSON.stringify(results)] }
+
+    return results;
+
 
   } catch (error) { console.log(`_nlp_parse error: ${error}`) }
+
+}
+
+const gazLookup = async (value, options) => {
 
 }
 
@@ -90,6 +99,10 @@ const containsPlacenames = async(record, value, options) => {
   // geoparse using the mordecai geoparser
   references.mordecai = await _parseMordecai(record, value, options)
 
+  // if no references found, do gaz. lookup
+  if (!references.egp.length && ! references.mordecai.length) {
+    gazLookup(value, uptions)
+  }
 
   return references
 }

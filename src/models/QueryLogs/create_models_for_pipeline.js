@@ -15,6 +15,12 @@ const createModelsForPipeline = async (sequelize, options) => {
   KeywordsSample.sync()
 
 
+  // keywords_humanized_reduced
+  const KeywordsHumanizedReduced = await keywords.sql.createModel(sequelize, keywords.sql.columns, 'keywords_humanized_reduced')
+  options.KeywordsHumanizedReduced = KeywordsHumanizedReduced
+  KeywordsHumanizedReduced.sync()
+
+
 
   // assign model to iterate
   options.modelToIterate = options[options.modelToIterate]
