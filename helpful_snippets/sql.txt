@@ -2,3 +2,22 @@
 
 SELECT dimension_searchKeyword FROM QueryLogs.keywords_humanized_reduced WHERE dimension_searchKeyword IN
   (SELECT dimension_searchKeyword FROM QueryLogs.keywords_humanized_reduced GROUP BY dimension_searchKeyword HAVING COUNT(*) > 1)
+
+
+*  group by reduces duplicates. Simply sum the other columns when needed*
+  SELECT
+	min(id) as phraseId,
+	dimension_searchKeyword,
+	SUM(metric_searchUniques) AS metric_searchUniques,
+	SUM(metric_searchResultViews) AS metric_searchResultViews,
+	SUM(metric_searchDepth) AS metric_searchDepth,
+	SUM(metric_searchDuration) AS metric_searchDuration,
+	SUM(metric_searchRefinements) AS metric_searchRefinements,
+	SUM(metric_searchExits) AS metric_searchExits,
+	SUM(metric_searchSessions) AS metric_searchSessions
+FROM QueryLogs.keywords
+GROUP BY dimension_searchKeyword
+INTO OUTFILE '/mysqlfiles/keywords_reduced2.csv'
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
