@@ -43,13 +43,16 @@ import psycopg2
 conn = psycopg2.connect(host="localhost",database="QueryLogs", user="thomashervey")
 curr = conn.cursor()
 
-curr.execute('SELECT * FROM keywords_humanized_reduced')
+curr.execute('SELECT * FROM keywords')
 
 terms = []
 
 for row in curr:
-  searchUniques = row[3]
-  keywords = (' !^!^!^!^!^ ' + row[1] + ' ') * int(searchUniques)
+  searchUniques = row[1]
+  keywords = (' !^!^!^!^!^ ' + row[0] + ' ') * int(searchUniques)
+
+  print(keywords)
+  break
 
 
   # add a string of unusual chars to the end of a result so that it's picked up when listing bigrams
@@ -70,7 +73,7 @@ tokens = [t for t in tokens if t not in stop_words]
 word_l = WordNetLemmatizer()
 tokens = [word_l.lemmatize(t) for t in tokens if t.isalpha()]
 
-bi_grams = list(ngrams(tokens, 1))
+bi_grams = list(ngrams(tokens, 2))
 counter = Counter(bi_grams)
 # print(counter.most_common(50))
 
