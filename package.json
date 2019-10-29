@@ -15,7 +15,7 @@
     "python-shell": "^1.0.7",
     "q": "^1.5.1",
     "sanitize-filename": "^1.6.1",
-    "sequelize": "^4.41.2",
+    "sequelize": "^5.15.1",
     "spacy": "0.0.4",
     "spacy-nlp": "^1.0.11",
     "string": "^3.3.3",
