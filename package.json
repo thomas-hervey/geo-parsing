@@ -3,23 +3,22 @@
     "start": "chmod +x startProcessing.sh"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.19.1",
     "child-process-promise": "^2.2.1",
-    "gdal": "^0.9.8",
-    "lodash": "^4.17.11",
-    "mysql2": "^1.6.4",
+    "lodash": "^4.17.15",
+    "mysql2": "^1.7.0",
     "node-postal": "^1.0.0",
     "node-stanford-postagger": "0.0.1",
-    "pg": "^7.12.1",
-    "pg-promise": "^9.0.1",
-    "python-shell": "^1.0.7",
+    "pg": "^7.17.1",
+    "pg-promise": "^9.3.6",
+    "python-shell": "^1.0.8",
     "q": "^1.5.1",
-    "sanitize-filename": "^1.6.1",
-    "sequelize": "^4.41.2",
+    "sanitize-filename": "^1.6.3",
+    "sequelize": "^4.44.3",
     "spacy": "0.0.4",
     "spacy-nlp": "^1.0.11",
     "string": "^3.3.3",
     "turf": "^3.0.14",
-    "xml2js": "^0.4.19"
+    "xml2js": "^0.4.23"
   }
 }
